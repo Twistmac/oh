@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+    @extends('layouts.layout')
 
 @section('content')
     <div class="content">
@@ -19,7 +19,7 @@
                                         <label for="">
                                             Syndic rattaché :
                                         </label>
-                                        <select name="syndic_id" id="syndic_id" class="form-control selectpicker">
+                                        <select name="syndic_id" id="syndic_id" class="form-control selectpicker" required>
                                             <option value="">Votre choix</option>
                                             <option value="new">Ajouter un nouveau syndic</option>
                                             @foreach ($syndics as $item)
@@ -159,7 +159,7 @@
                                         <label for="">
                                             Téléphone :
                                         </label>
-                                        <input type="text" name="tel" class="form-control" value="{{ old('tel') }}">
+                                        <input type="number" name="tel" class="form-control" value="{{ old('tel') }}">
                                         <div class="error">
                                             {{ @$errors->default->getMessages()['tel']['0'] }}
                                         </div>
@@ -172,7 +172,7 @@
                                         <label for="">
                                             Nombre limite de partenaires :
                                         </label>
-                                        <input type="text" name="nb_partenaire" class="form-control" value="{{ old('nb_partenaire') }}">
+                                        <input type="number" name="nb_partenaire" class="form-control" value="{{ old('nb_partenaire') }}">
                                         <div class="error">
                                             {{ @$errors->default->getMessages()['nb_partenaire']['0'] }}
                                         </div>
@@ -185,7 +185,7 @@
                                         <label for="">
                                             Nombre limite de résidents :
                                         </label>
-                                        <input type="text" name="nb_resident" class="form-control" value="{{ old('nb_resident') }}">
+                                        <input type="number" name="nb_resident" class="form-control" value="{{ old('nb_resident') }}">
                                         <div class="error">
                                             {{ @$errors->default->getMessages()['nb_resident']['0'] }}
                                         </div>
