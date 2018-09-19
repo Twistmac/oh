@@ -23,7 +23,7 @@
                                 </div>
                                 <div class="col-md-7">
                                     <div class="form-group">
-                                        <input type="text" name="numero" class="form-control" value="{{ old('numero') }}">
+                                        <input type="number" name="numero" class="form-control" value="{{ old('numero') }}">
                                         <div class="error">
                                             {{ @$errors->default->getMessages()['numero']['0'] }}
                                         </div>
@@ -158,7 +158,7 @@
                                 </div>
                                 <div class="col-md-7">
                                     <div class="form-group">
-                                        <input type="text" name="tel" class="form-control" value="{{ old('tel') }}">
+                                        <input type="number" name="tel" class="form-control" value="{{ old('tel') }}">
                                         <div class="error">
                                             {{ @$errors->default->getMessages()['tel']['0'] }}
                                         </div>
@@ -175,7 +175,7 @@
                                 </div>
                                 <div class="col-md-7">
                                     <div class="form-group">
-                                        <input type="text" name="nb_partenaire" class="form-control" value="{{ old('nb_partenaire') }}">
+                                        <input type="number" name="nb_partenaire" class="form-control" value="{{ old('nb_partenaire') }}">
                                         <div class="error">
                                             {{ @$errors->default->getMessages()['nb_partenaire']['0'] }}
                                         </div>
@@ -192,7 +192,7 @@
                                 </div>
                                 <div class="col-md-7">
                                     <div class="form-group">
-                                        <input type="text" name="nb_resident" class="form-control" value="{{ old('nb_resident') }}">
+                                        <input type="number" name="nb_resident" class="form-control" value="{{ old('nb_resident') }}">
                                         <div class="error">
                                             {{ @$errors->default->getMessages()['nb_resident']['0'] }}
                                         </div>

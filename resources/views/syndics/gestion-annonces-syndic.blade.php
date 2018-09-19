@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-8">
-                                        <input type="file" class="form-control" name="image">
+                                        <input type="file" class="form-control" name="image" required>
                                     </div>
                                 </div>
                             </div>
@@ -85,7 +85,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" name="prix" value="{{ old('prix') }}">
+                                        <input type="number" class="form-control" name="prix" value="{{ old('prix') }}">
                                     </div>
                                 </div>
                             </div>
@@ -113,7 +113,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" name="age" value="{{ old('age') }}">
+                                        <input type="number" class="form-control" name="age" value="{{ old('age') }}">
                                     </div>
                                 </div>
                             </div>

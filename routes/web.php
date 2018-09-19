@@ -19,6 +19,7 @@ Route::get('/admin', 'AdminController@index');
 
 Auth::routes();
 
+///************************** SYNDIC **********************************///
 Route::prefix('syndic')->group(function(){
     Route::get('/', 'SyndicsController@index')->name('syndic.index')->middleware('auth');
     Route::get('/gestion-residence', 'SyndicsController@gestionResidence')->name('syndic.gestion-residence')->middleware('auth');
@@ -28,11 +29,16 @@ Route::prefix('syndic')->group(function(){
     Route::get('/details-residence/{id}', 'SyndicsController@detailsResidence')->name('syndic.details-residence')->middleware('auth');
     Route::post('/edit-residence/{id}', 'ResidenceController@editResidence')->name('syndic.edit-residence')->middleware('auth');
 
+    Route::any('/add-resident', 'SyndicsController@addResident')->name('syndic.add-resident')->middleware('auth');
+    Route::delete('/delete-resident/{id}', 'SyndicsController@deleteResident')->name('syndic.delete-resident')->middleware('auth');
+
+
     Route::get('/gestion-annonces-syndic', 'SyndicsController@gestionAnnoncesSyndic')->name('syndic.gestion-annonces-syndic');
     Route::post('/add-annonce-syndic', 'AnnoncesController@addAnnonceSyndic')->name('syndic.add-annonce-syndic')->middleware('auth');
     Route::delete('/delete-annonce-syndic/{id}','AnnoncesController@deleteAnnonceSyndic')->name('syndic.delete-annonce-syndic')->middleware('auth:admin');
 });
 
+///********* ADMIN ********************///
 Route::prefix('admin')->group(function(){
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
@@ -46,6 +52,7 @@ Route::prefix('admin')->group(function(){
     Route::get('/gestion-annonces', 'AdminController@gestionAnnonces')->name('admin.gestion-annonces');
     Route::get('/gestion-categories', 'CategorieController@gestionCategories')->name('admin.gestion-categories')->middleware('auth:admin');
     Route::post('/add-categorie', 'CategorieController@addCategorie')->name('admin.add-categorie')->middleware('auth:admin');
+
 
     // new add
     Route::delete('/delete-categorie/{id}', 'CategorieController@deleteCategorie')->name('admin.delete-categorie')->middleware('auth:admin');

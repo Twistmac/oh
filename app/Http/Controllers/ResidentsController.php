@@ -17,11 +17,16 @@ class ResidentsController extends Controller
         $resident = new Residents();
 
         $data = $this->validate($request, [
-            'username' => 'required|unique:membres',
+            'email' => 'required|unique:membres',
             'password' => 'required|min:6'
         ]);
 
-        $data['residence_id'] = $request->residence_id;
+        $residence_explode = explode('|',$request->residence_id);
+        $data['residence_id'] = $residence_explode[0];
+        $data['syndic_id'] = $residence_explode[1];
+
+        $data['email'] = $request->email;
+        $data['username'] = $request->email;
         $data['role'] = 'resident';
 
         if($resident->saveResident($data))

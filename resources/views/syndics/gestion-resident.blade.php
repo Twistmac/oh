@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.layout-syndic')
 
 @section('content')
     <div class="content">
@@ -11,32 +11,30 @@
                         </h3>
                     </div>
                     <div class="box-body">
-                        <form action="{{ route('admin.add-resident') }}" method="POST">
+                        <form action="" method="POST">
                             @csrf
                             <div class="form-group">
                                 <label for="">
                                     Résidence rattachée :
                                 </label>
-                                <select name="residence_id" class="form-control selectpicker">
-                                    @foreach($residences as $item)
-                                        <option value="{{ $item->id }}|{{ $item->syndic_id }} ">{{ $item->nom }}</option>
+                                <select name="residence" class="form-control selectpicker">
+                                    @foreach($residence as $residences)
+                                        <option value="{{$residences->id}}">{{ $residences->nom }}</option>
                                     @endforeach
                                 </select>
                             </div>
+
                             <div class="form-group">
                                 <label for="">
-                                    email :
+                                    Email :
                                 </label>
-                                <input type="email" name="email" class="form-control" value="{{ old('email') }}">
+                                <input type="text" name="email" class="form-control" value="">
                             </div>
                             <div class="form-group">
                                 <label for="">
                                     Password :
                                 </label>
                                 <input type="text" name="password" class="form-control" id="password">
-                            </div>
-                            <div class="form-group">
-                                <span class="btn btn-danger btn-flat" id="generate">Générer mot de passe</span>
                             </div>
                             @if ($errors->any())
                                 <div class="alert alert-danger">
@@ -47,6 +45,10 @@
                                     </ul>
                                 </div>
                             @endif
+
+                            <div class="form-group">
+                                <span class="btn btn-danger btn-flat" id="generate">Générer mot de passe</span>
+                            </div>
                             <div class="form-group">
                                 <button class="btn btn-primary btn-flat">
                                     Créer le compte
@@ -77,34 +79,22 @@
                                     Date de création
                                 </th>
                                 <th>
-                                    Password
-                                </th>
-                                <th>
                                     Actions
                                 </th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($residents as $item)
+                            @foreach($residents as $res)
                                 <tr>
+                                    <td>{{ $res->username }}</td>
+                                    <td>{{ $res->email }}</td>
+                                    <td>{{ $res->created_at }}</td>
                                     <td>
-                                        {{ $item->username ? $item->username : 'N/A' }}
-                                    </td>
-                                    <td>
-                                        {{ $item->email ? $item->email : 'N/A' }}
-                                    </td>
-                                    <td>
-                                        {{ date('d-m-Y', strtotime($item->created_at)) }}
-                                    </td>
-                                    <td>
-                                        {{ base64_decode($item->salt) }}
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('admin.details-resident', ['id' => $item->id]) }}">
+                                        <a href="#">
                                             <span class="glyphicon glyphicon-pencil"></span>
                                         </a>
                                         &nbsp;-&nbsp;
-                                        <form onsubmit="return confirm('Confirm delete ?')" class="form-inline" action="{{ route('admin.delete-resident', $item->id) }}" method="post">
+                                        <form onsubmit="return confirm('Confirm delete ?')" class="form-inline" action="{{ route('syndic.delete-resident', $res->id) }}" method="post">
                                             @csrf
                                             <input name="_method" type="hidden" value="DELETE">
                                             <button type="submit" class="btn btn-flat btn-danger btn-xs">
@@ -113,7 +103,7 @@
                                         </form>
                                     </td>
                                 </tr>
-                            @endforeach
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

@@ -6,6 +6,7 @@ use App\Model\Membres;
 use App\Model\Annonces;
 use App\Model\Categorie;
 use App\Model\Residence;
+use App\Model\Residents;
 use App\Model\Syndics;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -59,7 +60,7 @@ class SyndicsController extends Controller
             'adresse' => 'required',
             'code_postal' => 'required',
             'ville' => 'required',
-            'tel' => 'required|integer',
+            'tel' => 'required',
             'nb_partenaire' => 'required',
             'nb_resident' => 'required'
         ]);
@@ -125,7 +126,45 @@ class SyndicsController extends Controller
     {
         $categories = Categorie::all();
         $annonces = Annonces::where('type', 's')->get();
-        
+
         return view('syndics/gestion-annonces-syndic', compact(array('categories', 'annonces')));
+    }
+
+    public function addResident(Request $request){
+        $id = Auth::user()->id;
+        $residents = Residents::where('syndic_id', '=', $id)
+                                ->where('role', '=', 'resident')
+                                ->get();
+        $residence = Residence::where('syndic_id', '=', $id)->get();
+        $resident = new Residents();
+
+        if($request->isMethod('POST')){
+
+            $data = $this->validate($request, [
+                'email' => 'required|unique:membres',
+                'password' => 'required|min:6'
+            ]);
+
+            $data['residence_id'] = $request->residence_id;
+            $data['email'] = $request->email;
+            $data['username'] = $request->email;
+            $data['role'] = 'resident';
+            $data['syndic_id'] = $id;
+
+            if($resident->saveResident($data))
+            {
+                return back()->with('success', 'Ajout resident Success');
+            }
+        }
+
+        return view('syndics/gestion-resident', compact(array('residents', 'residence')));
+    }
+
+    //delete resident
+    public function deleteResident($id){
+        $resident = Residents::find($id);
+        $resident->delete();
+
+        return redirect()->back()->with('success', 'Resident supprimer avec success!!');
     }
 }
