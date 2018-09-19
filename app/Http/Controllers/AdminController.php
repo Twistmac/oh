@@ -31,8 +31,11 @@ class AdminController extends Controller
         $residences = Residence::all();
         $residents = Membres::where('role', 'resident')->get();
         $partenaires = Membres::where('role', 'partenaire')->get();
+        /* prendre tout les annonces et compter le total directement*/
+        $annonces = Annonces::count();
 
-        return view('admin/index', compact(array('syndics', 'residences', 'partenaires', 'residents')));
+
+        return view('admin/index', compact(array('syndics', 'residences', 'partenaires', 'residents', 'annonces')));
     }
 
     public function gestionSyndics()
@@ -70,7 +73,7 @@ class AdminController extends Controller
     {
         $categories = Categorie::all();
         $annonces = Annonces::all();
-        
+
         return view('admin/gestion-annonces', compact(array('categories', 'annonces')));
     }
 
