@@ -327,6 +327,17 @@
                     </ul>
                 </li>
 
+                <li>
+                    <a href="{{ route('syndic.add-resident') }}">
+                        <i class="fa fa-table"></i> <span>Résident</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-table"></i> <span>Partenaire publicitaire</span>
+                    </a>
+                </li>
+
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-user-circle"></i> <span>Annonces</span>
@@ -335,16 +346,11 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                    <!-- <li class="active"><a href="{{ route('syndic.gestion-residence') }}"><i class="fa fa-circle-o"></i> Liste résidences</a></li> -->
-                        <li><a href="{{ route('syndic.gestion-annonces-syndic') }}"><i class="fa fa-circle-o"></i> Gestion des annonces</a></li>
+                        <li><a href="{{ route('syndic.gestion-annonces-syndic') }}"><i class="fa fa-circle-o"></i> Mes Annonces</a></li>
+                        <li><a href="{{ route('syndic.gestion-annonces-syndic') }}"><i class="fa fa-circle-o"></i> Annnonce des residents</a></li>
                     </ul>
                 </li>
 
-                <li>
-                    <a href="{{ route('syndic.add-resident') }}">
-                        <i class="fa fa-table"></i> <span>Résident</span>
-                    </a>
-                </li>
             </ul>
 
         </section>

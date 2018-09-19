@@ -17,7 +17,7 @@
                                 <label for="">
                                     Résidence rattachée :
                                 </label>
-                                <select name="residence" class="form-control selectpicker">
+                                <select name="residence_id" class="form-control selectpicker">
                                     @foreach($residence as $residences)
                                         <option value="{{$residences->id}}">{{ $residences->nom }}</option>
                                     @endforeach

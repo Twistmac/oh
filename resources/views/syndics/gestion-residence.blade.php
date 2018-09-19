@@ -24,9 +24,6 @@
                                     Nom & Prénom référent
                                 </th>
                                 <th>
-                                    Email
-                                </th>
-                                <th>
                                     Adresse
                                 </th>
                                 <th>
@@ -45,9 +42,6 @@
                                     </td>
                                     <td>
                                         {{ $item->nom_ref }} {{ $item->prenom_ref }}
-                                    </td>
-                                    <td>
-                                        {{ $item->email }}
                                     </td>
                                     <td>
                                         {{ $item->adresse }}

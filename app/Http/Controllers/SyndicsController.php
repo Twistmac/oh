@@ -55,7 +55,6 @@ class SyndicsController extends Controller
             'numero' => 'required|unique:residence',
             'nom' => 'required',
             'nom_ref' => 'required',
-            'prenom_ref' => 'required',
             'email' => 'required',
             'adresse' => 'required',
             'code_postal' => 'required',

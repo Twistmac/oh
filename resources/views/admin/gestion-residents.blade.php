@@ -57,7 +57,7 @@
                                               } else {
                                                 input.attr("type", "password");
                                               }
-                                            });   
+                                            });
                                         </script>
                                         <!-- fin du javascript -->
                                         <!-- fin du formulaire modifié -->
@@ -120,7 +120,7 @@
                                     <td>
                                         {{ date('d-m-Y', strtotime($item->created_at)) }}
                                     </td>
-                                    
+
                                     <td>
                                         <a href="{{ route('admin.details-resident', ['id' => $item->id]) }}">
                                             <span class="glyphicon glyphicon-pencil"></span>
@@ -130,9 +130,11 @@
                                             @csrf
                                             <input name="_method" type="hidden" value="DELETE">
                                             <button type="submit" class="btn btn-flat btn-danger btn-xs">
-                                                Supprimer
+                                                <span class="glyphicon glyphicon-trash"></span>
                                             </button>
                                         </form>
+                                        -
+                                        <span class="glyphicon glyphicon-ok-sign" style="font-size: 16px;color: #00a65a"></span>
                                     </td>
                                 </tr>
                             @endforeach
