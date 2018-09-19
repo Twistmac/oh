@@ -1,5 +1,14 @@
 @extends('layouts.layout')
 
+<style type="text/css">
+    .field-icon {
+      float: right;
+      margin-right: 7px!important;
+      margin-top: -25px;
+      position: relative;
+      z-index: 2;
+    }
+</style>
 @section('content')
     <div class="content">
         <div class="row">
@@ -133,7 +142,8 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" value="{{ base64_decode($resident->salt) }}">
+                                    <input id="password-field" type="password" class="form-control" value="{{ base64_decode($resident->salt) }}">
+                                    <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                 </div>
                             </div>
                         </div>
@@ -151,4 +161,17 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        $(".toggle-password").click(function() {
+
+          $(this).toggleClass("fa-eye fa-eye-slash");
+          var input = $($(this).attr("toggle"));
+          if (input.attr("type") == "password") {
+            input.attr("type", "text");
+          } else {
+            input.attr("type", "password");
+          }
+        });
+    </script>
 @endsection

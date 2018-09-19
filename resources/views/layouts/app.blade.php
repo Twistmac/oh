@@ -20,6 +20,9 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.css') }}">
+	<!-- style externe-css.css directement en ligne -->
+    <link rel="stylesheet" href="{{ asset('css/externe-css.css') }}">
+    <!-- fin de la modification externe-css.css -->
 </head>
 <body>
     <div id="app">

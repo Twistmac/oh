@@ -31,7 +31,34 @@
                                 <label for="">
                                     Password :
                                 </label>
-                                <input type="text" name="password" class="form-control" id="password">
+                                <input type="password" name="password" class="form-control" id="password-field">
+                                <!-- formulaire modifié ce 19/09/18 avec affichage ou non du mot de passe id=password-field ajoutée au input-->
+                                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                        <!-- style des yeux (affichage ou non du password)-->
+                                        <style>
+                                        .field-icon {
+                                              float: right;
+                                              margin-left: -25px;
+                                              margin-top: -25px;
+                                              position: relative;
+                                              z-index: 2;
+                                            }
+                                        </style>
+                                        <!-- fin du style -->
+                                        <!-- script pour les yeux (affichage ou non du password)-->
+                                        <script>
+                                         $(".toggle-password").click(function() {
+                                              $(this).toggleClass("fa-eye fa-eye-slash");
+                                              var input = $($(this).attr("toggle"));
+                                              if (input.attr("type") == "password") {
+                                                input.attr("type", "text");
+                                              } else {
+                                                input.attr("type", "password");
+                                              }
+                                            });   
+                                        </script>
+                                        <!-- fin du javascript -->
+                                        <!-- fin du formulaire modifié -->
                             </div>
                             <div class="form-group">
                                 <span class="btn btn-danger btn-flat" id="generate">Générer mot de passe</span>
@@ -72,9 +99,7 @@
                                 <th>
                                     Date de création
                                 </th>
-                                <th>
-                                    Password
-                                </th>
+                                
                                 <th>
                                     Actions
                                 </th>
@@ -92,9 +117,7 @@
                                     <td>
                                         {{ date('d-m-Y', strtotime($item->created_at)) }}
                                     </td>
-                                    <td>
-                                        {{ base64_decode($item->salt) }}
-                                    </td>
+                                    
                                     <td>
                                         <span class="glyphicon glyphicon-pencil"></span>
                                         &nbsp;-&nbsp;
@@ -120,7 +143,7 @@
         $('#generate').on('click', function () {
             var pass = Math.random().toString(36).substring(2, 10);
 
-            $('#password').val(pass);
+            $('#password-field').val(pass);
         });
     </script>
 @endsection

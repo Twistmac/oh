@@ -82,8 +82,6 @@ class ResidentsController extends Controller
 //            $resident->
         }
 
-        return view('residents/details-resident', [
-            'resident' => $resident
-        ]);
+        return view('residents/details-resident', ['resident' => $resident]);
     }
 }
