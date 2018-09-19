@@ -63,9 +63,7 @@
                                 <th>
                                     Date de création
                                 </th>
-                                <th>
-                                    Password
-                                </th>
+                                
                                 <th>
                                     Actions
                                 </th>
@@ -80,9 +78,7 @@
                                     <td>
                                         {{ date('d-m-Y', strtotime($item->created_at)) }}
                                     </td>
-                                    <td>
-                                        {{ base64_decode($item->salt) }}
-                                    </td>
+                                    
                                     <td>
                                         <a href="{{ route('admin.details-syndic', ['id' => $item->id]) }}">
                                             <span class="glyphicon glyphicon-pencil"></span>
