@@ -44,6 +44,25 @@ class ResidentsController extends Controller
         return redirect()->back()->with('success', 'Resident deleted!!');
     }
 
+    //suspendre resident
+    public function suspendre($id){
+        $resident = Residents::find($id);
+        $resident->etat = 1;
+        $resident->save();
+
+        return redirect()->back()->with('success', 'Compte Resident suspendue');
+
+    }
+    //activer compte residence
+    public function active($id){
+        $resident = Residents::find($id);
+        $resident->etat = 0;
+        $resident->save();
+
+        return redirect()->back()->with('success', 'Compte Resident activé !!!!');
+
+    }
+
     public function completeProfil(Request $request)
     {
         $input = $request->all();

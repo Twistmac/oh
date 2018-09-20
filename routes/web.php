@@ -61,10 +61,17 @@ Route::prefix('admin')->group(function(){
     Route::delete('/delete-annonce/{id}','AnnoncesController@deleteAnnonce')->name('admin.delete-annonce')->middleware('auth:admin');
     Route::post('/add-syndic', 'SyndicsController@addSyndic')->name('admin.add-syndic')->middleware('auth:admin');
     Route::post('/add-resident', 'ResidentsController@addResident')->name('admin.add-resident')->middleware('auth:admin');
+
+
+    //
     Route::post('/add-residence', 'AdminController@addResidence')->name('admin.add-residence');
     Route::get('/edit-residence/{id}', 'AdminController@editResidence')->name('admin.edit-residence');
     Route::post('/add-partenaire', 'PartenairesController@addPartenaire')->name('admin.add-partenaire')->middleware('auth:admin');
     Route::delete('/delete-resident/{id}','ResidentsController@delete')->name('admin.delete-resident')->middleware('auth:admin');
+    //
+    Route::get('/susp-resident/{id}', 'ResidentsController@suspendre')->name('admin.susp-resident')->middleware('auth:admin');
+    Route::get('/active-resident/{id}', 'ResidentsController@active')->name('admin.active-resident')->middleware('auth:admin');
+    //
     Route::delete('/delete-syndic/{id}','SyndicsController@deleteSyndic')->name('admin.delete-syndic')->middleware('auth:admin');
     Route::delete('/delete-residence/{id}','ResidenceController@deleteResidence')->name('admin.delete-residence')->middleware('auth:admin');
     Route::get('/gestion-contenu', 'AdminController@gestionContenu')->name('admin.gestion-contenu');
