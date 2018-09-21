@@ -1,0 +1,23 @@
+/* fichier css externe pour le style de l'uniformisation de l'admin
+*
+*
+*
+*/
+
+/* Mise en forme du menu du haut back office */
+.skin-black .main-header .navbar .navbar-custom-menu .navbar-nav > li:last-child {
+    /*border-left: 1px solid #eee;
+    border-right-width: 0;*/
+	
+	background-color: #dd4b39;
+    border-color: #d73925;
+}
+
+.skin-black .main-header .navbar .navbar-custom-menu .navbar-nav > li:last-child > a > span{
+	display:none !important;
+}
+
+/* sidebar tree */
+.sidebar-menu > li.active > a{
+    border-left-color: #3c8dbc;
+}

@@ -8,9 +8,11 @@ use App\Model\Categorie;
 use App\Model\Residence;
 use App\Model\Residents;
 use App\Model\Syndics;
+use App\Mail\MailAccess;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Mail;
 
 class SyndicsController extends Controller
 {
@@ -90,7 +92,9 @@ class SyndicsController extends Controller
 
         if($syndic->saveSyndic($data))
         {
-            return redirect('/admin/gestion-syndics')->with('success', 'New Syndic added');
+            Mail::to( $request->email)
+                    ->send(new MailAccess($request->email, $request->password));
+            return redirect('/admin/gestion-syndics')->with(['success'=> 'New Syndic added', 'error'=>'Un email a été bien envoyer']);
         }
     }
 
@@ -152,7 +156,10 @@ class SyndicsController extends Controller
 
             if($resident->saveResident($data))
             {
-                return back()->with('success', 'Ajout resident Success');
+                Mail::to( $request->email)
+                    ->send(new MailAccess($request->email, $request->password));
+
+                return back()->with(['success' =>'Ajout resident Success', 'error'=>'Email a été bien envoyer']);
             }
         }
 

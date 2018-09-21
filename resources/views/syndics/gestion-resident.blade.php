@@ -113,6 +113,7 @@
     </div>
 
     <script>
+        $('div.alert').delay(5000).slideUp(300);
         $('#generate').on('click', function () {
             var pass = Math.random().toString(36).substring(2, 10);
 
