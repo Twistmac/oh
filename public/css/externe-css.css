@@ -5,6 +5,7 @@
 */
 
 /* Mise en forme du menu du haut back office */
+<<<<<<< HEAD
 
 /* Uniformisation des boutons : largeur, arrondis, police .*/
 span[class^='btn'], button[class^='btn']{
@@ -63,3 +64,21 @@ form[aria-label="Login"]>label[for="email"]{
 	font-weight: bold !important;
 }
 
+=======
+.skin-black .main-header .navbar .navbar-custom-menu .navbar-nav > li:last-child {
+    /*border-left: 1px solid #eee;
+    border-right-width: 0;*/
+	
+	background-color: #dd4b39;
+    border-color: #d73925;
+}
+
+.skin-black .main-header .navbar .navbar-custom-menu .navbar-nav > li:last-child > a > span{
+	display:none !important;
+}
+
+/* sidebar tree */
+.sidebar-menu > li.active > a{
+    border-left-color: #3c8dbc;
+}
+>>>>>>> 15be4bbe589298acbd39cf75999368a797f1d700

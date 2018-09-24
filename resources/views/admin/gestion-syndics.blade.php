@@ -17,13 +17,13 @@
                                 <label for="">
                                     Email :
                                 </label>
-                                <input type="text" name="email" class="form-control" value="{{ old('email') }}">
+                                <input type="text" name="email" class="form-control" value="{{ old('email') }}" required>
                             </div>
                             <div class="form-group">
                                 <label for="">
                                     Password :
                                 </label>
-                                <input type="text" name="password" class="form-control" id="password">
+                                <input type="text" name="password" class="form-control" id="password" required>
                             </div>
                             <div class="form-group">
                                 <span class="btn btn-danger btn-flat" id="generate">Générer mot de passe</span>
@@ -104,6 +104,8 @@
 
     <script>
         $('#generate').on('click', function () {
+                    $('div.alert').delay(5000).slideUp(300);
+
             var pass = Math.random().toString(36).substring(2, 10);
 
             $('#password').val(pass);
