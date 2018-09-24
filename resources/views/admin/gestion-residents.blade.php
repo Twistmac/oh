@@ -2,88 +2,9 @@
 
 @section('content')
     <div class="content">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="box box-primary">
-                    <div class="box-header">
-                        <h3 class="box-title">
-                            Ajouter un compte résident :
-                        </h3>
-                    </div>
-                    <div class="box-body">
-                        <form action="{{ route('admin.add-resident') }}" method="POST">
-                            @csrf
-                            <div class="form-group">
-                                <label for="">
-                                    Résidence rattachée :
-                                </label>
-                                <select name="residence_id" class="form-control selectpicker">
-                                    @foreach($residences as $item)
-                                        <option value="{{ $item->id }}|{{ $item->syndic_id }} ">{{ $item->nom }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="">
-                                    email :
-                                </label>
-                                <input type="email" name="email" class="form-control" value="{{ old('email') }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="">
-                                    Password :
-                                </label>
-                                <!-- formulaire modifié ce 19/09/18 avec affichage ou non du mot de passe id=password-field ajoutée au input-->
-                                <input type="password" name="password" class="form-control password-field" id="password-field">
-                                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                                        <!-- style des yeux (affichage ou non du password)-->
-                                        <style>
-                                        .field-icon {
-                                              float: right;
-                                              margin-left: -25px;
-                                              margin-top: -25px;
-                                              position: relative;
-                                              z-index: 2;
-                                            }
-                                        </style>
-                                        <!-- fin du style -->
-                                        <!-- script pour les yeux (affichage ou non du password)-->
-                                        <script>
-                                         $(".toggle-password").click(function() {
-                                              $(this).toggleClass("fa-eye fa-eye-slash");
-                                              var input = $($(this).attr("toggle"));
-                                              if (input.attr("type") == "password") {
-                                                input.attr("type", "text");
-                                              } else {
-                                                input.attr("type", "password");
-                                              }
-                                            });
-                                        </script>
-                                        <!-- fin du javascript -->
-                                        <!-- fin du formulaire modifié -->
-                            </div>
-                            <div class="form-group">
-                                <span class="btn btn-danger btn-flat" id="generate">Générer mot de passe</span>
-                            </div>
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-                            <div class="form-group">
-                                <button class="btn btn-primary btn-flat">
-                                    Créer le compte
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-8">
+        <div class="row"><!-- début colonne ajout compte résident -->
+            <!-- fin column ajout résident -->
+            <div class="col-md-12">
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">

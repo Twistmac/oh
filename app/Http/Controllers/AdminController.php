@@ -52,6 +52,14 @@ class AdminController extends Controller
 
         return view('admin/gestion-residents', compact(array('residents', 'residences')));
     }
+    /* ajout de résident */
+    public function gestionResidentsajout()
+    {
+        $residents = Membres::where('role', 'resident')->get();
+        $residences = Residence::all();
+
+        return view('admin/gestion-residents-ajout', compact(array('residents', 'residences')));
+    }
 
     public function gestionResidences()
     {
@@ -59,6 +67,15 @@ class AdminController extends Controller
         $syndics = User::all();
 
         return view('admin/gestion-residences', compact(array('residences', 'syndics')));
+    }
+
+    /* ajout de résidence */
+    public function gestionResidencesajout()
+    {
+        $residences = Residence::all();
+        $syndics = User::all();
+
+        return view('admin/gestion-residences-ajout', compact(array('residences', 'syndics')));
     }
 
     public function gestionPartenaires()

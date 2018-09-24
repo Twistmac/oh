@@ -344,15 +344,37 @@
                     </a>
                 </li>
                 <hr>
-                <li>
-                    <a href="{{ route('admin.gestion-residences') }}">
+                <li class="treeview">
+                    <a href="#">
                         <i class="fa fa-edit"></i> <span>Résidence</span>
+                        <!-- résidence flèche -->
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                        <!-- fin de la flèche -->
                     </a>
+                    <!-- sous-menu du résident -->
+                     <ul class="treeview-menu">
+                        <li><a href="{{ route('admin.gestion-residences') }}"><i class="fa fa-circle-o"></i> Liste des résidences</a></li>
+                        <li><a href="{{ route('admin.gestion-residences-ajout') }}"><i class="fa fa-circle-o"></i> Ajouter résidence</a></li>
+                    </ul>
+                    <!--fin du sous menu -->
                 </li>
-                <li>
-                    <a href="{{ route('admin.gestion-residents') }}">
+                <li class="treeview">
+                    <a href="#">
                         <i class="fa fa-table"></i> <span>Résident</span>
+                        <!-- résidence flèche -->
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                        <!-- fin de la flèche -->
                     </a>
+                    <!-- sous-menu du résident -->
+                     <ul class="treeview-menu">
+                        <li><a href="{{ route('admin.gestion-residents') }}"><i class="fa fa-circle-o"></i> Liste des résidents</a></li>
+                        <li><a href="{{ route('admin.gestion-residents-ajout') }}"><i class="fa fa-circle-o"></i> Ajouter résident</a></li>
+                    </ul>
+                    <!--fin du sous menu -->
                 </li>
                 <li>
                     <a href="{{ route('admin.gestion-partenaires') }}">

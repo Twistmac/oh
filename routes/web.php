@@ -45,9 +45,16 @@ Route::prefix('admin')->group(function(){
     Route::get('/', 'AdminController@index')->name('admin.dashboard');
     Route::get('/gestion-syndics', 'AdminController@gestionSyndics')->name('admin.gestion-syndics');
     Route::get('/details-syndic/{id}', 'SyndicsController@details')->name('admin.details-syndic')->middleware('auth:admin');
-    Route::post('/details-syndic/{id}', 'SyndicsController@details')->name('admin.details-syndic')->middleware('auth:admin');
+    Route::post('/details-syndic/{id}', 'SyndicsController@details')->name('admin.details-syndic')->middleware('auth:admin'); 
+    //liste les résidents 
     Route::get('/gestion-residents', 'AdminController@gestionResidents')->name('admin.gestion-residents');
+    //route pour ajouter résidence
+    Route::get('/gestion-residents-ajout', 'AdminController@gestionResidentsajout')->name('admin.gestion-residents-ajout');
+    //route pour gestionrésidences
     Route::get('/gestion-residences', 'AdminController@gestionResidences')->name('admin.gestion-residences');
+    //route pour gestion résidences ajout 
+    Route::get('/gestion-residences-ajout', 'AdminController@gestionResidencesajout')->name('admin.gestion-residences-ajout');
+
     Route::get('/gestion-partenaires', 'AdminController@gestionPartenaires')->name('admin.gestion-partenaires');
     Route::get('/gestion-annonces', 'AdminController@gestionAnnonces')->name('admin.gestion-annonces');
     Route::get('/gestion-categories', 'CategorieController@gestionCategories')->name('admin.gestion-categories')->middleware('auth:admin');
