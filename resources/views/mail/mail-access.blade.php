@@ -19,11 +19,11 @@
     color: white;
     font-family: Tahoma;">
 				2018 Copright by
-				 <a style="text-decoration: none; color: yellow" href="easywebmobile.fr"> 
+				 <a style="text-decoration: none; color: yellow" href="https://easywebmobile.fr"> 
 				 	EasyWebMobile
 				</a>
 				<div style="width: 50px">
-					<img src="https://ohome.easywebmobile.fr/easywebmobile.png" >
+					<img src="{{asset('/img/imgewm/logoewm.png')}}" >
 				</div>
 
 			</div>

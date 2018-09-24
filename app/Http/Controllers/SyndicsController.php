@@ -86,7 +86,7 @@ class SyndicsController extends Controller
         $syndic = new Syndics();
 
         $data = $this->validate($request, [
-            'email' => 'required|unique:admins',
+            'email' => 'required|unique:users',
             'password' => 'required|min:6'
         ]);
 
