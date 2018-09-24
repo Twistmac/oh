@@ -240,8 +240,11 @@
                                         <form onsubmit="return confirm('Confirm delete ?')" class="form-inline" action="{{ route('admin.delete-residence', ['id' => $item->id]) }}" method="post">
                                             @csrf
                                             <input name="_method" type="hidden" value="DELETE">
-                                            <button type="submit" class="btn btn-danger btn-xs btn-flat">
+                                            <!--<button type="submit" class="btn btn-danger btn-xs btn-flat">
                                                 Supprimer
+                                            </button>-->
+                                            <button type="submit" class="btn btn-flat btn-danger btn-xs">
+                                                <span class="glyphicon glyphicon-trash"></span>
                                             </button>
                                         </form>
                                     </td>

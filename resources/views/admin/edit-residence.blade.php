@@ -4,7 +4,7 @@
     <?php $r = $residence; ?>
     <div class="content">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-11">
                 <div class="box box-danger">
                     <div class="box-header">
                         <h3 class="box-title">
@@ -160,108 +160,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="box box-primary">
-                    <div class="box-header">
-                        <h3 class="box-title">
-                            Liste des résidents :
-                        </h3>
-                    </div>
-                    <div class="box-body">
-                        <table class="table table-striped datatable">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        Pseudo
-                                    </th>
-                                    <th>
-                                        Nom
-                                    </th>
-                                    <th>
-                                        Email
-                                    </th>
-                                    <th>
-                                        Actions
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($residents as $item)
-                                    <tr>
-                                        <td>
-                                            {{ $item->username }}
-                                        </td>
-                                        <td>
-                                            {{ $item->nom." ".$item->prenom }}
-                                        </td>
-                                        <td>
-                                            {{ $item->email ? $item->email : 'N/A' }}
-                                        </td>
-                                        <td>
-                                            <span class="glyphicon glyphicon-pencil"></span>
-                                            &nbsp;-&nbsp;
-                                            <button class="btn btn-flat btn-xs btn-danger">
-                                                Supprimer
-                                            </button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="box box-warning">
-                    <div class="box-header">
-                        <h3 class="box-title">
-                            Liste des partenaires :
-                        </h3>
-                    </div>
-                    <div class="box-body">
-                        <table class="table table-striped datatable">
-                            <thead>
-                            <tr>
-                                <th>
-                                    Pseudo
-                                </th>
-                                <th>
-                                    Nom
-                                </th>
-                                <th>
-                                    Email
-                                </th>
-                                <th>
-                                    Actions
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($partenaires as $item)
-                                <tr>
-                                    <td>
-                                        {{ $item->username }}
-                                    </td>
-                                    <td>
-                                        {{ $item->nom." ".$item->prenom }}
-                                    </td>
-                                    <td>
-                                        {{ $item->email ? $item->email : 'N/A' }}
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('admin.details-resident', ['id' => $item->id]) }}">
-                                            <span class="glyphicon glyphicon-pencil"></span>
-                                        </a>
-                                        &nbsp;-&nbsp;
-                                        <button class="btn btn-flat btn-xs btn-danger">
-                                            Supprimer
-                                        </button>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            
             </div>
         </div>
     </div>

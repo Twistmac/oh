@@ -1,0 +1,65 @@
+/* fichier css externe pour le style de l'uniformisation de l'admin
+*
+*
+*
+*/
+
+/* Mise en forme du menu du haut back office */
+
+/* Uniformisation des boutons : largeur, arrondis, police .*/
+span[class^='btn'], button[class^='btn']{
+	border-radius:5px !important;
+	width:auto;
+	height:auto;
+	font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+
+/* uniformisation des box */
+div[class^='box'], div.box-success{
+	border-top-color:#3c8dbc!important;
+	border-radius:5px !important;
+}
+
+/* uniformisation des small-box ou cadres */
+.small-box{
+	border-radius:5px !important;
+}
+
+/* uniformisation menu */
+.skin-black .main-header .navbar .navbar-custom-menu .navbar-nav > li:last-child > a > span{
+	display:none !important;
+}
+ 
+.buttonmenu{
+	margin:6px;
+}
+
+.dropdown.messages-menu, .dropdown.notifications-menu, .dropdown.tasks-menu{
+	display:none;
+}
+
+/* uniformisation login ohome */
+.panel-primary>.panel-heading {
+    color: #333 !important;
+    background-color: #f5f5f5 !important;
+    border-color: #ddd !important;
+}
+.panel-primary {
+    border-color: #ddd;
+}
+
+/* login pour ohome */
+form[aria-label="Login"] .btn-link{
+	display:none;
+}
+
+form[aria-label="Login"] .btn-primary{
+	color: #fff;
+    background-color: #204d74;
+    border-color: #122b40;
+}
+
+form[aria-label="Login"]>label[for="email"]{
+	font-weight: bold !important;
+}
+
