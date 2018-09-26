@@ -35,4 +35,11 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'firebase' => [
+    'api_key' => 'AIzaSyCWpwZH6meHfHyrLN7s7RpHrUOnD2V3E3s', 
+    'auth_domain' => 'ohome-d0683.firebaseapp.com', 
+    'database_url' => 'https://ohome-d0683.firebaseio.com',
+    'storage_bucket' => 'ohome-d0683.appspot.com',
+    ]
+
 ];
