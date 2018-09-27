@@ -351,6 +351,11 @@
                     </ul>
                 </li>
 
+                <li>
+                    <a href="{{ route('syndic.messagerie') }}">
+                        <i class="fa fa-envelope-o"></i>Messagerie &nbsp; &nbsp; <span class="label label-warning" id="non-lue">0</span>
+                    </a>
+                </li>
             </ul>
 
         </section>
@@ -405,5 +410,45 @@
 {{--<script src="{{ asset('dist/js/pages/dashboard2.js') }}"></script>--}}
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('lte/dist/js/demo.js') }}"></script>
+
+<script>
+    $.ajax({
+        type:'GET',
+        url:'{{ route('syndic.newMessage') }}',
+        success:function(data){
+            if(data==0){
+                $("#non-lue").hide();
+            }
+            else{
+                $("#non-lue").html(data);
+                $("#pull-right").html(data);
+                $("#non-lue").show();
+            }
+        }
+    });
+
+    // read document
+    $(document).ready(function(){
+        if($("#non-lue").text()=='0'){
+            $("#non-lue").hide();
+        }
+        setInterval(function () {
+            $.ajax({
+                type:'GET',
+                url:'{{ route('syndic.newMessage') }}',
+                success:function(data){
+                    if(data==0){
+                        $("#non-lue").hide();
+                    }
+                    else{
+                        $("#non-lue").html(data);
+                        $("#pull-right").html(data);
+                        $("#non-lue").show();
+                    }
+                }
+            });
+        },4000);
+    })
+</script>
 </body>
 </html>

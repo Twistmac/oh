@@ -35,7 +35,14 @@ Route::prefix('syndic')->group(function(){
 
     Route::get('/gestion-annonces-syndic', 'SyndicsController@gestionAnnoncesSyndic')->name('syndic.gestion-annonces-syndic');
     Route::post('/add-annonce-syndic', 'AnnoncesController@addAnnonceSyndic')->name('syndic.add-annonce-syndic')->middleware('auth');
-    Route::delete('/delete-annonce-syndic/{id}','AnnoncesController@deleteAnnonceSyndic')->name('syndic.delete-annonce-syndic')->middleware('auth:admin');
+    Route::delete('/delete-annonce-syndic/{id}','AnnoncesController@deleteAnnonceSyndic')->name('syndic.delete-annonce-syndic')->middleware('auth');
+
+    //messagerie
+    Route::get('/gestion-messagerie', 'MessagerieController@messageSyndic')->name('syndic.messagerie')->middleware('auth');
+    Route::get('/new-message', 'MessagerieController@getNewMessageSyndic')->name('syndic.newMessage')->middleware('auth');
+    Route::post('/read-message', 'MessagerieController@readMessageSyndic')->name('syndic.read-message')->middleware('auth');
+    Route::get('/read-message', 'MessagerieController@readMessageSyndic')->name('syndic.read-message')->middleware('auth');
+    Route::get('/readMp/{id_message}', 'MessagerieController@readMp')->name('syndic.readMp')->middleware('auth');
 });
 
 ///********* ADMIN ********************///
