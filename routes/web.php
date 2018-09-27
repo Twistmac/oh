@@ -60,6 +60,14 @@ Route::prefix('admin')->group(function(){
     Route::get('/gestion-categories', 'CategorieController@gestionCategories')->name('admin.gestion-categories')->middleware('auth:admin');
     Route::post('/add-categorie', 'CategorieController@addCategorie')->name('admin.add-categorie')->middleware('auth:admin');
 
+    // Ici se trouve l'ajout des routes pour import/export
+    /* residence */
+    //Route::post('/gestion-residences/import/{type}','ResidencesController@import');
+    Route::get('/gestion-residences/export','AdminController@gestionResidencesexport');
+    //Route::get('/gestion-residences/exportpdf','AdminController@gestionResidencesexportpdf');
+    Route::get('/gestion-residences/exportcsv','AdminController@gestionResidencesexportcsv');
+    Route::get('/gestion-residents/export','AdminController@gestionResidentsexport');
+    Route::get('/gestion-residents/exportcsv','AdminController@gestionResidentsexportcsv');
 
     // new add
     Route::delete('/delete-categorie/{id}', 'CategorieController@deleteCategorie')->name('admin.delete-categorie')->middleware('auth:admin');

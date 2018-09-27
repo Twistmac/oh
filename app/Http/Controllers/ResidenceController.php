@@ -39,4 +39,9 @@ class ResidenceController extends Controller
             }
         }
     }
+
+    public function import($type)
+    {
+        // bol tsy misy 
+    }
 }

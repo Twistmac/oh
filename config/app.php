@@ -159,6 +159,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        // fonction sur mesure
+        App\Services\ExportExcel\ExportExcelServiceProvider::class,
 
     ],
 

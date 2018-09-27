@@ -2,6 +2,33 @@
 
 @section('content')
     <div class="content">
+        <!-- header avec les export/import -->
+        <div ng-if="userRole == 'admin'" class="btn-group pull-right no-print">
+            <button type="button" class="btn btn-success btn-flat">Exporter</button>
+            <button type="button" class="btn btn-success btn-flat dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+                <span class="sr-only"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="gestion-residences/export">Exporter excel</a></li>
+                <li style="display:none;"><a href="gestion-residences/exportpdf" target="_BLANK">Exporter pdf</a></li>
+                <li><a href="gestion-residences/exportcsv" target="_BLANK">Exporter csv</a></li>
+            </ul>
+        </div> 
+        <div ng-if="userRole == 'admin'" class="btn-group pull-right no-print">
+            <!--importer -->
+    <!--  <button type="button" class="btn btn-success btn-flat">Importer</button>
+      <button type="button" class="btn btn-success btn-flat dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span>
+          <span class="sr-only"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+          <li><a ng-click="import('excel')">Importer Excel</a></li>
+          <li><a ng-click="import('csv')">Importer csv</a></li>
+      </ul>-->
+  </div>
+        <br/><br/>
+        <!-- fin export/import -->
         <div class="row">
             
             <div class="col-md-12">
@@ -55,8 +82,11 @@
                 </div>
             </div>
         </div>
-    </div>
 
+    </div>
+<!-- modal -->
+
+<!-- fin modal -->
     <script type="text/javascript">
         $('#syndic_id').change(function(){
             val = $(this).val();
@@ -78,4 +108,5 @@
             $('#syndic_password').val(pass);
         });
     </script>
+
 @endsection
