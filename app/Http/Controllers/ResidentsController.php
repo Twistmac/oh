@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\Residents;
+use App\Model\Residents;/* pour la table residents */
+use App\Model\Residence;/* pour la table residence */
+use App\Model\Membres;/* pour la table membres */
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -12,9 +14,15 @@ class ResidentsController extends Controller
 {
     use AuthenticatesUsers;
 
-    public function addResident(Request $request)
-    {
+    /* fonction ajout résident */
+    public function addResident(Request $request){
+        
         $resident = new Residents();
+
+        //$nbr_res = Residents::where('residence_id' ,'=', '8')->where('role' ,'=', 'resident')->count();
+        //die((string)$nbr_res);
+        /*$nb_resident = DB::table('residence')->where('nb_resident', $request->residence_id)->pluck('nb_resident');
+        die((string)$nb_resident);*/
 
         $data = $this->validate($request, [
             'email' => 'required|unique:membres',
@@ -29,10 +37,31 @@ class ResidentsController extends Controller
         $data['username'] = $request->email;
         $data['role'] = 'resident';
 
-        if($resident->saveResident($data))
-        {
-            return redirect('/admin/gestion-residents')->with('success', 'New resident added');
+        /* mettre la residenc id dans la var */
+        $idresid = $data['residence_id'];
+        
+        /* Modification du formulaire ajout résident sur condition limite résident */
+        /* Prendre le nombre limite de résident dans la bdd dans la table residence */
+        $nb_resident_pour_la_residence = Residence::where('id', $idresid)->pluck('nb_resident');
+        $var_nbresident = $nb_resident_pour_la_residence[0];
+       // echo "le nombre de résident maximum pour la résidence est : ".$var_nbresident;
+
+        /* Nombre de résident déjà inséré dans la base pour la résidence */
+        $nb_resident_deja_insere = Membres::where('residence_id', $idresid)->count();
+        
+        /* Test logique si le nombre de résident est au maximum */
+        if($nb_resident_deja_insere < $var_nbresident){
+            /* nous insérrons les enregistrements */
+            if($resident->saveResident($data))
+            {
+                return redirect('/admin/gestion-residents-ajout')->with('success', 'New resident added');
+            }
+        } else {
+            /* sinon nous retournons un message */
+            \Session::flash('message','Nombre limite de résident atteint ! Enregistrement non accomplis...'); //<--FLASH MESSAGE
+            return Redirect('/admin/gestion-residents-ajout');
         }
+        
     }
 
     public function delete($id)
