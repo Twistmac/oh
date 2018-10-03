@@ -307,11 +307,18 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="{{ route('logout') }}"
+                        <!--<a href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
                             <span class="glyphicon glyphicon-off"></span> &nbsp;{{ __('Logout') }}
-                        </a>
+                        </a>-->
+						<!-- modifié ce 17/09/2018 -->
+                        <button href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();" class="btn btn-flat btn-danger buttonmenu" style="border-radius:5px;">
+                                    {{ __('Déconnexion') }}
+                        </button>
+                        <!-- fin modif -->
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>
@@ -409,7 +416,11 @@
                         <i class="fa fa-keyboard-o"></i> <span>Paramètres</span>
                     </a>
                 </li>
-
+				<li>
+                    <a href="https://www.easywebmobile.fr">
+                        <center><img src="{{ asset('logoeasywebmobile.png') }}"width="60px"></center>
+                    </a>
+                </li>
             </ul>
         </section>
         <!-- /.sidebar -->
