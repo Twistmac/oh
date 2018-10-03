@@ -2,20 +2,6 @@
 
 @section('content')
     <div class="content">
-        <!-- header avec les export/import -->
-        <div ng-if="userRole == 'admin'" class="btn-group pull-right no-print">
-            <button type="button" class="btn btn-success btn-flat">Exporter</button>
-            <button type="button" class="btn btn-success btn-flat dropdown-toggle" data-toggle="dropdown">
-                <span class="caret"></span>
-                <span class="sr-only"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="gestion-residents/export">Exporter excel</a></li>
-                <li style="display:none;"><a href="gestion-residents/exportpdf" target="_BLANK">Exporter pdf</a></li>
-                <li><a href="gestion-residents/exportcsv" target="_BLANK">Exporter csv</a></li>
-            </ul>
-        </div> 
-        <br><br>
         <div class="row"><!-- début colonne ajout compte résident -->
             <!-- fin column ajout résident -->
             <div class="col-md-12">

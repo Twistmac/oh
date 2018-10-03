@@ -3,13 +3,13 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
-use Mpociot\Firebase\SyncsWithFirebase;
+//use Mpociot\Firebase\SyncsWithFirebase;
 use App\Model\Membres;
 
 class Messagerie extends Model
 {
     //
-    use SyncsWithFirebase;
+    //use SyncsWithFirebase;
     protected $table = "messagerie";
 
     protected $fillable =['conv_name', 'messagerie', 'syndic_id', 'resident_id'];
@@ -17,6 +17,7 @@ class Messagerie extends Model
     public function getMpSyndicResident($id){
     	$message = Messagerie::join('membres' , 'membres.id', '=', 'messagerie.resident_id')
                             ->where('id_syndic', $id)
+                            ->orderBy('id_message', 'DESC')
                             ->get();
     	return $message;
     }

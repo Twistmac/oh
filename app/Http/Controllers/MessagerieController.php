@@ -44,4 +44,12 @@ class MessagerieController extends Controller
 
     }
 
+    //refresh table message syndic
+    public function refreshMessage(){
+        $id = Auth::User()->id;
+        $messagerie = new Messagerie();
+        $mp = $messagerie->getMpSyndicResident($id);
+        return view('layouts.table-message-syndic',compact('mp'));
+    }
+
 }

@@ -2,27 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\Residents;/* pour la table residents */
-use App\Model\Residence;/* pour la table residence */
-use App\Model\Membres;/* pour la table membres */
+use App\Model\Appartement;
+use App\Model\Immeuble;
+use App\Model\Membres;
+use App\Model\Residents;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use DB;
 
 class ResidentsController extends Controller
 {
     use AuthenticatesUsers;
 
-    /* fonction ajout résident */
-    public function addResident(Request $request){
-        
+    public function addResident(Request $request)
+    {
         $resident = new Residents();
-
-        //$nbr_res = Residents::where('residence_id' ,'=', '8')->where('role' ,'=', 'resident')->count();
-        //die((string)$nbr_res);
-        /*$nb_resident = DB::table('residence')->where('nb_resident', $request->residence_id)->pluck('nb_resident');
-        die((string)$nb_resident);*/
 
         $data = $this->validate($request, [
             'email' => 'required|unique:membres',
@@ -37,31 +33,10 @@ class ResidentsController extends Controller
         $data['username'] = $request->email;
         $data['role'] = 'resident';
 
-        /* mettre la residenc id dans la var */
-        $idresid = $data['residence_id'];
-        
-        /* Modification du formulaire ajout résident sur condition limite résident */
-        /* Prendre le nombre limite de résident dans la bdd dans la table residence */
-        $nb_resident_pour_la_residence = Residence::where('id', $idresid)->pluck('nb_resident');
-        $var_nbresident = $nb_resident_pour_la_residence[0];
-       // echo "le nombre de résident maximum pour la résidence est : ".$var_nbresident;
-
-        /* Nombre de résident déjà inséré dans la base pour la résidence */
-        $nb_resident_deja_insere = Membres::where('residence_id', $idresid)->count();
-        
-        /* Test logique si le nombre de résident est au maximum */
-        if($nb_resident_deja_insere < $var_nbresident){
-            /* nous insérrons les enregistrements */
-            if($resident->saveResident($data))
-            {
-                return redirect('/admin/gestion-residents-ajout')->with('success', 'New resident added');
-            }
-        } else {
-            /* sinon nous retournons un message */
-            \Session::flash('message','Nombre limite de résident atteint ! Enregistrement non accomplis...'); //<--FLASH MESSAGE
-            return Redirect('/admin/gestion-residents-ajout');
+        if($resident->saveResident($data))
+        {
+            return redirect('/admin/gestion-residents')->with('success', 'New resident added');
         }
-        
     }
 
     public function delete($id)
@@ -132,4 +107,53 @@ class ResidentsController extends Controller
 
         return view('residents/details-resident', ['resident' => $resident]);
     }
+
+
+    ///////////////// ---- generer Resident -------------///
+    public function genererResident(Request $request){
+        $request_id_residence = explode('|',$request->residence_id);
+        $id_residence = $request_id_residence[0];
+        $id_syndic = $request_id_residence[1];
+        $id_immeuble = $request->immeuble_id;
+        //
+        $immeuble = new Immeuble();
+        $nbr_appart = $immeuble->nbrAppartementImmeuble($id_immeuble);
+
+        $id_appartement_array = Appartement::where('id_immeuble',$id_immeuble)->pluck('id_appartement');
+
+
+
+        for($i=0; $i<$nbr_appart; $i++){
+            $pass = $this->generateRandomString();
+            $last_resident_id = DB::table('membres')->max('id');
+            $data['username'] = 'res_'.$id_syndic.$id_residence.$id_immeuble.($last_resident_id+1);
+            $id_resident = Residents::create([
+                'username' => $data['username'],
+                'email' => '',
+                'password' => Hash::make($pass),
+                'residence_id' => $id_residence,
+                'role' => 'resident',
+                'syndic_id' => $id_syndic,
+                'salt' => base64_encode($pass),
+                'etat' => '1'
+            ])->id;
+            Appartement::where('id_appartement',$id_appartement_array[$i])->update(['id_resident'=>$id_resident]);
+        }
+        session(['residence_select'=>$request->residence_id]);
+        session(['select_immeuble'=>$id_immeuble]);
+        return redirect()->back()->with('success', 'Resident Generate');
+    }
+
+    //generer un random string
+    function generateRandomString($length = 6) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
+
 }

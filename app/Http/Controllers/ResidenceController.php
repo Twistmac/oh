@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Appartement;
+use App\Model\Immeuble;
 use App\Model\Residence;
+use App\Model\Residents;
 use Illuminate\Http\Request;
 
 class ResidenceController extends Controller
@@ -10,6 +13,10 @@ class ResidenceController extends Controller
     public function deleteResidence($id)
     {
         $residence = Residence::find($id);
+        $immeuble = Immeuble::where('id_residence', $id);
+        $appartement = Appartement::where('id_residence', $id);
+        $appartement->delete();
+        $immeuble->delete();
         $residence->delete();
 
         return redirect('/admin/gestion-residences')->with('success', 'Residence deleted!!');
@@ -31,17 +38,12 @@ class ResidenceController extends Controller
             $residence->ville = $request->ville;
             $residence->tel = $request->tel;
             $residence->nb_partenaire = $request->nb_partenaire;
-            $residence->nb_resident = $request->nb_resident;
+            $residence->nb_immeuble = $request->nb_immeuble;
 
             if($residence->save())
             {
                 return redirect('/syndic/details-residence/'.$id)->with('success', 'Residence updated');
             }
         }
-    }
-
-    public function import($type)
-    {
-        // bol tsy misy 
     }
 }

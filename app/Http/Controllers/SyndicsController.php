@@ -20,7 +20,7 @@ class SyndicsController extends Controller
 {
     public function index()
     {
-        return view('syndics/index');
+        return redirect()->action('SyndicsController@gestionResidence');
     }
 
     public function gestionResidence()
@@ -95,7 +95,8 @@ class SyndicsController extends Controller
         if($syndic->saveSyndic($data))
         {
             Mail::to( $request->email)
-                    ->send(new MailAccess($request->email, $request->password));
+                  ->send(new MailAccess($request->email, $request->password));
+
             return redirect('/admin/gestion-syndics')->with(['success'=> 'New Syndic added', 'error'=>'Un email a été bien envoyer']);
         }
     }

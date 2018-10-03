@@ -49,23 +49,24 @@
                 <!-- /.pull-right -->
               </div>
               <div class="table-responsive mailbox-messages">
-                <table class="table table-hover table-striped">
+                <table id="table-message" class="table table-hover table-striped">
                   <tbody>
                   	@foreach($mp as $message)
-                      <form id="read-message-form" method="post" action="{{ route('syndic.read-message') }}">
-                        @csrf
                   <tr class="vue{{ $message->vue }}">
-                    <td><input type="checkbox"></td>
-                    <input type="hidden" id="id_message" name="id_message" value="{{ $message->id_message }}">
-                    <td class="mailbox-name"><a href="#">{{ $message->username }}</a></td>
-                    <td class="mailbox-subject" style="max-width: 100px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{ $message->messagerie }}</td>
-                    <td class="mailbox-attachment"></td>
-                    <?php
-                      $date=date_create($message->date_send );
-                      ?>
-                    <td class="mailbox-date">{{ date_format($date,"d M Y  H:i") }}</td>
+                    <form id="read-message-form" method="post" action="{{ route('syndic.read-message') }}">
+                        @csrf
+                      <td><input type="checkbox"></td>
+                      <input type="hidden" id="id_message" name="id_message" value="{{ $message->id_message }}">
+                      <td class="mailbox-name"><a href="#">{{ $message->username }}</a></td>
+                      <td class="mailbox-subject" style="max-width: 100px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{ $message->messagerie }}</td>
+                      <td class="mailbox-attachment"></td>
+                      <?php
+                        $date=date_create($message->date_send );
+                        ?>
+                      <td class="mailbox-date">{{ date_format($date,"d M Y  H:i") }}</td>
+                    </form>
+
                   </tr>
-                      </form>
                 	@endforeach
                   </tbody>
                 </table>
@@ -87,13 +88,29 @@
         $('.vue0').css('font-weight', 'bold');
         $('.table-hover').css( 'cursor', 'pointer');
 
+        //refresh automatic message
+        /*setInterval(function () {
+            $.ajax({
+                type:'GET',
+                url:'{{ route('syndic.refreshMessage') }}',
+                success:function(data){
+                    $('#table-message tbody').html(data);
+                    $('.vue0').css('font-weight', 'bold');
+                    $('#table-message').serialize();
+                }
+            });
+        },5000)*/
+
         //submit click message
-        $('tbody tr .mailbox-name, tbody tr .mailbox-subject, tbody tr .mailbox-attachment, tbody tr .mailbox-date').click(function () {
+        //'tbody tr .mailbox-name, tbody tr .mailbox-subject, tbody tr .mailbox-attachment, tbody tr .mailbox-date'
+        $(document).on('click','tbody tr .mailbox-name',function () {
             //alert($(this).parent().find('#id_message').val());
             $('#id_message').val($(this).parent().find('#id_message').val());
             $.get('{{ url('syndic/readMp/') }}'+'/'+$('#id_message').val());
             $('#read-message-form').submit();
         })
+
+
     })
   </script>
 

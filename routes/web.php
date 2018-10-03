@@ -15,6 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//test socket
+Route::get('/test-socket', function () {
+    return view('Socket-interface');
+});
+Route::get('/tcp-module', "SocketController@build");
+
+
 Route::get('/admin', 'AdminController@index');
 
 Auth::routes();
@@ -27,7 +34,7 @@ Route::prefix('syndic')->group(function(){
     Route::post('/add-residence', 'SyndicsController@newResidence')->name('syndic.add-residence')->middleware('auth');
     Route::post('/new-resident/{id}', 'SyndicsController@newResident')->name('syndic.add-resident')->middleware('auth');
     Route::get('/details-residence/{id}', 'SyndicsController@detailsResidence')->name('syndic.details-residence')->middleware('auth');
-    Route::post('/edit-residence/{id}', 'ResidenceController@editResidence')->name('syndic.edit-residence')->middleware('auth');
+    Route::post('/edit-residence/{id}', 'ResidenceController@editResidence')->name('syndic.edit-residence');
 
     Route::any('/add-resident', 'SyndicsController@addResident')->name('syndic.add-resident')->middleware('auth');
     Route::delete('/delete-resident/{id}', 'SyndicsController@deleteResident')->name('syndic.delete-resident')->middleware('auth');
@@ -43,6 +50,7 @@ Route::prefix('syndic')->group(function(){
     Route::post('/read-message', 'MessagerieController@readMessageSyndic')->name('syndic.read-message')->middleware('auth');
     Route::get('/read-message', 'MessagerieController@readMessageSyndic')->name('syndic.read-message')->middleware('auth');
     Route::get('/readMp/{id_message}', 'MessagerieController@readMp')->name('syndic.readMp')->middleware('auth');
+    Route::get('/refresh-message', 'MessagerieController@refreshMessage')->name('syndic.refreshMessage')->middleware('auth');
 });
 
 ///********* ADMIN ********************///
@@ -67,14 +75,6 @@ Route::prefix('admin')->group(function(){
     Route::get('/gestion-categories', 'CategorieController@gestionCategories')->name('admin.gestion-categories')->middleware('auth:admin');
     Route::post('/add-categorie', 'CategorieController@addCategorie')->name('admin.add-categorie')->middleware('auth:admin');
 
-    // Ici se trouve l'ajout des routes pour import/export
-    /* residence */
-    //Route::post('/gestion-residences/import/{type}','ResidencesController@import');
-    Route::get('/gestion-residences/export','AdminController@gestionResidencesexport');
-    //Route::get('/gestion-residences/exportpdf','AdminController@gestionResidencesexportpdf');
-    Route::get('/gestion-residences/exportcsv','AdminController@gestionResidencesexportcsv');
-    Route::get('/gestion-residents/export','AdminController@gestionResidentsexport');
-    Route::get('/gestion-residents/exportcsv','AdminController@gestionResidentsexportcsv');
 
     // new add
     Route::delete('/delete-categorie/{id}', 'CategorieController@deleteCategorie')->name('admin.delete-categorie')->middleware('auth:admin');
@@ -87,7 +87,7 @@ Route::prefix('admin')->group(function(){
 
     //
     Route::post('/add-residence', 'AdminController@addResidence')->name('admin.add-residence');
-    Route::get('/edit-residence/{id}', 'AdminController@editResidence')->name('admin.edit-residence');
+    Route::any('/edit-residence/{id}', 'AdminController@editResidence')->name('admin.edit-residence');
     Route::post('/add-partenaire', 'PartenairesController@addPartenaire')->name('admin.add-partenaire')->middleware('auth:admin');
     Route::delete('/delete-resident/{id}','ResidentsController@delete')->name('admin.delete-resident')->middleware('auth:admin');
     //
@@ -100,4 +100,16 @@ Route::prefix('admin')->group(function(){
     Route::post('/edit-termes/{id}', 'AdminController@editTermes')->name('admin.edit-termes');
 
     Route::get('/details-resident/{id}', 'ResidentsController@detailsResident')->name('admin.details-resident')->middleware('auth:admin');
+
+    //immeuble
+    Route::get('/gestion-immeuble/{id}', 'ImmeubleController@gestionImmeuble')->name('admin.gestion-immeuble')->middleware('auth:admin');
+    Route::post('/edit-immeuble/{id}', 'ImmeubleController@editImmeuble')->name('admin.edit-immeuble')->middleware('auth:admin');
+    Route::get('/get-immeuble-residence/{id}', 'ImmeubleController@getImmeubleResidence')->name('get-immeuble-residence')->middleware('auth:admin');
+
+    //appartement
+    Route::get('/get-appart-immeuble/{id}', 'AppartementController@getAppartImmeuble')->name('get-appart-immeuble')->middleware('auth:admin');
+
+    //generer des compte resident
+    Route::post('/generer-resident/', 'ResidentsController@genererResident')->name('admin.generer-resident')->middleware('auth:admin');
+
 });

@@ -299,7 +299,7 @@
                                                  document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    <form action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
                                 </div>
@@ -338,15 +338,9 @@
                         <i class="fa fa-user-circle"></i> <span>Gestion de contenu</span>
                     </a>
                 </li>
-                <li>
-                    <a href="{{ route('admin.gestion-syndics') }}">
-                        <i class="fa fa-user-circle"></i> <span>Gestion des syndics</span>
-                    </a>
-                </li>
-                <hr>
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-edit"></i> <span>Résidence</span>
+                        <i class="fa fa-home"></i> <span>Résidence</span>
                         <!-- résidence flèche -->
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
@@ -362,7 +356,7 @@
                 </li>
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-table"></i> <span>Résident</span>
+                        <i class="fa fa-bookmark"></i> <span>Résident</span>
                         <!-- résidence flèche -->
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
@@ -378,7 +372,7 @@
                 </li>
                 <li>
                     <a href="{{ route('admin.gestion-partenaires') }}">
-                        <i class="fa fa-table"></i> <span>Partenaire</span>
+                        <i class="fa fa-crosshairs"></i> <span>Partenaire</span>
                     </a>
                 </li>
                 <li class="treeview">
@@ -389,20 +383,33 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{ route('admin.gestion-categories') }}"><i class="fa fa-circle-o"></i> Gestion des catégories</a></li>
-                        <li><a href="{{ route('admin.gestion-annonces') }}"><i class="fa fa-circle-o"></i> Gestion des annonces</a></li>
+                        <li><a href="#"> Annonces OHOME</a></li>
+                        <li><a href="#"> Annonces page ouvertures d'accès</a></li>
+                        <li><a href="{{ route('admin.gestion-annonces') }}"> Annonces générales</a></li>
                     </ul>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="fa fa-table"></i> <span>Module</span>
+                        <i class="fa fa-modx"></i> <span>Module</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.gestion-categories') }}">
+                        <i class="fa fa-table"></i> <span>Catégorie</span>
+                    </a>
+
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-copy"></i> <span>Import/Export</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="fa fa-table"></i> <span>Catégorie</span>
+                        <i class="fa fa-keyboard-o"></i> <span>Paramètres</span>
                     </a>
                 </li>
+
             </ul>
         </section>
         <!-- /.sidebar -->

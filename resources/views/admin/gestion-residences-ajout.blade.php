@@ -17,44 +17,9 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">
-                                            Syndic rattaché :
-                                        </label>
-                                        <select name="syndic_id" id="syndic_id" class="form-control selectpicker" required>
-                                            <option value="">Votre choix</option>
-                                            <option value="new">Ajouter un nouveau syndic</option>
-                                            @foreach ($syndics as $item)
-                                                <option value="{{ $item->id }}">{{ $item->username ? $item->username : $item->email }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <div id="new_syndic" class="hidden">
-                                            <div class="form-group">
-                                                <label for="">
-                                                    Email du syndic :
-                                                </label>
-                                                <input type="text" id="syndic_email" name="email_syndic" class="form-control" value="{{ old('email_syndic') }}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="">
-                                                    Password du syndic :
-                                                </label>
-                                                <input type="text" id="syndic_password" name="password_syndic" class="form-control" id="password">
-                                            </div>
-                                            <div class="form-group">
-                                                <span class="btn btn-danger btn-flat" id="generate">Générer mot de passe</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="">
                                             Numéro de la résidence :
                                         </label>
-                                        <input type="text" name="numero" class="form-control" value="{{ old('numero') }}">
+                                        <input type="text" name="numero" class="form-control" value="{{ old('numero') }}" required>
                                         <div class="error">
                                             {{ @$errors->default->getMessages()['numero']['0'] }}
                                         </div>
@@ -67,7 +32,7 @@
                                         <label for="">
                                             Nom de la résidence :
                                         </label>
-                                        <input type="text" name="nom" class="form-control" value="{{ old('nom') }}">
+                                        <input type="text" name="nom" class="form-control" value="{{ old('nom') }}" required>
                                         <div class="error">
                                             {{ @$errors->default->getMessages()['nom']['0'] }}
                                         </div>
@@ -80,7 +45,7 @@
                                         <label for="">
                                             Nom référent :
                                         </label>
-                                        <input type="text" name="nom_ref" class="form-control" value="{{ old('nom_ref') }}">
+                                        <input type="text" name="nom_ref" class="form-control" value="{{ old('nom_ref') }}" required>
                                         <div class="error">
                                             {{ @$errors->default->getMessages()['nom_ref']['0'] }}
                                         </div>
@@ -106,7 +71,7 @@
                                         <label for="">
                                             Email :
                                         </label>
-                                        <input type="email" name="email" class="form-control" value="{{ old('email') }}">
+                                        <input type="email" name="email" class="form-control" value="{{ old('email') }}" required>
                                         <div class="error">
                                             {{ @$errors->default->getMessages()['email']['0'] }}
                                         </div>
@@ -119,7 +84,7 @@
                                         <label for="">
                                             Adresse :
                                         </label>
-                                        <input type="text" name="adresse" class="form-control" value="{{ old('adresse') }}">
+                                        <input type="text" name="adresse" class="form-control" value="{{ old('adresse') }}" required>
                                         <div class="error">
                                             {{ @$errors->default->getMessages()['adresse']['0'] }}
                                         </div>
@@ -132,7 +97,7 @@
                                         <label for="">
                                             Code postal :
                                         </label>
-                                        <input type="text" name="code_postal" class="form-control" value="{{ old('code_postal') }}"><div class="error">
+                                        <input type="text" name="code_postal" class="form-control" value="{{ old('code_postal') }}" required><div class="error">
                                             <div class="error">
                                                 {{ @$errors->default->getMessages()['code_postal']['0'] }}
                                             </div>
@@ -159,7 +124,7 @@
                                         <label for="">
                                             Téléphone :
                                         </label>
-                                        <input type="number" name="tel" class="form-control" value="{{ old('tel') }}">
+                                        <input type="number" name="tel" class="form-control" value="{{ old('tel') }}" required>
                                         <div class="error">
                                             {{ @$errors->default->getMessages()['tel']['0'] }}
                                         </div>
@@ -172,7 +137,7 @@
                                         <label for="">
                                             Nombre limite de partenaires :
                                         </label>
-                                        <input type="number" name="nb_partenaire" class="form-control" value="{{ old('nb_partenaire') }}">
+                                        <input type="number" name="nb_partenaire" class="form-control" value="{{ old('nb_partenaire') }}" required>
                                         <div class="error">
                                             {{ @$errors->default->getMessages()['nb_partenaire']['0'] }}
                                         </div>
@@ -183,15 +148,24 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">
-                                            Nombre limite de résidents :
+                                            Nombre d'immeuble(s) :
                                         </label>
-                                        <input type="number" name="nb_resident" class="form-control" value="{{ old('nb_resident') }}">
-                                        <div class="error">
-                                            {{ @$errors->default->getMessages()['nb_resident']['0'] }}
-                                        </div>
+                                        <input type="number" name="nb_immeuble" class="form-control" value="" required>
+
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="">
+                                            Nombre de motorbikes :
+                                        </label>
+                                        <input type="number" name="nb_motorbike" class="form-control" value="" required>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">

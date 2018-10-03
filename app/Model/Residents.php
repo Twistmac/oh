@@ -11,7 +11,8 @@ class Residents extends Model
     protected $table = 'membres';
 
     protected $fillable = [
-        'id', 'email', 'password', 'nom', 'prenom', 'birthday', 'sex', 'pseudo', 'username', 'phone', 'username', 'complete', 'role'
+        'email', 'password','salt', 'nom', 'prenom', 'birthday', 'sex', 'pseudo', 'username',
+        'phone', 'username', 'complete', 'role', 'residence_id', 'syndic_id','etat'
     ];
 
     protected $hidden = [

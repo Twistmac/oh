@@ -2,41 +2,19 @@
 
 @section('content')
     <div class="content">
-        <!-- header avec les export/import -->
-        <div ng-if="userRole == 'admin'" class="btn-group pull-right no-print">
-            <button type="button" class="btn btn-success btn-flat">Exporter</button>
-            <button type="button" class="btn btn-success btn-flat dropdown-toggle" data-toggle="dropdown">
-                <span class="caret"></span>
-                <span class="sr-only"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="gestion-residences/export">Exporter excel</a></li>
-                <li style="display:none;"><a href="gestion-residences/exportpdf" target="_BLANK">Exporter pdf</a></li>
-                <li><a href="gestion-residences/exportcsv" target="_BLANK">Exporter csv</a></li>
-            </ul>
-        </div> 
-        <div ng-if="userRole == 'admin'" class="btn-group pull-right no-print">
-            <!--importer -->
-    <!--  <button type="button" class="btn btn-success btn-flat">Importer</button>
-      <button type="button" class="btn btn-success btn-flat dropdown-toggle" data-toggle="dropdown">
-          <span class="caret"></span>
-          <span class="sr-only"></span>
-      </button>
-      <ul class="dropdown-menu" role="menu">
-          <li><a ng-click="import('excel')">Importer Excel</a></li>
-          <li><a ng-click="import('csv')">Importer csv</a></li>
-      </ul>-->
-  </div>
-        <br/><br/>
-        <!-- fin export/import -->
         <div class="row">
             
             <div class="col-md-12">
                 <div class="box box-danger">
                     <div class="box-header">
-                        <h3 class="box-title">
-                            Liste des résidences :
-                        </h3>
+
+                        <div class="col2-right-layout">
+                            <a href="{{ route('admin.gestion-residences-ajout') }}" class="btn btn-success">
+                                <span class="fa fa-plus-circle"></span>
+                                Ajouter
+                            </a>
+                        </div>
+
                     </div>
                     <div class="box-body">
                         <table class="table table-bordered table-hover datatable">
@@ -47,7 +25,9 @@
                                 <th>Nom référent</th>
                                 <th>Email</th>
                                 <th>Adresse</th>
-                                <th>Actions</th>
+                                <th>Password</th>
+                                <th>Date de création</th>
+                                <th> </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -58,6 +38,9 @@
                                     <td>{{ $item->nom_ref.' '.$item->prenom_ref }}</td>
                                     <td>{{ $item->email }}</td>
                                     <td>{{ $item->adresse }}</td>
+                                    <td><input id="password-field" type="password" class="form-control" value="{{ base64_decode($item->salt) }}" style="width: 110px">
+                                        <span style="float: right;margin-left: -25px;margin-top: -25px;position: relative;z-index: 2;" toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span></td>
+                                    <td>{{ $item->created_at }}</td>
                                     <td>
                                         <a href="{{ route('admin.edit-residence', ['id' => $item->id]) }}">
                                             <span class="glyphicon glyphicon-pencil"></span>
@@ -82,31 +65,26 @@
                 </div>
             </div>
         </div>
-
     </div>
-<!-- modal -->
 
-<!-- fin modal -->
     <script type="text/javascript">
-        $('#syndic_id').change(function(){
-            val = $(this).val();
-
-            if(val != 'new')
-            {
-                $('#new_syndic').fadeOut().addClass('hidden');
-                $('#syndic_email').val("");
-                $('#syndic_password').val("");
-            } else if(val == 'new') {
-                $('#new_syndic').fadeIn();
-                $('#new_syndic').removeClass('hidden');
-            }
-        });
 
         $('#generate').on('click', function () {
             var pass = Math.random().toString(36).substring(2, 10);
 
             $('#syndic_password').val(pass);
         });
-    </script>
 
+        //toogle password
+        $(".toggle-password").click(function() {
+
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $($(this).attr("toggle"));
+            if (input.attr("type") == "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        });
+    </script>
 @endsection
