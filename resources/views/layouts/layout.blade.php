@@ -407,7 +407,7 @@
 
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{ route('admin.importexport') }}">
                         <i class="fa fa-copy"></i> <span>Import/Export</span>
                     </a>
                 </li>

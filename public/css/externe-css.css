@@ -39,6 +39,10 @@ div[class^='box'], div.box-success{
 	display:none;
 }
 
+.navbar-nav > .user-menu > .dropdown-menu > li.user-header {
+    height: 68px !important;
+}
+
 /* uniformisation login ohome */
 .panel-primary>.panel-heading {
     color: #333 !important;

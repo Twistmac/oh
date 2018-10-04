@@ -111,5 +111,14 @@ Route::prefix('admin')->group(function(){
 
     //generer des compte resident
     Route::post('/generer-resident/', 'ResidentsController@genererResident')->name('admin.generer-resident')->middleware('auth:admin');
-
+	
+	//route pour import/export
+	//route de l'interface générale
+    Route::get('/importexport/', 'AdminController@importexport')->name('admin.importexport');
+	//pour les résidences
+	Route::get('/importexport/exportresidenceexcel','AdminController@exportresidenceexcel');
+	Route::get('/importexport/exportresidencecsv','AdminController@exportresidencecsv');
+	//pour les résidents
+	Route::get('/importexport/exportresidentsexcel','AdminController@exportresidentsexcel');
+	Route::get('/importexport/exportresidentscsv','AdminController@exportresidentscsv');
 });

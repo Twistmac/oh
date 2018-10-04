@@ -14,6 +14,8 @@ use App\Model\Syndics;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\RedirectResponse;
+use Excel_XML;
 
 class AdminController extends Controller
 {
@@ -124,7 +126,7 @@ class AdminController extends Controller
                 for($i= 0; $i<$request->nb_immeuble; $i++){
                     Immeuble::create(['id_residence'=> $residence_id]);
                 }
-                return redirect('/admin/gestion-residences')->with('success', 'New Residence added');
+                return redirect('/admin/gestion-residences')->with('success', 'Nouveau résident ajouté');	
             }
         }
 
@@ -188,6 +190,69 @@ class AdminController extends Controller
         return view('admin/edit-residence', compact(['residence', 'residents', 'partenaires', 'immeubles']));
     }
 
+	//**********code import export de données**************//
+	
+	public function importexport(){
+			return view('admin/importexport');
+	}
+	
+	public function exportresidenceexcel(){
+		
+		$residenceArray = array();
+		$residences = Residence::get();
+		
+		$data = array(1 => array ('id', 'numero','nom','nom_ref','prenom_ref','email','adresse','code_postal','ville','tel','nb_partenaire','nb_immeuble','actif', 'created_at', 'updated_at', 'syndic_id', 'nb_motorbike'));
+		
+		foreach ($residences as $value) {
+			$data[] = array ($value->id, $value->numero,$value->nom,$value->nom_ref,$value->prenom_ref,$value->adresse,$value->code_postal,$value->ville, $value->tel, $value->nb_partenaire, $value->nb_immeuble, $value->actif, $value->created_at,$value->updated_at,$value->syndic_id,$value->nb_motorbike);}
+		
+		$xls = new Excel_XML('UTF-8', false, 'Résidences');
+		$xls->addArray($data);
+		$xls->generateXML('Residences');
+		exit();
+	}
+	
+	public function exportresidencecsv(){
+		
+		header('Content-Type: text/csv; charset=utf-8');
+		header('Content-Disposition: attachment; filename=residences.csv');
+		$output = fopen('php://output', 'w');
+	
+		$residence = Residence::get();
+		foreach ($residence as $value) {
+			fputcsv($output, array($value->id, $value->numero,$value->nom,$value->nom_ref,$value->prenom_ref,$value->adresse,$value->code_postal,$value->ville, $value->tel, $value->nb_partenaire, $value->nb_immeuble, $value->actif, $value->created_at,$value->updated_at,$value->syndic_id,$value->nb_motorbike) );
+		}
+		exit;
+	}
+	//pour les résidents
+	public function exportresidentsexcel(){
+		$residentsArray = array();
+		$residents = Residents::where('role','resident')->get();
+		
+		$data = array(1 => array ('id', 'username','nom','prenom','birthday','sex','pseudo','phone','email','residence_id','syndic_id','created_at','role'));
+		
+		foreach ($residents as $value) {
+			$data[] = array ($value->id, $value->username,$value->nom,$value->prenom,$value->birthday,$value->sex,$value->pseudo,$value->phone, $value->email, $value->residence_id, $value->syndic_id, $value->created_at, $value->role);}
+		
+		$xls = new Excel_XML('UTF-8', false, 'Résidents');
+		$xls->addArray($data);
+		$xls->generateXML('Residents');
+		exit();
+	}
+	
+	public function exportresidentscsv(){
+		header('Content-Type: text/csv; charset=utf-8');
+		header('Content-Disposition: attachment; filename=residents.csv');
+		$output = fopen('php://output', 'w');
+	
+		$residents = Residents::where('role','resident')->get();
+		foreach ($residents as $value) {
+			fputcsv($output, array($value->id, $value->username,$value->nom,$value->prenom,$value->birthday,$value->sex,$value->pseudo,$value->phone, $value->email, $value->residence_id, $value->syndic_id, $value->created_at, $value->role) );
+		}
+		exit;
+	}
+	//**********FIN export import **************//
+	
     //generer un random string
     function generateRandomString($length = 6) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -198,4 +263,5 @@ class AdminController extends Controller
         }
         return $randomString;
     }
+	
 }
