@@ -1,0 +1,37 @@
+#AuthUserFile /var/www/vhosts/easywebmobile.fr/misavis/.htpasswd
+#AuthGroupFile /dev/null
+#AuthName "Accès Restreint EWM"
+#AuthType Basic
+#<Limit GET POST>
+#require valid-user
+#</Limit>
+
+RewriteEngine On
+# Only apply to URLs on this domain
+RewriteCond %{HTTP_HOST} ^(www.)?misavis.easywebmobile.fr$
+
+
+# Only apply to URLs that aren't already under folder.
+RewriteCond %{REQUEST_URI} !^/public/
+
+# Don't apply to URLs that go to existing files or folders.
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+
+# Rewrite all those to insert /folder.
+
+#décommentena refa vita maintenance
+#RewriteRule ^(.*)$ /public.original/th-quick_food/html/$1
+RewriteRule ^(.*)$ /public/$1
+
+# Also redirect the root folder.
+RewriteCond %{HTTP_HOST} ^(www.)?misavis.easywebmobile.fr$
+RewriteRule ^(/)?$ public/ [L]
+
+#HTTPS
+RewriteCond %{HTTPS} !=on
+RewriteRule ^(.*)$ https://%{HTTP_HOST} [R,QSA]
+
+AddType video/ogg .ogv
+AddType video/mp4 .mp4
+AddType video/webm .webm

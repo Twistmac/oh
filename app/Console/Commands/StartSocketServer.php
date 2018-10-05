@@ -37,7 +37,7 @@ class StartSocketServer extends Command
     public function handle()
     {
         $websocket = new Hoa\Websocket\Server(
-            new Hoa\Socket\Server('tcp://127.0.0.1:8000')
+            new Hoa\Socket\Server('tcp://'.env('TCP_HOST'))
         );
         $websocket->on('open', function (Hoa\Event\Bucket $bucket) {
             echo 'new connection', "\n";
@@ -46,7 +46,7 @@ class StartSocketServer extends Command
         });
         $websocket->on('message', function (Hoa\Event\Bucket $bucket) {
             $data = $bucket->getData();
-            echo '> message ', $data['message'], "\n";
+            echo '> message :', $data['message'], "\n";
             $bucket->getSource()->send('bien reçu');
             echo '< echo', "\n";
 

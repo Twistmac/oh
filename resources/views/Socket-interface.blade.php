@@ -23,7 +23,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script>
     //The homestead or local host server (don't forget the ws prefix)
-    var host = 'ws://'+'{{ env('TCP_HOST') }}';
+    var host = 'ws://127.0.0.1:4242';
     var socket = null;
     var input = document.getElementById('input');
     var messages = document.getElementById('messages');
