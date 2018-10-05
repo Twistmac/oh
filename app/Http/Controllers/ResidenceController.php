@@ -6,18 +6,23 @@ use App\Model\Appartement;
 use App\Model\Immeuble;
 use App\Model\Residence;
 use App\Model\Residents;
+use App\Model\Syndics;
 use Illuminate\Http\Request;
 
 class ResidenceController extends Controller
 {
-    public function deleteResidence($id)
+    public function deleteResidence($id, $syndic_id)
     {
         $residence = Residence::find($id);
+        $user = Syndics::where('id_user',$syndic_id);
         $immeuble = Immeuble::where('id_residence', $id);
         $appartement = Appartement::where('id_residence', $id);
+        $resident= Residents::where('residence_id', $id);
         $appartement->delete();
         $immeuble->delete();
         $residence->delete();
+        $user->delete();
+        $resident->delete();
 
         return redirect('/admin/gestion-residences')->with('success', 'Residence deleted!!');
     }

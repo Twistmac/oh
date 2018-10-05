@@ -46,7 +46,7 @@
                                             <span class="glyphicon glyphicon-pencil"></span>
                                         </a>
                                         &nbsp;-&nbsp;
-                                        <form onsubmit="return confirm('Confirm delete ?')" class="form-inline" action="{{ route('admin.delete-residence', ['id' => $item->id]) }}" method="post">
+                                        <form onsubmit="return confirm('Confirm delete ?')" class="form-inline" action="{{ route('admin.delete-residence', ['id' => $item->id, 'syndic_id' => $item->syndic_id]) }}" method="post">
                                             @csrf
                                             <input name="_method" type="hidden" value="DELETE">
                                             <!--<button type="submit" class="btn btn-danger btn-xs btn-flat">

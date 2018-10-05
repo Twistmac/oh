@@ -87,7 +87,7 @@
                             <tbody>
                             @foreach($appartement as $appart)
                                 <tr>
-                                    <td>{{ $appart->id_immeuble }}</td>
+                                    <td>{{ $appart->id_appartement }}</td>
                                     <td></td>
                                     <td></td>
                                     <td></td>

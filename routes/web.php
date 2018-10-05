@@ -94,8 +94,7 @@ Route::prefix('admin')->group(function(){
     Route::get('/susp-resident/{id}', 'ResidentsController@suspendre')->name('admin.susp-resident')->middleware('auth:admin');
     Route::get('/active-resident/{id}', 'ResidentsController@active')->name('admin.active-resident')->middleware('auth:admin');
     //
-    Route::delete('/delete-syndic/{id}','SyndicsController@deleteSyndic')->name('admin.delete-syndic')->middleware('auth:admin');
-    Route::delete('/delete-residence/{id}','ResidenceController@deleteResidence')->name('admin.delete-residence')->middleware('auth:admin');
+    Route::delete('/delete-residence/{id}/{syndic_id}','ResidenceController@deleteResidence')->name('admin.delete-residence')->middleware('auth:admin');
     Route::get('/gestion-contenu', 'AdminController@gestionContenu')->name('admin.gestion-contenu');
     Route::post('/edit-termes/{id}', 'AdminController@editTermes')->name('admin.edit-termes');
 
