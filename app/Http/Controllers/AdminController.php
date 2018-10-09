@@ -66,7 +66,7 @@ class AdminController extends Controller
 
     public function gestionResidences()
     {
-        $residences = Residence::join('users','residence.syndic_id','=','users.id_user')->get();
+        $residences = Residence::join('users','residence.syndic_id','=','users.id')->get();
         return view('admin/gestion-residences', compact(array('residences')));
     }
 
@@ -97,15 +97,16 @@ class AdminController extends Controller
     public function addResidence(Request $request)
     {
         $syndic['email'] = $request->email;
-        $syndic['password'] = Hash::make($this->generateRandomString());
-        $syndic['salt'] = base64_encode($this->generateRandomString());
+        $mdp = $this->generateRandomString();
+        $syndic['password'] = Hash::make($mdp);
+        $syndic['salt'] = base64_encode($mdp);
 
         $data = $this->validate($request, [
             'numero' => 'required|unique:residence',
             'nom' => 'required',
             'nom_ref' => 'required',
             'prenom_ref' => 'required',
-            'email' => 'required',
+            'email' => 'required|unique:users',
             'adresse' => 'required',
             'code_postal' => 'required',
             'ville' => 'required',
@@ -122,7 +123,7 @@ class AdminController extends Controller
 
             if(Residence::create($data))
             {
-                $residence_id = Residence::orderBy('id', 'desc')->first()->id ;
+                $residence_id = Residence::orderBy('id_residence', 'desc')->first()->id_residence ;
                 for($i= 0; $i<$request->nb_immeuble; $i++){
                     Immeuble::create(['id_residence'=> $residence_id]);
                 }
@@ -155,15 +156,15 @@ class AdminController extends Controller
 
     public function editResidence(Request $request, $id)
     {
-        $residence = Residence::findOrFail($id);
+        $residence = Residence::where('id_residence',$id)->get();
 
-        $residents = Residents::where(['role' => 'resident', 'residence_id' => $residence->id])->get();
-        $partenaires = Partenaires::where(['role' => 'partenaire', 'residence_id' => $residence->id])->get();
+        $residents = Residents::where(['role' => 'resident', 'residence_id' => $id])->get();
+        $partenaires = Partenaires::where(['role' => 'partenaire', 'residence_id' => $id])->get();
         $immeubles = Immeuble::where('id_residence',$id)->get();
 
         if ($request->isMethod('POST'))
         {
-            $residence = Residence::find($id);
+            $residence = where('syndic_id',$id)->get();
 
             $residence->nom = $request->nom;
             $residence->nom_ref = $request->nom_ref;

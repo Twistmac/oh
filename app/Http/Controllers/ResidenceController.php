@@ -13,15 +13,15 @@ class ResidenceController extends Controller
 {
     public function deleteResidence($id, $syndic_id)
     {
-        $residence = Residence::find($id);
-        $user = Syndics::where('id_user',$syndic_id);
+        $residence = Residence::where('syndic_id',$syndic_id);
+        $user = Syndics::where('id',$syndic_id);
+        $user->delete();
         $immeuble = Immeuble::where('id_residence', $id);
         $appartement = Appartement::where('id_residence', $id);
-        $resident= Residents::where('residence_id', $id);
+        $resident= Residents::where('residence_id', $syndic_id);
         $appartement->delete();
         $immeuble->delete();
         $residence->delete();
-        $user->delete();
         $resident->delete();
 
         return redirect('/admin/gestion-residences')->with('success', 'Residence deleted!!');
@@ -31,7 +31,7 @@ class ResidenceController extends Controller
     {
         if($request->isMethod('post'))
         {
-            $residence = Residence::find($id);
+            $residence = Residence::where('id_residence',$id);
 
             $residence->nom = $request->nom;
             $residence->numero = $request->numero;
