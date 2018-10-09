@@ -147,33 +147,11 @@ class SyndicsController extends Controller
         $id = Auth::user()->id;
         $residents = Residents::where('syndic_id', '=', $id)
                                 ->where('role', '=', 'resident')
+                                ->join('appartement','appartement.id_residence','=','membres.id')
+                                ->join('immeuble','immeuble.id','=','appartement.id_immeuble')
                                 ->get();
-        $residence = Residence::where('syndic_id', '=', $id)->get();
-        $resident = new Residents();
 
-        if($request->isMethod('POST')){
-
-            $data = $this->validate($request, [
-                'email' => 'required|unique:membres',
-                'password' => 'required|min:6'
-            ]);
-
-            $data['residence_id'] = $request->residence_id;
-            $data['email'] = $request->email;
-            $data['username'] = $request->email;
-            $data['role'] = 'resident';
-            $data['syndic_id'] = $id;
-
-            if($resident->saveResident($data))
-            {
-                Mail::to( $request->email)
-                    ->send(new MailAccess($request->email, $request->password));
-
-                return back()->with(['success' =>'Ajout resident Success', 'error'=>'Email a été bien envoyer']);
-            }
-        }
-
-        return view('syndics/gestion-resident', compact(array('residents', 'residence')));
+        return view('syndics/gestion-resident', compact(array('residents')));
     }
 
     //delete resident

@@ -42,7 +42,7 @@
                                     </td>
 
                                     <td>
-                                        <a href="{{ route('syndic.details-residence', array('id' => $item->id)) }}">
+                                        <a href="#">
                                             <span class="glyphicon glyphicon-pencil"></span>
                                         </a>
                                         &nbsp;-&nbsp;

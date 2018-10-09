@@ -125,15 +125,21 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="active"><a href="{{ route('syndic.gestion-residence') }}"><i class="fa fa-circle-o"></i> Liste d'immeuble</a></li>
-                        <li><a href="{{ route('syndic.add-residence') }}"><i class="fa fa-circle-o"></i> Ajouter une nouvelle résidence</a></li>
+                        <li class="active"><a href="{{ route('syndic.gestion-residence') }}"><i class="fa fa-circle-o"></i> Liste des immeubles</a></li>
                     </ul>
                 </li>
 
-                <li>
-                    <a href="{{ route('syndic.add-resident') }}">
-                        <i class="fa fa-table"></i> <span>Résident</span>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-user-circle"></i> <span>Resident</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
                     </a>
+                    <ul class="treeview-menu">
+                        <li><a href={{ route('syndic.add-resident') }}><i class="fa fa-circle-o"></i> Liste des residents</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Ajouter Resident</a></li>
+                    </ul>
                 </li>
                 <li>
                     <a href="#">

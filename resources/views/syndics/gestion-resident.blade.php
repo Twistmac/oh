@@ -3,62 +3,7 @@
 @section('content')
     <div class="content">
         <div class="row">
-            <div class="col-md-4">
-                <div class="box box-primary">
-                    <div class="box-header">
-                        <h3 class="box-title">
-                            Ajouter un compte résident :
-                        </h3>
-                    </div>
-                    <div class="box-body">
-                        <form action="" method="POST">
-                            @csrf
-                            <div class="form-group">
-                                <label for="">
-                                    Résidence rattachée :
-                                </label>
-                                <select name="residence_id" class="form-control selectpicker">
-                                    @foreach($residence as $residences)
-                                        <option value="{{$residences->id}}">{{ $residences->nom }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="">
-                                    Email :
-                                </label>
-                                <input type="text" name="email" class="form-control" value="">
-                            </div>
-                            <div class="form-group">
-                                <label for="">
-                                    Password :
-                                </label>
-                                <input type="text" name="password" class="form-control" id="password">
-                            </div>
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-
-                            <div class="form-group">
-                                <span class="btn btn-danger btn-flat" id="generate">Générer mot de passe</span>
-                            </div>
-                            <div class="form-group">
-                                <button class="btn btn-primary btn-flat">
-                                    Créer le compte
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">
@@ -66,17 +11,26 @@
                         </h3>
                     </div>
                     <div class="box-body">
-                        <table class="table table-bordered table-hover datatable">
+                        <table class="table table-bordered table-hover datatable" data-page-length='15'>
                             <thead>
                             <tr>
                                 <th>
-                                    Pseudo
+                                    Nom
+                                </th>
+                                <th>
+                                    Username
                                 </th>
                                 <th>
                                     Email
                                 </th>
                                 <th>
-                                    Date de création
+                                    Immeuble
+                                </th>
+                                <th>
+                                    N° appartement
+                                </th>
+                                <th>
+                                    Etat
                                 </th>
                                 <th>
                                     Actions
@@ -86,9 +40,12 @@
                             <tbody>
                             @foreach($residents as $res)
                                 <tr>
+                                    <td> </td>
                                     <td>{{ $res->username }}</td>
                                     <td>{{ $res->email }}</td>
-                                    <td>{{ $res->created_at }}</td>
+                                    <td> {{ $res->nom_immeuble }}  </td>
+                                    <td>{{ $res->id_appartement }} </td>
+                                    <td> </td>
                                     <td>
                                         <a href="#">
                                             <span class="glyphicon glyphicon-pencil"></span>

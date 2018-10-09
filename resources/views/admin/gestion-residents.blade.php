@@ -16,7 +16,7 @@
                             <thead>
                             <tr>
                                 <th>
-                                    Pseudo
+                                    Username
                                 </th>
                                 <th>
                                     Email
