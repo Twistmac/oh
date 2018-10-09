@@ -124,4 +124,7 @@ Route::prefix('admin')->group(function(){
 	//pour les résidents
 	Route::get('/importexport/exportresidentsexcel','AdminController@exportresidentsexcel');
 	Route::get('/importexport/exportresidentscsv','AdminController@exportresidentscsv');
+	//import résidences
+	Route::post('/importresidences/', 'ResidenceController@importresidences')->name('admin.importresidences');
+	//Route::post('/importexport/import/excel','ResidenceController@import');
 });

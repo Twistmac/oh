@@ -38,8 +38,8 @@
                                     <td>{{ $item->nom_ref.' '.$item->prenom_ref }}</td>
                                     <td>{{ $item->email }}</td>
                                     <td>{{ $item->adresse }}</td>
-                                    <td><input id="password-field" type="password" class="form-control" value="{{ base64_decode($item->salt) }}" style="width: 110px">
-                                        <span style="float: right;margin-left: -25px;margin-top: -25px;position: relative;z-index: 2;" toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span></td>
+                                    <td><input id="password-field-{{ $item->numero }}" type="password" class="form-control form-control-{{ $item->numero }}" value="{{ base64_decode($item->salt) }}" style="width: 110px">
+                                        <span style="float: right;margin-left: -25px;margin-top: -25px;position: relative;z-index: 2;" toggle="#password-field-{{ $item->numero }}" class="fa fa-fw fa-eye field-icon toggle-password"></span></td>
                                     <td>{{ $item->created_at }}</td>
                                     <td>
                                         <a href="{{ route('admin.edit-residence', ['id' => $item->id_residence]) }}">
@@ -74,6 +74,7 @@
 
             $(this).toggleClass("fa-eye fa-eye-slash");
             var input = $($(this).attr("toggle"));
+			
             if (input.attr("type") == "password") {
                 input.attr("type", "text");
             } else {

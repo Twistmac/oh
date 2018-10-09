@@ -3,7 +3,17 @@
         <td>{{ $appartements->id_appartement }}</td>
         <td></td>
         <td>{{ $appartements->username }}</td>
-        <td>{{ base64_decode($appartements->salt) }}</td>
+        <td>
+		
+		
+		<!-- generation avec un oeil -->
+		<input id="password-field-{{ $appartements->id_appartement }}" type="password" class="form-control form-control-{{ $appartements->id_appartement }}" value="{{ base64_decode($appartements->salt) }}" style="width: 110px">
+                                        <span style="float: right;margin-left: -25px;margin-top: -25px;position: relative;z-index: 2;" toggle="#password-field-{{ $appartements->id_appartement }}" class="fa fa-fw fa-eye field-icon toggle-password"></span></td>
+		<!-- fin de la generation avec un oeil -->
+		
+		
+		
+		</td>
         <td></td>
         <td>
             <form data-id="{{ $appartements->id }}" class="form-inline" method="get">
@@ -14,4 +24,18 @@
             </form></td>
     </tr>
 @endforeach
+ <script type="text/javascript">
+        //toogle password
+        $(".toggle-password").click(function() {
+
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $($(this).attr("toggle"));
+			
+            if (input.attr("type") == "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        });
+</script>
 

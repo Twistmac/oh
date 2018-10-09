@@ -8,6 +8,7 @@ use App\Model\Residence;
 use App\Model\Residents;
 use App\Model\Syndics;
 use Illuminate\Http\Request;
+use Spreadsheet_Excel_Reader;
 
 class ResidenceController extends Controller
 {
@@ -51,4 +52,129 @@ class ResidenceController extends Controller
             }
         }
     }
+	
+	//importation de fichier résidence 
+	public function import(){
+		if (Input::hasFile('excelcsv')) {
+
+				$residencesArray = array();
+				$residences = Residence::get();
+				foreach ($residences as $residence) {
+					$residencesArray[$residence->numero] = $residence->nom;
+				}
+
+				/*$sectionsArray = array();
+				$sections = sections::get();
+				foreach ($sections as $section) {
+					$sectionsArray[$section->classId][$section->id] = $section->sectionName." - ".$section->sectionTitle;
+				}*/
+
+			  if ( $_FILES['excelcsv']['tmp_name'] )
+			  {
+				  $data = new Spreadsheet_Excel_Reader();
+				  $data->setOutputEncoding('CP1251');
+				  $readExcel = $data->read( $_FILES['excelcsv']['tmp_name']);
+
+  		  		  if(!is_array($readExcel)){
+					  $readExcel = $data->sheets[0]['cells'];
+				  }
+
+				  $first_row = true;
+
+				  $dataImport = array("ready"=>array(),"revise"=>array());
+				  foreach ($readExcel as $row)
+				  {
+					  if ( !$first_row )
+					  {
+						  $importItem = array();
+						  if(isset($row[1])){
+							  $importItem['id'] = $row[1];
+						  }
+						  if(isset($row[2])){
+							  $importItem['numero'] = $row[2];
+						  }
+						  if(isset($row[3])){
+							  $importItem['nom'] = $row[3];
+						  }
+						  if(isset($row[4])){
+							  $importItem['nom_ref'] = $row[4];
+						  }
+						  if(isset($row[5])){
+							  $importItem['prenom_ref'] = $row[5];
+						  }
+						  if(isset($row[6])){
+							  $importItem['email'] = $row[6];
+						  }
+						  if(isset($row[7])){
+							  $importItem['adresse'] = $row[7];
+						  }
+						  if(isset($row[8])){
+							  $importItem['code_postal'] = $row[8];
+						  }
+						  if(isset($row[9])){
+							  $importItem['ville'] = $row[9];
+						  }
+						   if(isset($row[10])){
+							  $importItem['tel'] = $row[10];
+						  }
+						  if(isset($row[11])){
+							  $importItem['nb_partenaire'] = $row[11];
+						  }
+						  if(isset($row[12])){
+							  $importItem['nb_immeuble'] = $row[12];
+						  }
+						  if(isset($row[13])){
+							  $importItem['actif'] = $row[13];
+						  }
+						  if(isset($row[14])){
+							  $importItem['created_at'] = $row[14];
+						  }
+						  if(isset($row[15])){
+							  $importItem['updated_at'] = $row[15];
+						  }
+						  if(isset($row[16])){
+							  $importItem['syndic_id'] = $row[16];
+						  }
+						  if(isset($row[17])){
+							  $importItem['nb_motorbike'] = $row[17];
+						  }
+							
+						$dataImport['ready'][] = $importItem;	
+							
+						/*  $checkUser = User::where('username',$importItem['username'])->orWhere('email',$importItem['email']);
+						  if($checkUser->count() > 0){
+							  $checkUser = $checkUser->first();
+							  if($checkUser->username == $importItem['username']){
+								  $importItem['error'][] = "username";
+							  }
+							  if($checkUser->email == $importItem['email']){
+								  $importItem['error'][] = "email";
+							  }
+							  if(!isset($classArray[$importItem['class']])){
+								  $importItem['error'][] = "class";
+							  }
+							  $dataImport['revise'][] = $importItem;
+						  }else{
+							  $dataImport['ready'][] = $importItem;
+						  }*/
+
+					  }
+					  $first_row = false;
+				  }
+
+				  $toReturn = array();
+				  $toReturn['dataImport'] = $dataImport;
+				  //$toReturn['sections'] = $sectionsArray;
+
+				  return $toReturn;
+			  }
+		}else{
+			
+		}
+	
+	}
+	
+	public function importresidences(){
+		return view('admin/importresidences');
+	}
 }
