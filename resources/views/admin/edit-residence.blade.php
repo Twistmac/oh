@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('content')
-    <?php $r = $residence; ?>
+    @foreach($residence as $r)
     <div class="content">
         <div class="row">
             <div class="col-md-6">
@@ -161,7 +161,7 @@
                     </div>
                 </div>
             </div>
-
+        @endforeach
 
             <div class="col-md-6">
                 <div class="box box-info">

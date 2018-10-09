@@ -3,15 +3,15 @@
 @section('content')
     <div class="content">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-7">
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">
-                            Liste des résidences enregistrées :
+                            Liste des immeubles enregistrées :
                         </h3>
                     </div>
                     <div class="box-body">
-                        <table class="table table-striped table-bordered datatable">
+                        <table class="table table-striped table-bordered datatable" id="table-immeuble">
                             <thead>
                             <tr>
                                 <th>
@@ -21,31 +21,26 @@
                                     Nom
                                 </th>
                                 <th>
-                                    Nom & Prénom référent
+                                    Nombre d'appartement
                                 </th>
-                                <th>
-                                    Adresse
-                                </th>
-                                <th>
-                                    Actions
-                                </th>
+
+                                <th> </th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($residences as $item)
+                            @foreach($immeuble as $item)
                                 <tr>
-                                    <td>
-                                        {{ $item->numero }}
+                                    <input type="hidden" class="id_immeuble" value="{{ $item->id }}">
+                                    <td >
+                                        {{ $item->id }}
                                     </td>
                                     <td>
-                                        {{ $item->nom }}
+                                        {{ $item->nom_immeuble }}
                                     </td>
                                     <td>
-                                        {{ $item->nom_ref }} {{ $item->prenom_ref }}
+                                        {{ $item->nbr_appart }}
                                     </td>
-                                    <td>
-                                        {{ $item->adresse }}
-                                    </td>
+
                                     <td>
                                         <a href="{{ route('syndic.details-residence', array('id' => $item->id)) }}">
                                             <span class="glyphicon glyphicon-pencil"></span>
@@ -55,7 +50,7 @@
                                             @csrf
                                             <input name="_method" type="hidden" value="DELETE">
                                             <button type="submit" class="btn btn-flat btn-danger btn-xs">
-                                                Supprimer
+                                                <span class="glyphicon glyphicon-trash"></span>
                                             </button>
                                         </form>
                                     </td>
@@ -66,6 +61,75 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-md-4">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">
+                            Appartement :
+                        </h3>
+                    </div>
+                    <div class="box-body">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th>
+                                    N°
+                                </th>
+                                <th>
+                                    Pseudo Resident
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody id="tbody-appart">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
+
+
+
+    <script>
+        //change color background table if hover
+        $("#table-immeuble tr").not(':first').hover(
+            function () {
+                $(this).css("background","#B8B8B8");
+                $(this).css( 'cursor', 'pointer' );
+            },
+            function () {
+                $(this).css("background","");
+            }
+        );
+        //change active cell on click row
+        $("#table-immeuble tbody tr").click(function(){
+            $(this).addClass("tr-active");
+            $("#table-immeuble tbody tr").not(this).removeClass("tr-active");
+            //ajax appartement
+            var id_immeuble = $(this).find('.id_immeuble').val();
+            $.ajax({
+                url: "{{url('syndic/tbody-appart/')}}/"+id_immeuble,
+                method: "GET",
+                success:function (data) {
+                   $('#tbody-appart').html(data);
+                }
+            })
+
+        });
+
+
+    </script>
+
+    <style>
+        .tr-active{
+            background: #B8B8B8!important;
+            color: white;
+        }
+    </style>
 @endsection
+
+

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Appartement;
+use App\Model\Immeuble;
 use App\Model\Membres;
 use App\Model\Annonces;
 use App\Model\Categorie;
@@ -25,9 +27,14 @@ class SyndicsController extends Controller
 
     public function gestionResidence()
     {
-        $residences = Residence::where('syndic_id', Auth::user()->id)->get();
+        $residences = Residence::where('syndic_id', Auth::user()->id )->get();
+        foreach ($residences as $res){
+            $id_residence = $res->id_residence;
+        }
+        //immeuble
+        $immeuble = Immeuble::where('id_residence',$id_residence)->get();
 
-        return view('syndics/gestion-residence', compact('residences'));
+        return view('syndics/gestion-residence', compact('immeuble'));
     }
 
     public function addResidence()
@@ -175,5 +182,12 @@ class SyndicsController extends Controller
         $resident->delete();
 
         return redirect()->back()->with('success', 'Resident supprimer avec success!!');
+    }
+
+    //appartement par immeuble (ajax)
+    public function immeubleAppart($id_immeuble){
+        $appart = Appartement::where('id_immeuble',$id_immeuble)
+                                ->join('membres','appartement.id_resident','=','membres.id')->get();
+        return view('syndics/tbody-appart',compact('appart'));
     }
 }

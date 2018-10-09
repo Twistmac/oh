@@ -42,11 +42,11 @@
                                         <span style="float: right;margin-left: -25px;margin-top: -25px;position: relative;z-index: 2;" toggle="#password-field-{{ $item->numero }}" class="fa fa-fw fa-eye field-icon toggle-password"></span></td>
                                     <td>{{ $item->created_at }}</td>
                                     <td>
-                                        <a href="{{ route('admin.edit-residence', ['id' => $item->id]) }}">
+                                        <a href="{{ route('admin.edit-residence', ['id' => $item->id_residence]) }}">
                                             <span class="glyphicon glyphicon-pencil"></span>
                                         </a>
                                         &nbsp;-&nbsp;
-                                        <form onsubmit="return confirm('Confirm delete ?')" class="form-inline" action="{{ route('admin.delete-residence', ['id' => $item->id, 'syndic_id' => $item->syndic_id]) }}" method="post">
+                                        <form onsubmit="return confirm('Confirm delete ?')" class="form-inline" action="{{ route('admin.delete-residence', ['id' => $item->id_residence, 'syndic_id' => $item->syndic_id]) }}" method="post">
                                             @csrf
                                             <input name="_method" type="hidden" value="DELETE">
                                             <!--<button type="submit" class="btn btn-danger btn-xs btn-flat">
@@ -68,12 +68,6 @@
     </div>
 
     <script type="text/javascript">
-
-        $('#generate').on('click', function () {
-            var pass = Math.random().toString(36).substring(2, 10);
-
-            $('#syndic_password').val(pass);
-        });
 
         //toogle password
         $(".toggle-password").click(function() {

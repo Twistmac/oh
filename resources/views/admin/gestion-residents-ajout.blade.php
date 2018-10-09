@@ -20,7 +20,7 @@
                                 </label>
                                 <select id="residence_id" name="residence_id" class="form-control">
                                     @foreach($residences as $item)
-                                        <option value="{{ $item->id }}|{{ $item->syndic_id }}">{{ $item->nom }}</option>
+                                        <option value="{{ $item->id_residence }}|{{ $item->syndic_id }}">{{ $item->nom }}</option>
                                     @endforeach
                                 </select>
                             </div>
