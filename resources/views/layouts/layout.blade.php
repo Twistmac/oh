@@ -294,11 +294,12 @@
                                     <a href="#" class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a class="btn btn-danger btn-flat" href="{{ route('logout') }}"
+                                    <!--<a class="btn btn-danger btn-flat" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
-                                    </a>
+                                    </a>-->
+									
                                     <form action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
@@ -423,7 +424,7 @@
                     </a>
                     <!-- sous-menu du résident -->
                      <ul class="treeview-menu">
-                        <li><a href="{{ route('admin.importresidences') }}"><i class="fa fa-circle-o"></i> Liste des résidences</a></li>
+                        <li style="display:none;"><a href="{{ route('admin.importresidences') }}"><i class="fa fa-circle-o"></i> Liste des résidences</a></li>
                         <li style="display:none;"><a href="{{ route('admin.gestion-residences-ajout') }}"><i class="fa fa-circle-o"></i> Ajouter résidence</a></li>
                     </ul>
                     <!--fin du sous menu -->

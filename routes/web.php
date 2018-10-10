@@ -127,4 +127,8 @@ Route::prefix('admin')->group(function(){
 	//import résidences
 	Route::post('/importresidences/', 'ResidenceController@importresidences')->name('admin.importresidences');
 	//Route::post('/importexport/import/excel','ResidenceController@import');
+	
+	
 });
+
+
