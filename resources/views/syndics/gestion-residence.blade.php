@@ -42,19 +42,53 @@
                                     </td>
 
                                     <td>
-                                        <a href="#">
+                                        <a href="#" id="pencil" data-toggle="modal" data-target="#modal-edition{{ $item->id }}">
                                             <span class="glyphicon glyphicon-pencil"></span>
-                                        </a>
-                                        &nbsp;-&nbsp;
-                                        <form onsubmit="return confirm('Confirm delete ?')" class="form-inline" method="post">
-                                            @csrf
-                                            <input name="_method" type="hidden" value="DELETE">
-                                            <button type="submit" class="btn btn-flat btn-danger btn-xs">
-                                                <span class="glyphicon glyphicon-trash"></span>
-                                            </button>
-                                        </form>
+                                        </a >
+                                        <!-- /.modal-EDTION -->
+                                        <div class="modal modal-info fade" id="modal-edition{{ $item->id }}">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title">Immeuble Numéro {{ $item->id }}</h4>
+                                                    </div>
+                                                    <form class="form-horizontal" id="form-edit-immeuble" action="{{ route('syndic.edit-immeuble', ['id_immeuble'=> $item->id]) }}">
+                                                        @csrf
+                                                    <div class="modal-body">
+                                                            <p>
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-6" for="email">Nom de l'immeuble:</label>
+                                                                <div class="col-md-6">
+                                                                    <input type="text" class="form-control" value="{{ $item->nom_immeuble }}" name="nom_immeuble" required>
+                                                                </div>
+                                                            </div>
+                                                            </p>
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-6" for="pwd">Nombre d'appartement:</label>
+                                                                <div class="col-md-6">
+                                                                    <input type="number" class="form-control" value="{{ $item->nbr_appart }}" name="nbr_appart" required>
+                                                                </div>
+                                                            </div>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-outline">Save changes</button>
+                                                    </div>
+                                                    </form>
+                                                </div>
+
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                        </div>
                                     </td>
+                                    <!-- Modal edition-->
+
+
                                 </tr>
+
                             @endforeach
                             </tbody>
                         </table>
@@ -82,8 +116,9 @@
                             </tr>
                             </thead>
                             <tbody id="tbody-appart">
-
                             </tbody>
+                            <img src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/images/loader-large.gif" id="loading">
+
                         </table>
                     </div>
                 </div>
@@ -116,10 +151,19 @@
                 method: "GET",
                 success:function (data) {
                    $('#tbody-appart').html(data);
+                },
+                beforeSend: function () {
+                    $("#loading").show();
+                },
+                complete: function () {
+                    $("#loading").hide();
                 }
             })
 
         });
+
+
+
 
 
     </script>
@@ -129,6 +173,7 @@
             background: #B8B8B8!important;
             color: white;
         }
+        #loading { display: none; }
     </style>
 @endsection
 

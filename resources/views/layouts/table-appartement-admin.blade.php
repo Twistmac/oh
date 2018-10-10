@@ -24,18 +24,5 @@
             </form></td>
     </tr>
 @endforeach
- <script type="text/javascript">
-        //toogle password
-        $(".toggle-password").click(function() {
 
-            $(this).toggleClass("fa-eye fa-eye-slash");
-            var input = $($(this).attr("toggle"));
-			
-            if (input.attr("type") == "password") {
-                input.attr("type", "text");
-            } else {
-                input.attr("type", "password");
-            }
-        });
-</script>
 

@@ -24,16 +24,16 @@
                                     Email
                                 </th>
                                 <th>
+                                    Password
+                                </th>
+                                <th>
                                     Immeuble
                                 </th>
                                 <th>
-                                    N° appartement
+                                N° appartement
                                 </th>
                                 <th>
                                     Etat
-                                </th>
-                                <th>
-                                    Actions
                                 </th>
                             </tr>
                             </thead>
@@ -43,19 +43,14 @@
                                     <td> </td>
                                     <td>{{ $res->username }}</td>
                                     <td>{{ $res->email }}</td>
+                                    <td>{{ base64_decode($res->salt) }}</td>
                                     <td> {{ $res->nom_immeuble }}  </td>
                                     <td>{{ $res->id_appartement }} </td>
-                                    <td> </td>
                                     <td>
-                                        <a href="#">
-                                            <span class="glyphicon glyphicon-pencil"></span>
-                                        </a>
-                                        &nbsp;-&nbsp;
-                                        <form onsubmit="return confirm('Confirm delete ?')" class="form-inline" action="{{ route('syndic.delete-resident', $res->id) }}" method="post">
+                                        <form data-id="{{ $res->id_resident }}" class="form-inline" method="get">
                                             @csrf
-                                            <input name="_method" type="hidden" value="DELETE">
-                                            <button type="submit" class="btn btn-flat btn-danger btn-xs">
-                                                Supprimer
+                                            <button type="submit" class="btn btn-flat btn-xs" data-toggle="tooltip" data-placement="top" title="">
+                                                <span class="{{ $res->etat }}"></span>
                                             </button>
                                         </form>
                                     </td>
@@ -76,5 +71,26 @@
 
             $('#password').val(pass);
         });
+
+
+        $(document).ready(function () {
+            var active = $('.0').addClass('glyphicon glyphicon-ok-sign').parent().addClass('btn-success');
+            active.attr('data-original-title', 'actif');
+            var form_suspendre = $('.0').parent().parent();
+            form_suspendre.on('submit',function () {
+                var id= $(this).data('id');
+                $(this).attr('action',"<?php echo url('admin') ?>/susp-resident/"+id);
+                return confirm('Voulez-vous suspendre ce compte resident' );
+            });
+            //supspendre
+            var suspendue = $('.1').addClass('glyphicon glyphicon-remove-sign').parent().addClass('btn-danger');
+            suspendue.attr('data-original-title', 'desactivé');
+            var form_active = $('.1').parent().parent();
+            form_active.on('submit',function () {
+                var id= $(this).data('id');
+                $(this).attr('action',"<?php echo url('admin') ?>/active-resident/"+id);
+                return confirm('Voulez-vous activer ce compte resident');
+            });
+        })
     </script>
 @endsection

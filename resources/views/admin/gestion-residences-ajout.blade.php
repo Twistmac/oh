@@ -204,4 +204,6 @@
             $('#syndic_password').val(pass);
         });
     </script>
+
+
 @endsection

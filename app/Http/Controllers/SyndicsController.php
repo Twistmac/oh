@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Mail;
 use \App\Model\Messagerie;
+use Illuminate\Support\Facades\DB;
 
 
 class SyndicsController extends Controller
@@ -147,7 +148,7 @@ class SyndicsController extends Controller
         $id = Auth::user()->id;
         $residents = Residents::where('syndic_id', '=', $id)
                                 ->where('role', '=', 'resident')
-                                ->join('appartement','appartement.id_residence','=','membres.id')
+                                ->join('appartement','appartement.id_resident','=','membres.id')
                                 ->join('immeuble','immeuble.id','=','appartement.id_immeuble')
                                 ->get();
 
@@ -164,8 +165,87 @@ class SyndicsController extends Controller
 
     //appartement par immeuble (ajax)
     public function immeubleAppart($id_immeuble){
-        $appart = Appartement::where('id_immeuble',$id_immeuble)
-                                ->join('membres','appartement.id_resident','=','membres.id')->get();
+        $requete =  Appartement::where('id_immeuble',$id_immeuble)
+                    ->join('membres','appartement.id_resident','=','membres.id')->get();
+        if(!$requete->isEmpty()){
+            $appart = $requete;
+        }
+        else{
+            $appart = Appartement::where('id_immeuble',$id_immeuble)->get();
+        }
         return view('syndics/tbody-appart',compact('appart'));
     }
+
+    //edition immeuble
+    public function editImmeuble(Request $request, $id_immeuble){
+        $immeuble = Immeuble::find($id_immeuble);
+        $immeuble->nom_immeuble = $request->nom_immeuble;
+        $immeuble->nbr_appart = $request->nbr_appart;
+        $id_syndic = Auth::user()->id;
+        $residence = Residence::where('syndic_id',$id_syndic)->get();
+        foreach($residence as $res){
+            $id_residence = $res->id_residence;
+        }
+        $immeuble->save();
+        for($i= 0; $i<$request->nbr_appart; $i++){
+            Appartement::create(['id_residence'=> $id_residence, 'id_immeuble'=> $id_immeuble]);
+        }
+
+
+        return redirect()->back()->with('succcess','Immeuble Update');
+    }
+
+    //generer resident
+    public function genererResident(Request $request){
+        $id_syndic = Auth::user()->id;
+        $residence = Residence::where('syndic_id',$id_syndic)->get();
+        foreach ($residence as $res){
+            $id_residence = $res->id_residence;
+        }
+        $immeuble = Immeuble::where('id_residence',$id_residence)->get();
+
+        //if generer resident automatique
+        if($request->isMethod('Post')){
+            $id_immeuble = $request->immeuble_id;
+            //
+            $immeubles = new Immeuble();
+            $nbr_appart = $immeubles->nbrAppartementImmeuble($id_immeuble);
+
+            $id_appartement_array = Appartement::where('id_immeuble',$id_immeuble)->pluck('id_appartement');
+
+            for($i=0; $i<$nbr_appart; $i++){
+                $pass = $this->generateRandomString();
+                $last_resident_id = DB::table('membres')->max('id');
+                $data['username'] = 'res_'.$id_syndic.$id_residence.$id_immeuble.($last_resident_id+1);
+                $id_resident = Residents::create([
+                    'username' => $data['username'],
+                    'email' => '',
+                    'password' => Hash::make($pass),
+                    'residence_id' => $id_residence,
+                    'role' => 'resident',
+                    'syndic_id' => $id_syndic,
+                    'salt' => base64_encode($pass),
+                    'etat' => '1'
+                ])->id;
+                Appartement::where('id_appartement',$id_appartement_array[$i])->update(['id_resident'=>$id_resident]);
+            }
+            session(['select_immeuble'=>$id_immeuble]);
+            return redirect()->back()->with('success', 'Resident Generate');
+        }
+
+        return view('syndics/generer-resident',compact('immeuble'));
+    }
+
+    //generer un random string
+    function generateRandomString($length = 6) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
+
 }

@@ -138,7 +138,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href={{ route('syndic.add-resident') }}><i class="fa fa-circle-o"></i> Liste des residents</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i> Ajouter Resident</a></li>
+                        <li><a href="{{ route('syndic.generer-resident') }}"><i class="fa fa-circle-o"></i> Genrer des Residents</a></li>
                     </ul>
                 </li>
                 <li>

@@ -38,6 +38,7 @@ Route::prefix('syndic')->group(function(){
 
     Route::any('/add-resident', 'SyndicsController@addResident')->name('syndic.add-resident')->middleware('auth');
     Route::delete('/delete-resident/{id}', 'SyndicsController@deleteResident')->name('syndic.delete-resident')->middleware('auth');
+    Route::any('/generer-resident', 'SyndicsController@genererResident')->name('syndic.generer-resident')->middleware('auth');
 
 
     Route::get('/gestion-annonces-syndic', 'SyndicsController@gestionAnnoncesSyndic')->name('syndic.gestion-annonces-syndic');
@@ -54,6 +55,10 @@ Route::prefix('syndic')->group(function(){
 
     //ajax
     Route::get('/tbody-appart/{id_immeuble}', 'SyndicsController@immeubleAppart')->middleware('auth');
+
+    //edit immeuble
+    Route::get('/edit-immeuble/{id_immeuble}', 'SyndicsController@editImmeuble')->name('syndic.edit-immeuble')->middleware('auth');
+
 
 });
 
