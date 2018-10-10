@@ -80,7 +80,7 @@ class AdminController extends Controller
 
     public function gestionPartenaires()
     {
-        $partenaires = Membres::where('role', 'partenaire')->get();
+        $partenaires = Partenaires::get();
         $residences = Residence::all();
 
         return view('admin/gestion-partenaires', compact(array('partenaires', 'residences')));

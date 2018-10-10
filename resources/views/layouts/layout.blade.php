@@ -378,10 +378,21 @@
                     </ul>
                     <!--fin du sous menu -->
                 </li>
-                <li>
-                    <a href="{{ route('admin.gestion-partenaires') }}">
-                        <i class="fa fa-crosshairs"></i> <span>Partenaire</span>
-                    </a>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-crosshairs"></i> <span>Partenaires-Motorbikes</span>
+                    
+					<!-- PM flèche flèche -->
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    <!-- fin de la flèche -->
+					</a>
+					<!-- sous-menu du résident -->
+                     <ul class="treeview-menu">
+                        <li style=""><a href="{{ route('admin.gestion-partenaires') }}"><i class="fa fa-circle-o"></i>Ajouter Partenaires-Motorbikes</a></li>
+                    </ul>
+                    <!--fin du sous menu -->
                 </li>
                 <li class="treeview">
                     <a href="#">

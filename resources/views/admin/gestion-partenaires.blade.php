@@ -6,22 +6,51 @@
             <div class="col-md-4">
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Ajouter un compte partenaire</h3>
+                        <h3 class="box-title">Ajouter un compte partenaire-motorbikes</h3>
                     </div>
                     <div class="box-body">
                         <form action="{{ route('admin.add-partenaire') }}" method="POST">
                             @csrf
                             <div class="form-group">
+								<!-- liste select -->
                                 <label for="">
                                     Résidence rattachée :
                                 </label>
                                 <select name="residence_id" class="form-control selectpicker">
                                     @foreach($residences as $item)
-                                        <option value="{{ $item->id }}">{{ $item->nom }}</option>
+                                        <option value="{{ $item->id_residence }}">{{ $item->nom }}</option>
                                     @endforeach
                                 </select>
+								<!-- fin liste select -->
                             </div>
-                            <div class="form-group">
+							<!-- Element de formulaire catégorie sous forme de liste -->
+							
+							<div class="form-group">
+								<!-- liste select -->
+                                <label for="">
+                                    Catégorie :
+                                </label>
+                                <select name="categorie" class="form-control selectpicker">
+                                
+                                        <option value="partenaire">Partenaire</option>
+										<option value="motorbike">Motorbike</option>
+                                    
+                                </select>
+								<!-- fin liste select -->
+                            </div>
+							
+							<!-- fin élément de formulaire catégorie sous forme de liste -->
+							
+							<!-- elements de formulaire numero -->
+							<div class="form-group">
+                                <label for="">
+                                    Numéro :
+                                </label>
+                                <input type="text" name="numero_pm" class="form-control" value="">
+                            </div>
+							<!-- fin elements de formulaire numero facultatif -->
+                            
+							<div class="form-group">
                                 <label for="">
                                     Login :
                                 </label>
@@ -84,7 +113,7 @@
             <div class="col-md-8">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Liste des comptes partenaires</h3>
+                        <h3 class="box-title">Liste des comptes partenaires-motorbikes</h3>
                     </div>
                     <div class="box-body">
                         <table class="table table-bordered table-hover datatable">
@@ -99,7 +128,15 @@
                                 <th>
                                     Date de création
                                 </th>
-                                
+                                <th>
+                                    Résidence rattachée
+                                </th>
+								<th>
+                                   Catégorie
+                                </th>
+								<th>
+                                   Numéro
+                                </th>
                                 <th>
                                     Actions
                                 </th>
@@ -114,14 +151,23 @@
                                     <td>
                                         {{ $item->email ? $item->email : 'N/A' }}
                                     </td>
+									
                                     <td>
                                         {{ date('d-m-Y', strtotime($item->created_at)) }}
                                     </td>
-                                    
+                                    <td>
+                                        {{ $item->residence_id ? $item->residence_id : '' }}
+                                    </td>
+									<td>
+                                        {{ $item->categorie ? $item->categorie : '' }}
+                                    </td>
+									<td>
+                                        {{ $item->numero_pm ? $item->numero_pm : '' }}
+                                    </td>
                                     <td>
                                         <span class="glyphicon glyphicon-pencil"></span>
                                         &nbsp;-&nbsp;
-                                        <form onsubmit="return confirm('Confirm delete ?')" class="form-inline" action="{{ route('admin.delete-resident', $item->id) }}" method="post">
+                                        <form onsubmit="return confirm('Confirm delete ?')" class="form-inline" action="{{ route('admin.delete-partenaire', $item->id) }}" method="post">
                                             @csrf
                                             <input name="_method" type="hidden" value="DELETE">
                                             <button type="submit" class="no-button">
