@@ -99,6 +99,9 @@ Route::prefix('admin')->group(function(){
     Route::any('/edit-residence/{id}', 'AdminController@editResidence')->name('admin.edit-residence');
     Route::post('/add-partenaire', 'PartenairesController@addPartenaire')->name('admin.add-partenaire')->middleware('auth:admin');
     Route::delete('/delete-resident/{id}','ResidentsController@delete')->name('admin.delete-resident')->middleware('auth:admin');
+	//supprimer le partenaire-motorbike
+	Route::delete('/delete-partenaire/{id}','PartenairesController@delete')->name('admin.delete-partenaire')->middleware('auth:admin');
+	//fin suppression partenaire-motorbike
     //
     Route::get('/susp-resident/{id}', 'ResidentsController@suspendre')->name('admin.susp-resident')->middleware('auth:admin');
     Route::get('/active-resident/{id}', 'ResidentsController@active')->name('admin.active-resident')->middleware('auth:admin');
@@ -132,4 +135,8 @@ Route::prefix('admin')->group(function(){
 	//import résidences
 	Route::post('/importresidences/', 'ResidenceController@importresidences')->name('admin.importresidences');
 	//Route::post('/importexport/import/excel','ResidenceController@import');
+	
+	
 });
+
+

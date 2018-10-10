@@ -294,11 +294,12 @@
                                     <a href="#" class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a class="btn btn-danger btn-flat" href="{{ route('logout') }}"
+                                    <!--<a class="btn btn-danger btn-flat" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
-                                    </a>
+                                    </a>-->
+									
                                     <form action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
@@ -377,10 +378,21 @@
                     </ul>
                     <!--fin du sous menu -->
                 </li>
-                <li>
-                    <a href="{{ route('admin.gestion-partenaires') }}">
-                        <i class="fa fa-crosshairs"></i> <span>Partenaire</span>
-                    </a>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-crosshairs"></i> <span>Partenaires-Motorbikes</span>
+                    
+					<!-- PM flèche flèche -->
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    <!-- fin de la flèche -->
+					</a>
+					<!-- sous-menu du résident -->
+                     <ul class="treeview-menu">
+                        <li style=""><a href="{{ route('admin.gestion-partenaires') }}"><i class="fa fa-circle-o"></i>Ajouter Partenaires-Motorbikes</a></li>
+                    </ul>
+                    <!--fin du sous menu -->
                 </li>
                 <li class="treeview">
                     <a href="#">
@@ -423,7 +435,7 @@
                     </a>
                     <!-- sous-menu du résident -->
                      <ul class="treeview-menu">
-                        <li><a href="{{ route('admin.importresidences') }}"><i class="fa fa-circle-o"></i> Liste des résidences</a></li>
+                        <li style="display:none;"><a href="{{ route('admin.importresidences') }}"><i class="fa fa-circle-o"></i> Liste des résidences</a></li>
                         <li style="display:none;"><a href="{{ route('admin.gestion-residences-ajout') }}"><i class="fa fa-circle-o"></i> Ajouter résidence</a></li>
                     </ul>
                     <!--fin du sous menu -->
