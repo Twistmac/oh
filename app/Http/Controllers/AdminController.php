@@ -7,6 +7,7 @@ use App\Model\Categorie;
 use App\Model\Contenu;
 use App\Model\Immeuble;
 use App\Model\Membres;
+use App\Model\Module;
 use App\Model\Partenaires;
 use App\Model\Residence;
 use App\Model\Residents;
@@ -16,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 use Excel_XML;
+use Validator;
 
 class AdminController extends Controller
 {
@@ -265,6 +267,27 @@ class AdminController extends Controller
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
         return $randomString;
+    }
+
+
+    //**************** gesion module ******************/
+    public function  gestionModule(Request $request){
+        $module = Module::all();
+
+        if($request->isMethod('post')){
+            $this->validate($request, [
+                'numero_module' => 'unique:module',
+            ]);
+            $data['numero_module'] = $request->numero_module;
+            $data['imei'] = $request->imei;
+            $data['numero_tel'] = $request->tel;
+            $data['pin'] = $request->pin;
+            if(Module::create($data)){
+                return redirect()->back()->with('success','Module new record');
+
+            }
+        }
+        return view('admin/gestion-module',compact('module'));
     }
 	
 }

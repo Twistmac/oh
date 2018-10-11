@@ -63,6 +63,7 @@
                             </tr>
                             </thead>
                             <tbody id="tbody-appart">
+                            <img src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/images/loader-large.gif" id="loading">
 
                             </tbody>
                         </table>
@@ -139,7 +140,12 @@
                                 input.attr("type", "password");
                             }
                         });
+                    },beforeSend: function () {
+                        $("#loading").show();
                     },
+                    complete: function () {
+                        $("#loading").hide();
+                    }
                 });
             });
 
@@ -147,8 +153,10 @@
         })
 
 
-
-
     </script>
+
+    <style>
+        #loading { display: none; }
+    </style>
 
 @endsection

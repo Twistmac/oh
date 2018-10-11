@@ -135,8 +135,12 @@ Route::prefix('admin')->group(function(){
 	//import résidences
 	Route::post('/importresidences/', 'ResidenceController@importresidences')->name('admin.importresidences');
 	//Route::post('/importexport/import/excel','ResidenceController@import');
-	
-	
+
+    //module
+    Route::any('/gestion-module','AdminController@gestionModule')->name('admin.gestion-module')->middleware('auth:admin');
+
+
+
 });
 
 

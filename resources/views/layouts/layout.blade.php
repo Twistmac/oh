@@ -408,7 +408,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{ route('admin.gestion-module') }}">
                         <i class="fa fa-modx"></i> <span>Module</span>
                     </a>
                 </li>
