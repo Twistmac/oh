@@ -4,8 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\AnnoncesResource;
 use App\Model\Annonces;
+use App\Model\Annonces_syndic;
+use App\Model\Coms_annonce;
 use App\Model\Likes;
+use App\Model\Likes_syndics;
+use App\Model\Membres;
+use App\Model\Syndics;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AnnoncesController extends Controller
 {
@@ -41,30 +48,32 @@ class AnnoncesController extends Controller
 
     public function addAnnonceSyndic(Request $request)
     {
-        $annonce = new Annonces();
 
         $data = $this->validate($request, [
             'categorie_id' => 'required',
             'titre' => 'required',
             'description' => 'required',
             'prix' => 'required',
-            'residence' => 'required',
             'age' => 'required',
         ]);
         $data['type'] = 's';
         $data['genre'] = '';
+        $data['syndic_id'] = Auth::user()->id;
         $image = $request->file('image');
         if($image == null)
         {
-            $date['image'] = '';
-        } $data['image'] = time().'_annonce.'.$image->getClientOriginalExtension();
+            $data['image'] = 'vide-image.png';
+        }
+        else{
+            $data['image'] = time().'_annonce.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/img/annonces/');
+            $image->move($destinationPath, $data['image']);
+        }
 
-        $last = $annonce->saveAnnonce($data);
+        $last = Annonces_syndic::create($data);
 
         if($last)
         {
-            $destinationPath = public_path('/img/annonces/');
-            $image->move($destinationPath, $data['image']);
             return redirect('/syndic/gestion-annonces-syndic')->with('success', 'New Annonce syndic added');
         }
     }
@@ -197,6 +206,53 @@ class AnnoncesController extends Controller
         ));
     }
 
+    //annonce des syndics
+    public function annonceSyndic($id_user){
+        $membre = Membres::where('id',$id_user)->get();
+        foreach ($membre as $membres){
+            $id_syndic = $membres->syndic_id;
+        }
+        $likes = new Likes_syndics();
+        $coms = new Coms_annonce();
+        $annonces = Annonces_syndic::where('syndic_id',$id_syndic)->get();
+        foreach ($annonces as $item){
+            $nb_like[] = $likes->nbr_like($item->id);
+            $nb_coms[] = $coms->nbr_coms($item->id);
+            $etat_like[] = $likes->etatLike($item->id, $id_user);
+        }
+
+        for($i=0; $i<sizeof($nb_like);$i++){
+            $annonces[$i]->like = $nb_like[$i];
+            $annonces[$i]->nb_com = $nb_coms[$i];
+            $annonces[$i]->etat_like = $etat_like[$i];
+        }
+
+
+        return response()->json(array(
+            'result' => $annonces
+        ));
+    }
+
+    //get annonce syndic by id
+    public function getAnnonceSyndic($id_annonce,$id_user){
+        $annonces = Annonces_syndic::join('residence','residence.syndic_id','=','annonces_syndic.syndic_id')
+                                        ->where('id',$id_annonce)->get();
+        $likes = new Likes_syndics();
+        $coms = new Coms_annonce();
+        foreach ($annonces as $item){
+            $nb_like[] = $likes->nbr_like($item->id);
+            $nb_coms[] = $coms->nbr_coms($item->id);
+        }
+        for($i=0; $i<sizeof($nb_like);$i++){
+            $annonces[$i]->like = $nb_like[$i];
+            $annonces[$i]->nb_com = $nb_coms[$i];
+            $annonces[$i]->etat_like = $likes->etatLike($id_annonce,$id_user);
+        }
+        return response()->json(array(
+            'result' => $annonces
+        ));
+    }
+
     public function deleteJson($id)
     {
         $annonce = Annonces::find($id);
@@ -217,9 +273,47 @@ class AnnoncesController extends Controller
 
     public function deleteAnnonceSyndic($id)
     {
-        $annonce = Annonces::find($id);
+        $annonce = Annonces_syndic::find($id);
         $annonce->delete();
 
         return redirect('/syndic/gestion-annonces-syndic')->with('success', 'Annonce syndic deleted!!');
     }
+
+    //afficher les commentaire d'un annonce syndic
+    public function showComs($id_annonce){
+        $coms = Coms_annonce::where('id_annonce',$id_annonce)
+                            ->join('membres','membres.id', '=', 'coms_annonce.id_membre')->get();
+        return response()->json(array(
+            'result' => $coms
+        ));
+    }
+
+    public function postComs($id_annonce, $id_user, Request $request){
+        $annonce_id = request()->id_annonce;
+        $user_id = request()->id_user;
+
+        $coms = $request->getContent();
+        $data = json_decode($coms,true);
+
+
+        $c = Coms_annonce::create(array('id_annonce'=> $annonce_id,
+                                    'id_membre'=> $user_id,
+                                    'commentaire'=> $data['commentaire']));
+
+        if($c){
+            return response()->json(array(
+                'reponse'=> true,
+                'commentaire'=> $data['commentaire']
+            ));
+        }
+        else{
+            return response()->json(array(
+                'reponse'=> 'false'
+            ));
+        }
+
+
+    }
+
+
 }

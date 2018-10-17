@@ -23,8 +23,18 @@ Route::post('/post-annonce', 'AnnoncesController@saveAnnonceJson');
 
 Route::get('/profile/{user_id}', 'MembresController@infos');
 Route::get('/annonces/{type}/{user_id}', 'AnnoncesController@annoncesJson')->name('annonces-json');
+//annonce
 Route::get('/like-annonce/{id_annonce}/{user_id}', 'AnnoncesController@likeJson')->name('like-annonce');
 Route::get('/my-annonces/{user_id}', 'AnnoncesController@myAnnoncesJson');
+Route::get('/annonces-syndic/{user_id}', 'AnnoncesController@annonceSyndic');
+Route::get('/get-annonce-syndic/{id_annonce}/{id_user}', 'AnnoncesController@getAnnonceSyndic');
+
+//commentaire
+Route::get('/coms-annonce/{id_annonce}', 'AnnoncesController@showComs');
+Route::post('/post-coms/{id_annonce}/{id_user}', 'AnnoncesController@postComs');
+
+
+
 Route::get('/termes-conditions', 'HomeController@termes');
 Route::get('/categories', 'HomeController@categories');
 

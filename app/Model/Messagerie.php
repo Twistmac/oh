@@ -3,7 +3,7 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
-//use Mpociot\Firebase\SyncsWithFirebase;
+use Mpociot\Firebase\SyncsWithFirebase;
 use App\Model\Membres;
 
 class Messagerie extends Model

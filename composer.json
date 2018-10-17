@@ -10,7 +10,9 @@
         "hoa/websocket": "^3.17",
         "laravel/framework": "5.6.*",
         "laravel/tinker": "^1.0",
-        "mpociot/laravel-firebase-sync": "^1.0"
+        "mpociot/laravel-firebase-sync": "^1.0",
+        "pusher/pusher-php-server": "^3.2",
+        "safestudio/firebase-laravel": "^1.0"
     },
     "require-dev": {
         "filp/whoops": "^2.0",

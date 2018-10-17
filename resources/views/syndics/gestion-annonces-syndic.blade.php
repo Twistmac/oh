@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-8">
-                                        <input type="file" class="form-control" name="image" required>
+                                        <input type="file" class="form-control" name="image">
                                     </div>
                                 </div>
                             </div>
@@ -86,20 +86,6 @@
                                 <div class="form-group">
                                     <div class="col-md-8">
                                         <input type="number" class="form-control" name="prix" value="{{ old('prix') }}">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="">
-                                            Résidence :
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control" name="residence" value="{{ old('residence') }}">
                                     </div>
                                 </div>
                             </div>
@@ -164,9 +150,6 @@
                                     Prix
                                 </th>
                                 <th>
-                                    Résidence
-                                </th>
-                                <th>
                                     Actions
                                 </th>
                             </tr>
@@ -175,16 +158,13 @@
                             @foreach($annonces as $item)
                                 <tr>
                                     <td>
-                                        {{ $item->categorie->name }}
+                                        {{ $item->name }}
                                     </td>
                                     <td>
                                         {{ $item->titre }}
                                     </td>
                                     <td>
                                         {{ $item->prix }}
-                                    </td>
-                                    <td>
-                                        {{ $item->residence }}
                                     </td>
                                     <td>
                                         <span class="glyphicon glyphicon-pencil"></span>

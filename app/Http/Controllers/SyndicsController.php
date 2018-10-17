@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Annonces_syndic;
 use App\Model\Appartement;
 use App\Model\Immeuble;
 use App\Model\Membres;
@@ -138,8 +139,11 @@ class SyndicsController extends Controller
 
     public function gestionAnnoncesSyndic()
     {
+        $user_id= Auth::user()->id;
         $categories = Categorie::all();
-        $annonces = Annonces::where('type', 's')->get();
+        $annonces = Annonces_syndic::where('syndic_id', $user_id)
+                                    ->join('categories', 'categories.id','=','annonces_syndic.categorie_id')
+                                    ->get();
 
         return view('syndics/gestion-annonces-syndic', compact(array('categories', 'annonces')));
     }
