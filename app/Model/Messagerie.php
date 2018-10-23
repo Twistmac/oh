@@ -5,6 +5,7 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 use Mpociot\Firebase\SyncsWithFirebase;
 use App\Model\Membres;
+use SafeStudio\Firebase\Firebase;
 
 class Messagerie extends Model
 {
@@ -24,8 +25,25 @@ class Messagerie extends Model
 
     //select nombre non lu par syndic
     public function getNonLuSyndic($id){
-        $non_lu = Messagerie::where('vue','0')->where('id_syndic', $id)->count();
-        return $non_lu;
+        $firebase = new Firebase();
+
+        $chatSyndic = $firebase->get('/data_messages/chatsSyndic/',['orderBy'=>'"idSyndic"',
+            'equalTo'=>$id ]);
+        $mp_syndic = json_decode($chatSyndic, true);
+        foreach ($mp_syndic as $key => $value) {
+            $key_chat[] = $key;
+        }
+        for($i=0; $i<sizeof($mp_syndic); $i++){
+            $conversation[] = json_decode($firebase->get('/data_messages/conversationsSyndic/'.$key_chat[$i]),true);
+            foreach ( (array)$conversation[$i] as $conv){
+                $mp[]= $conv;
+            }
+        }
+        foreach ($mp as $todo){
+            $array_read[] = $todo['read'];
+        }
+
+        return array_count_values($array_read)[0];
     }
 
     public function detailMessage($id_syndic, $id_message){

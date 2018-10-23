@@ -80,11 +80,14 @@ body[class*="cms-services-guides"] .social-bookmarking img{
 	.block-sidebar-cart.block-progress .block-content ul li.item .product-mini-right{
 		width: 85%;
 	}
-	
-	.cart .cart-collaterals .col-cart-left{
-		display: none;
+
+	.checkout-cart-index .cart-collaterals .recoBox .block-content li .product-addtocart {
+
+		float: left;
 	}
-	
+	.checkout-cart-index .cart-collaterals .recoBox .block-content li a.product-zoom {
+		float: left!important;
+	}
 	.product-view .box-reviews .form-add .form-list .input-box{
 		width: auto;
 	}
@@ -264,9 +267,13 @@ body[class*="cms-services-guides"] .social-bookmarking img{
     }
 }
 
+/*============================ Largeur 970 ============================*/
 @media (max-width: 970px) {
 	.product-img-box {
 		width: 19vw !important;
+	}
+	.col-cart-left {
+		width: 35%;
 	}
 }
 
@@ -505,7 +512,10 @@ body[class*="cms-services-guides"] .social-bookmarking img{
 }
 
 /*======================= largeur 900px ============================*/
-@media (max-width: 900px) {	
+@media (max-width: 900px) {
+	.col-cart-left {
+		width: 26%;
+	}
 	.cms-no-route .search_mini_form, .search_mini_form .form-search{
 		width: auto !important;
 	}
@@ -991,6 +1001,9 @@ body[class*="cms-services-guides"] .social-bookmarking img{
 		margin-left: 10vw;
 	}
 
+	.product-img-box {
+		width: 35vw !important;
+	}
 }
 
 
@@ -1226,6 +1239,9 @@ body[class*="cms-services-guides"] .social-bookmarking img{
 
 /*============================ IPHONE 6 PLUS ============================*/
 @media (max-width: 420px) {
+	.product-img-box {
+		width: 60vw !important;
+	}
 	
 	.form-list .field50.field50-left.field{
 		margin: 0px 0px 0px;
@@ -1249,7 +1265,7 @@ body[class*="cms-services-guides"] .social-bookmarking img{
 	}
 	
 	.catalog-product-view .featured-selection .products-grid .price-box{
-		width: 55px;
+		width: 43px;
 	}
 	
 	.featured-selection .category-products .products-grid li.item{

@@ -17,54 +17,49 @@
             <div class="box-header with-border">
               <h3 class="box-title">Boite de reception</h3>
 
-              <div class="box-tools pull-right">
-                <div class="has-feedback">
-                  <input type="text" class="form-control input-sm" placeholder="Search Mail">
-                  <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                </div>
-              </div>
-              <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
             <div class="box-body no-padding">
               <div class="mailbox-controls">
-                <!-- Check all button -->
-                <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
-                </button>
+
                 <div class="btn-group">
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
+
                 </div>
-                <!-- /.btn-group -->
-                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
-                <div class="pull-right">
-                  1-50/200
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
-                  </div>
-                  <!-- /.btn-group -->
-                </div>
-                <!-- /.pull-right -->
+
+
               </div>
               <div class="table-responsive mailbox-messages">
-                <table id="table-message" class="table table-hover table-striped">
+                <table id="table-message" class="table table-hover datatable">
+                    <thead>
+                    <tr>
+                        <th> </th>
+                        <th> </th>
+                        <th> </th>
+                        <th></th>
+                        <th>date</th>
+                    </tr>
+                    </thead>
                   <tbody>
                   	@foreach($mp as $message)
-                  <tr class="vue{{ $message->vue }}">
-                    <form id="read-message-form" method="post" action="{{ route('syndic.read-message') }}">
-                        @csrf
-                      <td><input type="checkbox"></td>
-                      <input type="hidden" id="id_message" name="id_message" value="{{ $message->id_message }}">
-                      <td class="mailbox-name"><a href="#">{{ $message->username }}</a></td>
-                      <td class="mailbox-subject" style="max-width: 100px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{ $message->messagerie }}</td>
-                      <td class="mailbox-attachment"></td>
+                  <tr class="vue{{ $message['read'] }}" data-key="{{ $message['key'] }}">
+                      <td> </td>
+                      <input type="hidden" id="id_message" name="messageId" value="{{ $message['messageId'] }}">
+                      <input type="hidden" id="key_message" name="key_message" value="{{ $message['key'] }}">
+                      <td class="mailbox-name"><a href="#">
+                          <?php
+                            $user = $membre->getById( $message['senderId'] );
+                                foreach ($user as $us){
+                                    echo $us->username;
+                                }
+                              ?>
+                        </a>
+                      </td>
+                      <td class="mailbox-subject" style="max-width: 100px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{ $message['message'] }} </td>
+                      <td class="mailbox-attachment"> </td>
                       <?php
-                        $date=date_create($message->date_send );
+                        //$date=date_create($message->date_send );
                         ?>
-                      <td class="mailbox-date">{{ date_format($date,"d M Y  H:i") }}</td>
-                    </form>
+                      <td class="mailbox-date"> {{ $message['timestamp'] }}</td>
 
                   </tr>
                 	@endforeach
@@ -84,31 +79,58 @@
     </section>
     <!-- /.content -->
   <script>
-    $(document).ready(function(){
-        $('.vue0').css('font-weight', 'bold');
+
+      $('tr[data-key=""]').hide();
+      $('#table-message thead').hide()
+      $('.vue0').css('font-weight', 'bold');
+      $('.vue0').css('background', '#3333331a');
+
+      var table = $('#table-message').DataTable({
+          paging : false,
+          searching : false,
+          info : false,
+          order: [[4, 'desc']]
+      });
+
+      $(document).ready(function(){
+
         $('.table-hover').css( 'cursor', 'pointer');
 
+        $('tr[data-key=""]').hide();
+
+
         //refresh automatic message
-        /*setInterval(function () {
+        setInterval(function () {
             $.ajax({
                 type:'GET',
                 url:'{{ route('syndic.refreshMessage') }}',
                 success:function(data){
+                    table.destroy();
                     $('#table-message tbody').html(data);
+                    $('tr[data-key=""]').hide();
+                    $('#table-message thead').hide();
+                    table = $('#table-message').DataTable({
+                        paging : false,
+                        searching : false,
+                        info : false,
+                        order: [[4, 'desc']]
+                    });
                     $('.vue0').css('font-weight', 'bold');
-                    $('#table-message').serialize();
+                    $('.vue0').css('background', '#3333331a ');
                 }
             });
-        },5000)*/
+        },5000);
 
         //submit click message
         //'tbody tr .mailbox-name, tbody tr .mailbox-subject, tbody tr .mailbox-attachment, tbody tr .mailbox-date'
         $(document).on('click','tbody tr .mailbox-name',function () {
-            //alert($(this).parent().find('#id_message').val());
+            var key = $(this).parent().find('#key_message').val();
+            var id_message = $(this).parent().find('#id_message').val();
             $('#id_message').val($(this).parent().find('#id_message').val());
-            $.get('{{ url('syndic/readMp/') }}'+'/'+$('#id_message').val());
-            $('#read-message-form').submit();
-        })
+            //$.get('{{ url('syndic/readMp/') }}'+'/'+$('#id_message').val());
+            window.location.href = "{{ url('syndic/read-message') }}?messageId="+id_message+"&key_message="+key;
+            //$(this).parent().find('#read-message-form').submit();
+        });
 
 
     })

@@ -47,4 +47,11 @@ class Membres extends Authenticatable
         $this->save();
         return true;
     }
+
+    //get username by id
+    public function getById($id){
+        $username = Membres::where('id',$id)->get();
+        return $username;
+
+    }
 }

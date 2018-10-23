@@ -52,6 +52,7 @@ Route::prefix('syndic')->group(function(){
     Route::get('/read-message', 'MessagerieController@readMessageSyndic')->name('syndic.read-message')->middleware('auth');
     Route::get('/readMp/{id_message}', 'MessagerieController@readMp')->name('syndic.readMp')->middleware('auth');
     Route::get('/refresh-message', 'MessagerieController@refreshMessage')->name('syndic.refreshMessage')->middleware('auth');
+    Route::post('/reply/{messageId}', 'MessagerieController@repondre')->name('syndic.reply')->middleware('auth');
 
     //ajax
     Route::get('/tbody-appart/{id_immeuble}', 'SyndicsController@immeubleAppart')->middleware('auth');

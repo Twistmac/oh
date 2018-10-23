@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Model\Membres;
+use App\Model\Partenaire;
+use App\Model\Partenaires;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -54,6 +56,7 @@ class MembresController extends Controller
                 $result['success'] = 1;
                 $result['role'] = $membre->role;
                 $result['complete'] = $membre->complete;
+                $result['syndic_id'] = $membre->syndic_id;
                 return response()->json(array(
                     'result' => $result,
                 ));
@@ -81,5 +84,41 @@ class MembresController extends Controller
         return response()->json(array(
             'result' => $result
         ));
+    }
+
+    //authentification appli partenaire*
+    public function loginPartenaire(Request $request){
+        $log = $request->getContent();
+        $data = json_decode($log,true);
+
+        //
+        $partenaire_check = Partenaire::where('email',$data['email'])->get();
+        if(!$partenaire_check->isEmpty()){
+
+            foreach ($partenaire_check as $part){
+                $pass = $part->password;
+            }
+            //comparer mdp appli
+            if(Hash::check($data['password'], $pass)) {
+                $result = Partenaire::where('email',$data['email'])->join('categories','categories.id','=','partenaires.categorie_id')->get();
+                return response()->json(array(
+                    'success' => true,
+                    'result'=> $result
+                ));
+            }
+            else{
+                return response()->json(array(
+                    'success' => false
+                ));
+            }
+
+
+        }
+        else{
+            return response()->json(array(
+                'success' => 'false'
+            ));
+        }
+
     }
 }

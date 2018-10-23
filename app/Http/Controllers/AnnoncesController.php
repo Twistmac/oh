@@ -80,9 +80,9 @@ class AnnoncesController extends Controller
 
 
 
-    public function annoncesJson($type,$user_id)
+    public function annoncesJson($type,$user_id,$syndic_id)
     {
-        $result = Annonces::all();
+        $result = Annonces::where('syndic_id',$syndic_id)->get();
 
         $annonces = AnnoncesResource::collection($result);
 
@@ -143,6 +143,7 @@ class AnnoncesController extends Controller
         $annonce->categorie_id = $data->categorie;
         $annonce->type = $data->type;
         $annonce->user_id = (int) $data->id_User;
+        $annonce->syndic_id = (int) $data->syndic_id;
 
         $name = time() . '_annonce';
 
@@ -197,6 +198,31 @@ class AnnoncesController extends Controller
         ));
     }
 
+    //ajout annonce sans image
+    public function saveAnnonceJsonNotImage(Request $request){
+        $input = $request->getContent();
+
+        $data = $data = json_decode($input,true);
+
+        $annonce = new Annonces();
+
+        $annonce->titre = $data['titre'];
+        $annonce->description = $data['description'];
+        $annonce->prix = $data['prix'];
+        $annonce->categorie_id = $data['categorie'];
+        $annonce->type = $data['type'];
+        $annonce->user_id = $data['id_User'];
+        $annonce->syndic_id = $data['syndic_id'];
+
+        $annonce->image = '';
+        $annonce->save();
+        $result['result'] = 'ok';
+
+        return response()->json(array(
+            'result' => $result,
+        ));
+    }
+
     public function myAnnoncesJson($id)
     {
         $annonces = Annonces::where('user_id', $id)->get();
@@ -215,6 +241,7 @@ class AnnoncesController extends Controller
         $likes = new Likes_syndics();
         $coms = new Coms_annonce();
         $annonces = Annonces_syndic::where('syndic_id',$id_syndic)->get();
+        $nb_like = [];
         foreach ($annonces as $item){
             $nb_like[] = $likes->nbr_like($item->id);
             $nb_coms[] = $coms->nbr_coms($item->id);
