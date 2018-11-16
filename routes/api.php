@@ -43,3 +43,13 @@ Route::get('/delete-annonce/{id}','AnnoncesController@deleteJson');
 
 //------------- PARTENAIRE -----------------//
 Route::post('/login-partenaire','MembresController@loginPartenaire');
+Route::post('/update-partenaire','MembresController@updatePartenaire');
+Route::get('/annonce-partenaire/{id_categorie}/{syndic_id}','AnnoncesController@annoncePartenaire');
+Route::get('/annonce-syndic-partenaire/{id_categorie}/{syndic_id}','AnnoncesController@annonceSyndicPartenaire');
+
+////
+//------------- api get -----------------//
+Route::get('/residence-by-id/{id}','MembresController@getResidenceById');
+Route::get('/resident-by-id/{id}','MembresController@getResidentById');
+Route::get('/partenaire-by-id/{id}','MembresController@getPartenaireById');
+

@@ -18,7 +18,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        Numero :
+                                        Number :
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -30,7 +30,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        Nom d'immeuble :
+                                        Building name:
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -42,7 +42,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        Nombre d'appartement(s) :
+                                        Number of apartment (s):
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -57,7 +57,7 @@
                                     <div class="form-group">
                                         <button class="btn btn-primary btn-flat">
                                             <span class="glyphicon glyphicon-pencil"></span>
-                                            Modifier
+                                            Check
                                         </button>
                                     </div>
                                 </div>
@@ -72,25 +72,31 @@
             <div class="col-md-7">
                 <div class="box box-info">
                     <div class="box-header">
-                        <h4>Les appartements</h4>
+                        <h4>Buildings</h4>
                     </div>
                     <div class="box-body">
                         <table class="table table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>Numero</th>
-                                <th>Nom du resident</th>
-                                <th>Pseudo</th>
-                                <th>Module</th>
+                                <th> </th>
+                                <th>Number</th>
+                                <th>Action </th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="tbody-appart">
+                            <?php $int = 0; ?>
                             @foreach($appartement as $appart)
+                                <?php $int++ ?>
                                 <tr>
-                                    <td>{{ $appart->id_appartement }}</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ $int }}</td>
+                                    <td>{{ $appart->num_appartement }}</td>
+                                    <td class="action">
+                                        <input id="num-module-hidden" type="hidden" value="{{ $appart->num_appartement }}" >
+                                        <input id="id-module-hidden" type="hidden" value="{{ $appart->id_appartement }}" >
+                                        <a class="btn btn-primary btn-sm">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </a>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -99,5 +105,57 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <form action="{{ route('admin.edit-num-appartement') }}" method="Post">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                Number of apartment:
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <input id="num-module-edit"  type="number" name="num_appart" class="form-control" value="">
+                                <input id="id-module-edit" name="id_appart" type="hidden" value="" >
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+                </div>
+
+            </div>
+        </div>
+
+
+        <script>
+            $(document).ready(function(){
+                $('#tbody-appart tr .action').click(function () {
+                    var num_module = $(this).find('#num-module-hidden').val();
+                    var id_module = $(this).find('#id-module-hidden').val();
+                    $('#num-module-edit').val(num_module);
+                    $('#id-module-edit').val(id_module);
+
+                    $('#modal-edit').modal('show');
+                })
+            })
+        </script>
+
 
 @endsection

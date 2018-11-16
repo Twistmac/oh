@@ -8,7 +8,7 @@
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">
-                            Generer des comptes resident :
+                            Generate resident accounts:
                         </h3>
                     </div>
                     <div class="box-body">
@@ -16,18 +16,18 @@
                             @csrf
                             <div class="form-group">
                                 <label for="">
-                                    Résidence rattachée :
+                                    Attached residence number:
                                 </label>
                                 <select id="residence_id" name="residence_id" class="form-control">
                                     @foreach($residences as $item)
-                                        <option value="{{ $item->id_residence }}|{{ $item->syndic_id }}">{{ $item->nom }}</option>
+                                        <option value="{{ $item->id_residence }}|{{ $item->syndic_id }}">{{ $item->numero }}</option>
                                     @endforeach
                                 </select>
                             </div>
 
                             <div class="form-group">
                                 <label for="">
-                                    Immeuble rattaché :
+                                    Attached building:
                                 </label>
                                 <select id="immeuble_select" name="immeuble_id" class="form-control" required>
 
@@ -45,7 +45,7 @@
                             @endif
                             <div class="form-group">
                                 <button id="generer" class="btn btn-primary btn-flat">
-                                    Générer des residents
+                                    Generate residents
                                 </button>
                             </div>
                         </form>
@@ -56,18 +56,17 @@
             <div class="col-md-8">
                 <div class="box box-info">
                     <div class="box-header">
-                        <h4>Appartements</h4>
+                        <h4>apartments</h4>
                     </div>
                     <div class="box-body">
                         <table class="table table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>Numero</th>
-                                <th>Nom du resident</th>
+                                <th>Number</th>
+                                <th>Name of the resident</th>
                                 <th>Pseudo</th>
-                                <th>Mot de passe</th>
-                                <th>Module</th>
-                                <th>etat</th>
+                                <th>Password</th>
+                                <th>State</th>
                             </tr>
                             </thead>
                             <tbody id="tbody-appart">

@@ -8,7 +8,7 @@
                 <div class="box box-danger">
                     <div class="box-header">
                         <h3 class="box-title">
-                            Résidence numéro  {{ $r->numero}}
+                            Residence number  {{ $r->numero}}
                         </h3>
                     </div>
                     <div class="box-body">
@@ -17,7 +17,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        Nom :
+                                        Name :
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -29,7 +29,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        Nom référent :
+                                        Referent name:
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -41,7 +41,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        Prénom référent :
+                                        Referent firstname:
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -65,7 +65,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        Adresse :
+                                        Address :
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -77,7 +77,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        Code postal :
+                                        Postal Code :
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -89,7 +89,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        Ville :
+                                        City :
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -101,7 +101,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        Téléphone :
+                                        Phone :
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -113,7 +113,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        Nombre partenaires :
+                                        Number of partners:
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -125,7 +125,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        Nombre Immeuble(s) :
+                                        Number of building (s):
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -137,7 +137,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        Nombre de Motorbike :
+                                        Number of Motorbikes:
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -148,11 +148,30 @@
                             </div>
 
                             <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        Module:
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <input id="id_module" type="hidden" value="{{ $r->module['id_module'] }}">
+                                    <div class="form-group">
+                                        <select id="#select-module" name="module" class="form-control">
+                                            <option>Select module number....</option>
+                                            @foreach($module as $mod)
+                                                <option value="{{ $mod->id_module }}"> {{ $mod->numero_module }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
                                 <div class="col-md-8 col-md-offset-4">
                                     <div class="form-group">
                                         <button class="btn btn-primary btn-flat">
                                             <span class="glyphicon glyphicon-pencil"></span>
-                                            Modifier
+                                            Edit
                                         </button>
                                     </div>
                                 </div>
@@ -166,22 +185,20 @@
             <div class="col-md-6">
                 <div class="box box-info">
                 <div class="box-header">
-                    <h4>Les Immeubles</h4>
+                    <h4>Buildings</h4>
                 </div>
                 <div class="box-body">
                     <table class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>N°</th>
-                            <th>Nom immeuble</th>
-                            <th style="width: 35%">Nombre appartements</th>
+                            <th>Building name</th>
+                            <th style="width: 35%">Number of apartments</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($immeubles as $immeuble)
                             <tr>
-                                <td>{{ $immeuble->id }}</td>
                                 <td>{{ $immeuble->nom_immeuble }}</td>
                                 <td>{{ $immeuble->nbr_appart }}</td>
                                 <td>
@@ -205,4 +222,11 @@
             </div>
         </div>
     </div>
+
+        <script>
+            $(document).ready(function () {
+                var id_module = $('#id_module').val();
+                $('select option[value= '+id_module+']').attr("selected",true);
+            })
+        </script>
 @endsection

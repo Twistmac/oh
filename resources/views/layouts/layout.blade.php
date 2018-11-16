@@ -317,7 +317,7 @@
                         <button href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();" class="btn btn-flat btn-danger buttonmenu" style="border-radius:5px;">
-                                    {{ __('Déconnexion') }}
+                                    {{ __('Sign out') }}
                         </button>
                         <!-- fin modif -->
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -338,17 +338,17 @@
                 {{--<li class="header">MAIN NAVIGATION</li>--}}
                 <li>
                     <a href="{{ route('admin.dashboard') }}">
-                        <i class="fa fa-dashboard"></i> <span>Tableau de bord</span>
+                        <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('admin.gestion-contenu') }}">
-                        <i class="fa fa-user-circle"></i> <span>Gestion de contenu</span>
+                        <i class="fa fa-user-circle"></i> <span>Content Management</span>
                     </a>
                 </li>
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-home"></i> <span>Résidence</span>
+                        <i class="fa fa-home"></i> <span>Residence</span>
                         <!-- résidence flèche -->
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
@@ -357,14 +357,14 @@
                     </a>
                     <!-- sous-menu du résident -->
                      <ul class="treeview-menu">
-                        <li><a href="{{ route('admin.gestion-residences') }}"><i class="fa fa-circle-o"></i> Liste des résidences</a></li>
-                        <li><a href="{{ route('admin.gestion-residences-ajout') }}"><i class="fa fa-circle-o"></i> Ajouter résidence</a></li>
+                        <li><a href="{{ route('admin.gestion-residences') }}"><i class="fa fa-circle-o"></i> List of Residence</a></li>
+                        <li><a href="{{ route('admin.gestion-residences-ajout') }}"><i class="fa fa-circle-o"></i> Add Residence</a></li>
                     </ul>
                     <!--fin du sous menu -->
                 </li>
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-bookmark"></i> <span>Résident</span>
+                        <i class="fa fa-bookmark"></i> <span>Resident</span>
                         <!-- résidence flèche -->
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
@@ -373,14 +373,14 @@
                     </a>
                     <!-- sous-menu du résident -->
                      <ul class="treeview-menu">
-                        <li><a href="{{ route('admin.gestion-residents') }}"><i class="fa fa-circle-o"></i> Liste des résidents</a></li>
-                        <li><a href="{{ route('admin.gestion-residents-ajout') }}"><i class="fa fa-circle-o"></i> Ajouter résident</a></li>
+                        <li><a href="{{ route('admin.gestion-residents') }}"><i class="fa fa-circle-o"></i> List of Residents</a></li>
+                        <li><a href="{{ route('admin.gestion-residents-ajout') }}"><i class="fa fa-circle-o"></i> Add Resident</a></li>
                     </ul>
                     <!--fin du sous menu -->
                 </li>
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-crosshairs"></i> <span>Partenaires-Motorbikes</span>
+                        <i class="fa fa-crosshairs"></i> <span>Partners-Motorbikes</span>
                     
 					<!-- PM flèche flèche -->
                         <span class="pull-right-container">
@@ -390,21 +390,20 @@
 					</a>
 					<!-- sous-menu du résident -->
                      <ul class="treeview-menu">
-                        <li style=""><a href="{{ route('admin.gestion-partenaires') }}"><i class="fa fa-circle-o"></i>Ajouter Partenaires-Motorbikes</a></li>
+                        <li style=""><a href="{{ route('admin.gestion-partenaires') }}"><i class="fa fa-circle-o"></i>Add</a></li>
                     </ul>
                     <!--fin du sous menu -->
                 </li>
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-table"></i> <span>Annonces</span>
+                        <i class="fa fa-table"></i> <span>Ads</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="#"> Annonces OHOME</a></li>
-                        <li><a href="#"> Annonces page ouvertures d'accès</a></li>
-                        <li><a href="{{ route('admin.gestion-annonces') }}"> Annonces générales</a></li>
+                        <li><a href="#"> Ohome Ads</a></li>
+                        <li><a href="{{ route('admin.gestion-annonces') }}"> General Ads</a></li>
                     </ul>
                 </li>
                 <li>
@@ -414,7 +413,7 @@
                 </li>
                 <li>
                     <a href="{{ route('admin.gestion-categories') }}">
-                        <i class="fa fa-table"></i> <span>Catégorie</span>
+                        <i class="fa fa-table"></i> <span>Category</span>
                     </a>
 
                 </li>
@@ -443,7 +442,7 @@
 				<!-- -->
                 <li>
                     <a href="#">
-                        <i class="fa fa-keyboard-o"></i> <span>Paramètres</span>
+                        <i class="fa fa-keyboard-o"></i> <span>Setting</span>
                     </a>
                 </li>
 				<li>

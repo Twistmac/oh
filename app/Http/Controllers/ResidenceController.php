@@ -19,7 +19,7 @@ class ResidenceController extends Controller
         $user->delete();
         $immeuble = Immeuble::where('id_residence', $id);
         $appartement = Appartement::where('id_residence', $id);
-        $resident= Residents::where('residence_id', $syndic_id);
+        $resident= Residents::where('syndic_id', $syndic_id);
         $appartement->delete();
         $immeuble->delete();
         $residence->delete();
@@ -177,4 +177,13 @@ class ResidenceController extends Controller
 	public function importresidences(){
 		return view('admin/importresidences');
 	}
+
+	public function editNumAppartement(Request $request){
+        $appartement = Appartement::where('id_appartement', $request->input('id_appart'));
+        $check = $appartement->update(['num_appartement' =>  $request->input('num_appart')]);
+        if($check){
+            return redirect()->back()->with('success','Appartment update');
+        }
+    }
+
 }

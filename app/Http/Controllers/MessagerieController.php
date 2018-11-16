@@ -99,11 +99,27 @@ class MessagerieController extends Controller
             'read'=> 3,
             'timestamp'=>date("d M Y G:i")
         ];
-
         $dataU = [ $id => 0];
-        $push = $firebase->push('/data_messages/conversationsSyndic/'.$messageId, $data);
-        $update = $firebase->update('/data_messages/chatsSyndic/'.$messageId.'/countUnread/', $dataU);
+
+        $message_envoyer = Messagerie::create([
+                                'conv_name'=> $request->senderId.'_'.$id,
+                                'messagerie'=> $request->message,
+                                'id_syndic'=> $id,
+                                'resident_id'=> $request->senderId
+                            ]);
+        if($message_envoyer){
+            $push = $firebase->push('/data_messages/conversationsSyndic/'.$messageId, $data);
+            $update = $firebase->update('/data_messages/chatsSyndic/'.$messageId.'/countUnread/', $dataU);
+        }
         return redirect()->route('syndic.messagerie')->with('success','Message send success');
+    }
+
+    //message envoyer
+    public function messageSend(){
+        $id = Auth::User()->id;
+        $messagerie = new Messagerie();
+        $mp_send = $messagerie->getMpSyndicResident($id);
+        return view('syndics.message-envoyer',compact('mp_send'));
     }
 
 }

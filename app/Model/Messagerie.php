@@ -13,7 +13,7 @@ class Messagerie extends Model
     //use SyncsWithFirebase;
     protected $table = "messagerie";
 
-    protected $fillable =['conv_name', 'messagerie', 'syndic_id', 'resident_id'];
+    protected $fillable =['conv_name', 'messagerie', 'id_syndic', 'resident_id'];
 
     public function getMpSyndicResident($id){
     	$message = Messagerie::join('membres' , 'membres.id', '=', 'messagerie.resident_id')

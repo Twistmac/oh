@@ -33,7 +33,9 @@ class AnnoncesResource extends JsonResource
             'user_id' => Membres::where('id', $this->user_id)->first(),
             'categorie' => Categorie::where('id', $this->categorie_id)->first()->name,
             'like' => $this->like,
-            'nb_like' => $this->nb_like
+            'nb_like' => $this->nb_like,
+            'syndic_id' => $this->syndic_id,
+            'id_partenaire' => $this->id_partenaire
         ];
     }
 }

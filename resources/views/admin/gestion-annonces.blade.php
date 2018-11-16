@@ -7,7 +7,7 @@
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">
-                            Ajouter nouvelle annonce
+                            Add new ad
                         </h3>
                     </div>
                     <div class="box-body">
@@ -17,7 +17,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">
-                                            Catégorie :
+                                            Category :
                                         </label>
                                     </div>
                                 </div>
@@ -35,7 +35,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">
-                                            Titre :
+                                            Title :
                                         </label>
                                     </div>
                                 </div>
@@ -79,7 +79,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">
-                                            Prix :
+                                            Price :
                                         </label>
                                     </div>
                                 </div>
@@ -93,27 +93,13 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">
-                                            Résidence :
+                                            Residence :
                                         </label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-8">
                                         <input type="text" class="form-control" name="residence" value="{{ old('residence') }}">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="">
-                                            Tranche d'âge
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control" name="age" value="{{ old('age') }}">
                                     </div>
                                 </div>
                             </div>
@@ -134,7 +120,7 @@
                                 <div class="col-md-8 col-md-offset-4">
                                     <div class="form-group">
                                         <button class="btn btn-primary btn-flat">
-                                            Ajouter
+                                            Add
                                         </button>
                                     </div>
                                 </div>
@@ -147,7 +133,7 @@
                 <div class="box box-success">
                     <div class="box-header">
                         <h3 class="box-title">
-                            Liste des annonces
+                            List of ads
                         </h3>
                     </div>
                     <div class="box-body">
@@ -155,16 +141,16 @@
                             <thead>
                             <tr>
                                 <th>
-                                    Catégorie
+                                    Category
                                 </th>
                                 <th>
-                                    Titre
+                                    Title
                                 </th>
                                 <th>
-                                    Prix
+                                    Price
                                 </th>
                                 <th>
-                                    Résidence
+                                    Residence
                                 </th>
                                 <th>
                                     Actions
@@ -193,7 +179,7 @@
                                             @csrf
                                             <input name="_method" type="hidden" value="DELETE">
                                             <button type="submit" class="btn btn-flat btn-danger btn-xs">
-                                                Supprimer
+                                                <span class="glyphicon glyphicon-trash"></span>
                                             </button>
                                         </form>
                                     </td>

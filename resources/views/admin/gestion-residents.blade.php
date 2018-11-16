@@ -8,7 +8,7 @@
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">
-                            Liste des comptes résidents :
+                            List of resident accounts:
                         </h3>
                     </div>
                     <div class="box-body">
@@ -16,16 +16,25 @@
                             <thead>
                             <tr>
                                 <th>
+                                    Residence number
+                                </th>
+                                <th>
+                                    Building
+                                </th>
+                                <th>
+                                    Apartement number
+                                </th>
+                                <th>
                                     Username
                                 </th>
                                 <th>
                                     Email
                                 </th>
                                 <th>
-                                    Date de création
+                                    Creation date
                                 </th>
                                 <th>
-                                    Etat
+                                    State
                                 </th>
                                 <th>
                                     Actions
@@ -35,6 +44,9 @@
                             <tbody>
                             @foreach($residents as $item)
                                 <tr>
+                                    <td>{{ $item->numero }}</td>
+                                    <td>{{ $item->nom_immeuble }}</td>
+                                    <td>{{ $item->num_appartement }}</td>
                                     <td>
                                         {{ $item->username ? $item->username : 'N/A' }}
                                     </td>

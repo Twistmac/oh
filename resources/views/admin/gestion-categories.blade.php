@@ -7,7 +7,7 @@
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">
-                            Ajouter une nouvelle catégorie :
+                            Add a new category:
                         </h3>
                     </div>
                     <div class="box-body">
@@ -15,24 +15,24 @@
                             @csrf
                             <div class="form-group">
                                 <label for="">
-                                    Nom de la catégorie :
+                                    Category name:
                                 </label>
                                 <input type="text" name="name" class="form-control" value="{{ old('categorie') }}">
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-danger">
-                                    Ajouter la catégorie
+                                   Add Category
                                 </button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <div class="box box-danger">
                     <div class="box-header">
                         <h3 class="box-title">
-                            Liste des catégories :
+                            List:
                         </h3>
                     </div>
                     <div class="box-body">
@@ -40,10 +40,10 @@
                             <thead>
                             <tr>
                                 <th>
-                                    Catégorie
+                                    Category
                                 </th>
                                 <th>
-                                    Actions
+
                                 </th>
                             </tr>
                             </thead>

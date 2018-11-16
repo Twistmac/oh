@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 use Excel_XML;
+use PhpParser\Node\Expr\AssignOp\Mod;
 use Validator;
 
 class AdminController extends Controller
@@ -52,8 +53,14 @@ class AdminController extends Controller
 
     public function gestionResidents()
     {
-        $residents = Membres::where('role', 'resident')->get();
+        $residents = Membres::where('role', 'resident')
+            ->join('residence', 'residence.syndic_id', '=', 'membres.syndic_id')
+            ->join('immeuble', 'immeuble.id_residence', '=', 'residence.id_residence')
+            ->join('appartement', 'appartement.id_immeuble', '=', 'immeuble.id')
+            ->get();
         $residences = Residence::all();
+
+        //return $residents;
 
         return view('admin/gestion-residents', compact(array('residents', 'residences')));
     }
@@ -68,7 +75,10 @@ class AdminController extends Controller
 
     public function gestionResidences()
     {
-        $residences = Residence::join('users','residence.syndic_id','=','users.id')->get();
+        //$residences = Residence::join('users','residence.syndic_id','=','users.id')->get();
+
+        $resid = new Residence();
+        $residences = $resid->getAll();
         return view('admin/gestion-residences', compact(array('residences')));
     }
 
@@ -76,8 +86,9 @@ class AdminController extends Controller
     public function gestionResidencesajout()
     {
         $residences = Residence::join('users','residence.syndic_id','=','users.id');
+        $module = Module::all();
 
-        return view('admin/gestion-residences-ajout', compact(array('residences', 'residences')));
+        return view('admin/gestion-residences-ajout', compact(array('residences', 'module')));
     }
 
     public function gestionPartenaires()
@@ -120,6 +131,7 @@ class AdminController extends Controller
 
         $data['nb_immeuble'] = $request->nb_immeuble;
         $data['nb_motorbike'] = $request->nb_motorbike;
+        $data['id_module'] = $request->module;
         if($id_syndic = Syndics::create($syndic)->id){
             $data['syndic_id'] = $id_syndic;
 
@@ -163,24 +175,26 @@ class AdminController extends Controller
         $residents = Residents::where(['role' => 'resident', 'residence_id' => $id])->get();
         $partenaires = Partenaires::where(['role' => 'partenaire', 'residence_id' => $id])->get();
         $immeubles = Immeuble::where('id_residence',$id)->get();
+        $module = Module::all();
 
         if ($request->isMethod('POST'))
         {
-            $residence = where('syndic_id',$id)->get();
+            $resid = Residence::where('id_residence',$id);
 
-            $residence->nom = $request->nom;
-            $residence->nom_ref = $request->nom_ref;
-            $residence->prenom_ref = $request->prenom_ref;
-            $residence->email = $request->email;
-            $residence->adresse = $request->adresse;
-            $residence->code_postal = $request->code_postal;
-            $residence->ville = $request->ville;
-            $residence->tel = $request->tel;
-            $residence->nb_partenaire = $request->nb_partenaire;
-            $residence->nb_immeuble = $request->nb_immeuble;
-            $residence->nb_motorbike = $request->nb_motorbike;
+            $data['nom'] = $request->nom;
+            $data['nom_ref'] = $request->nom_ref;
+            $data['prenom_ref'] = $request->prenom_ref;
+            $data['email'] = $request->email;
+            $data['adresse'] = $request->adresse;
+            $data['code_postal'] = $request->code_postal;
+            $data['ville'] = $request->ville;
+            $data['tel'] = $request->tel;
+            $data['nb_partenaire'] = $request->nb_partenaire;
+            //$data['nb_immeuble'] = $request->nb_immeuble;
+            $data['nb_motorbike'] = $request->nb_motorbike;
+            $data['id_module'] = $request->module;
 
-            if($residence->save())
+            if($resid->update($data))
             {
                 $residences = Residence::all();
                 $syndics = User::all();
@@ -190,7 +204,7 @@ class AdminController extends Controller
             }
         }
 
-        return view('admin/edit-residence', compact(['residence', 'residents', 'partenaires', 'immeubles']));
+        return view('admin/edit-residence', compact(['residence', 'module', 'residents', 'partenaires', 'immeubles']));
     }
 
 	//**********code import export de données**************//

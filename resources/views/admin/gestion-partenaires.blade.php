@@ -6,7 +6,7 @@
             <div class="col-md-4">
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Ajouter un compte partenaire-motorbikes</h3>
+                        <h3 class="box-title">Add a partner account-motorbikes</h3>
                     </div>
                     <div class="box-body">
                         <form action="{{ route('admin.add-partenaire') }}" method="POST">
@@ -14,7 +14,7 @@
                             <div class="form-group">
 								<!-- liste select -->
                                 <label for="">
-                                    Résidence rattachée :
+                                    Attached residence:
                                 </label>
                                 <select name="residence_id" class="form-control selectpicker">
                                     @foreach($residences as $item)
@@ -28,11 +28,11 @@
 							<div class="form-group">
 								<!-- liste select -->
                                 <label for="">
-                                    Catégorie :
+                                    Category:
                                 </label>
                                 <select name="categorie" class="form-control selectpicker">
                                 
-                                        <option value="partenaire">Partenaire</option>
+                                        <option value="partenaire">Partner</option>
 										<option value="motorbike">Motorbike</option>
                                     
                                 </select>
@@ -44,7 +44,7 @@
 							<!-- elements de formulaire numero -->
 							<div class="form-group">
                                 <label for="">
-                                    Numéro :
+                                    Number:
                                 </label>
                                 <input type="text" name="numero_pm" class="form-control" value="">
                             </div>
@@ -90,7 +90,7 @@
                                         <!-- fin du formulaire modifié -->
                             </div>
                             <div class="form-group">
-                                <span class="btn btn-danger btn-flat" id="generate">Générer mot de passe</span>
+                                <span class="btn btn-danger btn-flat" id="generate">Generate password</span>
                             </div>
                             @if ($errors->any())
                                 <div class="alert alert-danger">
@@ -103,7 +103,7 @@
                             @endif
                             <div class="form-group">
                                 <button class="btn btn-primary btn-flat">
-                                    Créer le compte
+                                    Create account
                                 </button>
                             </div>
                         </form>
@@ -113,7 +113,7 @@
             <div class="col-md-8">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Liste des comptes partenaires-motorbikes</h3>
+                        <h3 class="box-title">List of partner-motorbike accounts</h3>
                     </div>
                     <div class="box-body">
                         <table class="table table-bordered table-hover datatable">
@@ -126,16 +126,13 @@
                                     Email
                                 </th>
                                 <th>
-                                    Date de création
-                                </th>
-                                <th>
-                                    Résidence rattachée
+                                    Attached Residence
                                 </th>
 								<th>
-                                   Catégorie
+                                   Category
                                 </th>
 								<th>
-                                   Numéro
+                                   Number
                                 </th>
                                 <th>
                                     Actions
@@ -152,9 +149,7 @@
                                         {{ $item->email ? $item->email : 'N/A' }}
                                     </td>
 									
-                                    <td>
-                                        {{ date('d-m-Y', strtotime($item->created_at)) }}
-                                    </td>
+
                                     <td>
                                         {{ $item->residence_id ? $item->residence_id : '' }}
                                     </td>
@@ -166,7 +161,6 @@
                                     </td>
                                     <td>
                                         <span class="glyphicon glyphicon-pencil"></span>
-                                        &nbsp;-&nbsp;
                                         <form onsubmit="return confirm('Confirm delete ?')" class="form-inline" action="{{ route('admin.delete-partenaire', $item->id) }}" method="post">
                                             @csrf
                                             <input name="_method" type="hidden" value="DELETE">

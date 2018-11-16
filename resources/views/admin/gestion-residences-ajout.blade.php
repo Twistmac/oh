@@ -7,7 +7,7 @@
                 <div class="box box-danger">
                     <div class="box-header">
                         <h3 class="box-title">
-                            Ajouter une nouvelle résidence :
+                            Add a new residence:
                         </h3>
                     </div>
                     <div class="box-body">
@@ -17,7 +17,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">
-                                            Numéro de la résidence :
+                                            Residence number:
                                         </label>
                                         <input type="text" name="numero" class="form-control" value="{{ old('numero') }}" required>
                                         <div class="error">
@@ -30,7 +30,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">
-                                            Nom de la résidence :
+                                            Name of the residence:
                                         </label>
                                         <input type="text" name="nom" class="form-control" value="{{ old('nom') }}" required>
                                         <div class="error">
@@ -43,7 +43,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">
-                                            Nom référent :
+                                            Referent lastname:
                                         </label>
                                         <input type="text" name="nom_ref" class="form-control" value="{{ old('nom_ref') }}" required>
                                         <div class="error">
@@ -56,7 +56,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">
-                                            Prénom référent :
+                                            Referent firstname :
                                         </label>
                                         <input type="text" name="prenom_ref" class="form-control" value="{{ old('prenom_ref') }}">
                                         <div class="error">
@@ -69,7 +69,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">
-                                            Email :
+                                            E-mail :
                                         </label>
                                         <input type="email" name="email" class="form-control" value="{{ old('email') }}" required>
                                         <div class="error">
@@ -82,7 +82,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">
-                                            Adresse :
+                                            Address :
                                         </label>
                                         <input type="text" name="adresse" class="form-control" value="{{ old('adresse') }}" required>
                                         <div class="error">
@@ -95,7 +95,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">
-                                            Code postal :
+                                            Postal Code :
                                         </label>
                                         <input type="text" name="code_postal" class="form-control" value="{{ old('code_postal') }}" required><div class="error">
                                             <div class="error">
@@ -109,7 +109,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">
-                                            Ville :
+                                            City :
                                         </label>
                                         <input type="text" name="ville" class="form-control" value="{{ old('ville') }}">
                                         <div class="error">
@@ -122,7 +122,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">
-                                            Téléphone :
+                                            Phone :
                                         </label>
                                         <input type="number" name="tel" class="form-control" value="{{ old('tel') }}" required>
                                         <div class="error">
@@ -135,7 +135,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">
-                                            Nombre limite de partenaires :
+                                            Limited number of partners:
                                         </label>
                                         <input type="number" name="nb_partenaire" class="form-control" value="{{ old('nb_partenaire') }}" required>
                                         <div class="error">
@@ -148,7 +148,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">
-                                            Nombre d'immeuble(s) :
+                                            Number of building (s):
                                         </label>
                                         <input type="number" name="nb_immeuble" class="form-control" value="" required>
 
@@ -159,7 +159,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">
-                                            Nombre de motorbikes :
+                                            Number of motorbikes:
                                         </label>
                                         <input type="number" name="nb_motorbike" class="form-control" value="" required>
                                     </div>
@@ -169,8 +169,24 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
+                                        <label for="">
+                                            Module:
+                                        </label>
+                                        <select name="module" class="form-control">
+                                            <option>Select module number....</option>
+                                            @foreach($module as $mod)
+                                                <option value="{{ $mod->id_module }}"> {{ $mod->numero_module }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
                                         <button class="btn btn-primary btn-flat">
-                                            Ajouter
+                                            Add
                                         </button>
                                     </div>
                                 </div>

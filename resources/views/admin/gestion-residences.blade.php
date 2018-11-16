@@ -11,7 +11,7 @@
                         <div class="col2-right-layout">
                             <a href="{{ route('admin.gestion-residences-ajout') }}" class="btn btn-success">
                                 <span class="fa fa-plus-circle"></span>
-                                Ajouter
+                                Add
                             </a>
                         </div>
 
@@ -20,13 +20,13 @@
                         <table class="table table-bordered table-hover datatable">
                             <thead>
                             <tr>
-                                <th>Numéro</th>
-                                <th>Nom</th>
-                                <th>Nom référent</th>
-                                <th>Email</th>
-                                <th>Adresse</th>
+                                <th>Number</th>
+                                <th>Name</th>
+                                <th>Referent Name</th>
+                                <th>E-mail</th>
+                                <th>N° Module</th>
                                 <th>Password</th>
-                                <th>Date de création</th>
+                                <th>Creation date</th>
                                 <th> </th>
                             </tr>
                             </thead>
@@ -37,7 +37,7 @@
                                     <td>{{ $item->nom }}</td>
                                     <td>{{ $item->nom_ref.' '.$item->prenom_ref }}</td>
                                     <td>{{ $item->email }}</td>
-                                    <td>{{ $item->adresse }}</td>
+                                    <td>{{ $item->module['numero_module'] }}</td>
                                     <td><input id="password-field-{{ $item->numero }}" type="password" class="form-control form-control-{{ $item->numero }}" value="{{ base64_decode($item->salt) }}" style="width: 110px">
                                         <span style="margin-left: -25px;margin-top: -25px;position: relative;z-index: 2;" toggle="#password-field-{{ $item->numero }}" class="fa fa-fw fa-eye field-icon toggle-password"></span></td>
                                     <td>{{ $item->created_at }}</td>

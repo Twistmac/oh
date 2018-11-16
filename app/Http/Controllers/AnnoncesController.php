@@ -107,7 +107,8 @@ class AnnoncesController extends Controller
         }
 
         return response()->json(array(
-            'result' => $data
+            'result' => $data,
+            //'essai'=>$result
         ));
     }
 
@@ -143,6 +144,7 @@ class AnnoncesController extends Controller
         $annonce->categorie_id = $data->categorie;
         $annonce->type = $data->type;
         $annonce->user_id = (int) $data->id_User;
+         $annonce->id_partenaire = (int) $data->id_partenaire;
         $annonce->syndic_id = (int) $data->syndic_id;
 
         $name = time() . '_annonce';
@@ -212,6 +214,7 @@ class AnnoncesController extends Controller
         $annonce->categorie_id = $data['categorie'];
         $annonce->type = $data['type'];
         $annonce->user_id = $data['id_User'];
+        $annonce->id_partenaire = $data['id_partenaire'];
         $annonce->syndic_id = $data['syndic_id'];
 
         $annonce->image = '';
@@ -339,7 +342,28 @@ class AnnoncesController extends Controller
             ));
         }
 
+    }
 
+    //annonce partenaire appli
+    public function annoncePartenaire($categorie_id, $syndic_id){
+        $annonce = Annonces::where('categorie_id', $categorie_id)
+                            ->where('syndic_id', $syndic_id)
+                            ->get();
+
+        return response()->json(array(
+                'result'=> $annonce
+            ));                    
+    }
+
+    //annonce syndic dans compte partenaire
+    public function annonceSyndicPartenaire($categorie_id, $syndic_id){
+        $annonce = Annonces_syndic::where('categorie_id', $categorie_id)
+                            ->where('syndic_id', $syndic_id)
+                            ->get();
+
+        return response()->json(array(
+                'result'=> $annonce
+            ));                    
     }
 
 

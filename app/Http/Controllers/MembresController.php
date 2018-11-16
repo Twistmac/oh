@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Model\Membres;
 use App\Model\Partenaire;
 use App\Model\Partenaires;
+use App\Model\Residence;
+use App\Model\Residents;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -57,6 +59,11 @@ class MembresController extends Controller
                 $result['role'] = $membre->role;
                 $result['complete'] = $membre->complete;
                 $result['syndic_id'] = $membre->syndic_id;
+
+                $residence = Residence::where('syndic_id',$membre->syndic_id)->get();
+                foreach ($residence as $res){
+                    $result['nom_residence'] = $res->nom;
+                }
                 return response()->json(array(
                     'result' => $result,
                 ));
@@ -100,7 +107,10 @@ class MembresController extends Controller
             }
             //comparer mdp appli
             if(Hash::check($data['password'], $pass)) {
-                $result = Partenaire::where('email',$data['email'])->join('categories','categories.id','=','partenaires.categorie_id')->get();
+                $result = Partenaire::where('partenaires.email',$data['email'])
+                                    ->join('categories','categories.id','=','partenaires.categorie_id')
+                                    ->get();
+                $result[0]['pass']= $pass;
                 return response()->json(array(
                     'success' => true,
                     'result'=> $result
@@ -116,9 +126,64 @@ class MembresController extends Controller
         }
         else{
             return response()->json(array(
-                'success' => 'false'
+                'success' => false
             ));
         }
 
     }
+
+    ////// update profil partenaire ///
+    public function updatePartenaire (Request $request){
+        $log = $request->getContent();
+        $data = json_decode($log,true);
+
+        $partenaire = Partenaire::where('id_partenaire',$data['id_partenaire']);
+        $partenaire_check = Partenaire::where('id_partenaire',$data['id_partenaire'])->get();
+        foreach ($partenaire_check as $part) {
+            $pass = $part->password;
+        }
+
+        if($data['password']!= $pass){
+            $data['password'] = Hash::make($data['password']);
+            $partenaire->update($data);
+            return response()->json(array(
+                 'success' => true
+             ));
+        }
+        else{
+            $partenaire->update($data);
+            return response()->json(array(
+                 'success' => true
+             ));
+        }
+        
+    }
+
+    //get residence by id
+    public function getResidenceById($id){
+        $residence = Residence::where('syndic_id', $id)->get();
+        return response()->json(array(
+                 'result' => $residence
+             ));
+
+    }
+
+    //get reident by id
+    public function getResidentById($id){
+        $resident = Residents::where('id', $id)->get();
+        return response()->json(array(
+                 'result' => $resident
+             ));
+
+    }
+
+    //get partenaire by ID
+    public function getPartenaireById($id){
+        $partenaire = Partenaire::where('id_partenaire', $id)->get();
+        return response()->json(array(
+                 'result' => $partenaire
+             ));
+
+    }
+
 }

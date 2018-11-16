@@ -53,6 +53,7 @@ Route::prefix('syndic')->group(function(){
     Route::get('/readMp/{id_message}', 'MessagerieController@readMp')->name('syndic.readMp')->middleware('auth');
     Route::get('/refresh-message', 'MessagerieController@refreshMessage')->name('syndic.refreshMessage')->middleware('auth');
     Route::post('/reply/{messageId}', 'MessagerieController@repondre')->name('syndic.reply')->middleware('auth');
+    Route::get('/message-send', 'MessagerieController@messageSend')->name('syndic.message-send')->middleware('auth');
 
     //ajax
     Route::get('/tbody-appart/{id_immeuble}', 'SyndicsController@immeubleAppart')->middleware('auth');
@@ -139,6 +140,9 @@ Route::prefix('admin')->group(function(){
 
     //module
     Route::any('/gestion-module','AdminController@gestionModule')->name('admin.gestion-module')->middleware('auth:admin');
+
+    //edit appartement
+    Route::post('/edit-num-appartement/', 'ResidenceController@editNumAppartement')->name('admin.edit-num-appartement');
 
 
 

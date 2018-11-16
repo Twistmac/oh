@@ -16,7 +16,7 @@ class Annonces extends Model
     }
 
     protected $fillable = [
-        'categorie', 'titre', 'description', 'image', 'prix', 'residence', 'genre', 'age', 'actif', 'user_id', 'syndic_id'
+        'categorie', 'titre', 'description', 'image', 'prix', 'residence', 'genre', 'age', 'actif', 'user_id', 'syndic_id', 'id_partenaire'
     ];
 
     protected $hidden = [

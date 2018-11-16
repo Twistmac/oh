@@ -13,12 +13,12 @@
                                 <div class="inner">
                                     <h3>{{ count($residences) }}</h3>
 
-                                    <p>Résidences</p>
+                                    <p>Residential homes</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-home"></i>
                                 </div>
-                                <a href="{{ route('admin.gestion-residences') }}" class="small-box-footer">Voir <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="{{ route('admin.gestion-residences') }}" class="small-box-footer">See <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->
@@ -28,12 +28,12 @@
                                 <div class="inner">
                                     <h3>{{ count($residents) }}</h3>
 
-                                    <p>Comptes résidents</p>
+                                    <p>Resident Accounts</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-person"></i>
                                 </div>
-                                <a href="{{ route('admin.gestion-residents') }}" class="small-box-footer">Voir <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="{{ route('admin.gestion-residents') }}" class="small-box-footer">See <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->
@@ -43,12 +43,12 @@
                                 <div class="inner">
                                     <h3>{{ count($partenaires) }}</h3>
 
-                                    <p>Comptes partenaires</p>
+                                    <p>Partner Accounts</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-pie-graph"></i>
                                 </div>
-                                <a href="{{ route('admin.gestion-partenaires') }}" class="small-box-footer">Voir <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="{{ route('admin.gestion-partenaires') }}" class="small-box-footer">See <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->
@@ -63,7 +63,7 @@
                                 <div class="icon">
                                     <i class="ion ion-flash"></i>
                                 </div>
-                                <a href="" class="small-box-footer">Voir <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="" class="small-box-footer">See <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
 
@@ -74,12 +74,12 @@
                                 <div class="inner">
                                     <h3>{{ $annonces }}</h3>
 
-                                    <p>Annonces</p>
+                                    <p>Ads</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-calendar"></i>
                                 </div>
-                                <a href="{{ route('admin.gestion-annonces') }}" class="small-box-footer">Voir <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="{{ route('admin.gestion-annonces') }}" class="small-box-footer">See <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->

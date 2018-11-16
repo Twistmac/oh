@@ -1,6 +1,6 @@
 @foreach($appartement as $appartements)
     <tr>
-        <td>{{ $appartements->id_appartement }}</td>
+        <td>{{ $appartements->num_appartement }}</td>
         <td></td>
         <td>{{ $appartements->username }}</td>
         <td>
