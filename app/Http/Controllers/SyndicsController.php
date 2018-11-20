@@ -153,7 +153,7 @@ class SyndicsController extends Controller
         $residents = Residents::where('syndic_id', '=', $id)
                                 ->where('role', '=', 'resident')
                                 ->join('appartement','appartement.id_resident','=','membres.id')
-                                ->join('immeuble','immeuble.id','=','appartement.id_immeuble')
+                                ->join('immeuble','immeuble.id_immeuble','=','appartement.id_immeuble')
                                 ->get();
 
         return view('syndics/gestion-resident', compact(array('residents')));

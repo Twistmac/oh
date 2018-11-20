@@ -84,6 +84,7 @@ class ResidentsController extends Controller
         $resident->password = Hash::make($input['password']);
         $resident->salt = base64_encode($input['password']);
         $resident->complete = 1;
+        $resident->etatResident = $input['etatResident'];
 
         if($resident->save())
         {
@@ -104,7 +105,7 @@ class ResidentsController extends Controller
         {
 //            $resident->
         }
-
+        //return $resident;
         return view('residents/details-resident', ['resident' => $resident]);
     }
 

@@ -6,7 +6,7 @@
     <section class="content">
       <div class="row">
         <div class="col-md-3">
-          <a href="#" class="btn btn-primary btn-block margin-bottom">Nouveau message</a>
+          <a href="#" class="btn btn-primary btn-block margin-bottom">New</a>
 
           @include('layouts.layout-message-syndic')
           

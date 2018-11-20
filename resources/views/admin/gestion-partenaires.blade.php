@@ -3,13 +3,13 @@
 @section('content')
     <div class="content">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <h3 class="box-title">Add a partner account-motorbikes</h3>
                     </div>
                     <div class="box-body">
-                        <form action="{{ route('admin.add-partenaire') }}" method="POST">
+                        <form id="add-partenaire-form" action="{{ route('admin.add-partenaire') }}" method="POST">
                             @csrf
                             <div class="form-group">
 								<!-- liste select -->
@@ -26,72 +26,49 @@
 							<!-- Element de formulaire catégorie sous forme de liste -->
 							
 							<div class="form-group">
-								<!-- liste select -->
+                                <!-- liste select -->
+                                <label for="">
+                                    Type:
+                                </label>
+                                <select id="type" name="type" class="form-control selectpicker" required>
+                                    <option value="">Select type ...</option>
+                                    <option value="p">Partner</option>
+                                    <option value="m">Motorbike</option>
+
+                                </select>
+                                <!-- fin liste select -->
+                            </div>
+
+                            <div class="form-group">
+                                <!-- liste select -->
                                 <label for="">
                                     Category:
                                 </label>
-                                <select name="categorie" class="form-control selectpicker">
-                                
-                                        <option value="partenaire">Partner</option>
-										<option value="motorbike">Motorbike</option>
-                                    
+                                <select name="categorie" class="form-control selectpicker" required>
+                                    <option value="">Select category ...</option>
+                                    @foreach($categorie as $cat)
+                                    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                        @endforeach
                                 </select>
-								<!-- fin liste select -->
+                                <!-- fin liste select -->
                             </div>
 							
 							<!-- fin élément de formulaire catégorie sous forme de liste -->
 							
 							<!-- elements de formulaire numero -->
-							<div class="form-group">
+							<div class="form-group" id="num-motorbike">
                                 <label for="">
-                                    Number:
+                                    Number Motorbike:
                                 </label>
                                 <input type="text" name="numero_pm" class="form-control" value="">
                             </div>
+                            <div class="form-group">
+                                <label for="">
+                                    Email:
+                                </label>
+                                <input type="email" name="email" class="form-control" value="" required>
+                            </div>
 							<!-- fin elements de formulaire numero facultatif -->
-                            
-							<div class="form-group">
-                                <label for="">
-                                    Login :
-                                </label>
-                                <input type="text" name="username" class="form-control" value="{{ old('username') }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="">
-                                    Password :
-                                </label>
-                                <input type="password" name="password" class="form-control" id="password-field">
-                                <!-- formulaire modifié ce 19/09/18 avec affichage ou non du mot de passe id=password-field ajoutée au input-->
-                                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                                        <!-- style des yeux (affichage ou non du password)-->
-                                        <style>
-                                        .field-icon {
-                                              float: right;
-                                              margin-left: -25px;
-                                              margin-top: -25px;
-                                              position: relative;
-                                              z-index: 2;
-                                            }
-                                        </style>
-                                        <!-- fin du style -->
-                                        <!-- script pour les yeux (affichage ou non du password)-->
-                                        <script>
-                                         $(".toggle-password").click(function() {
-                                              $(this).toggleClass("fa-eye fa-eye-slash");
-                                              var input = $($(this).attr("toggle"));
-                                              if (input.attr("type") == "password") {
-                                                input.attr("type", "text");
-                                              } else {
-                                                input.attr("type", "password");
-                                              }
-                                            });   
-                                        </script>
-                                        <!-- fin du javascript -->
-                                        <!-- fin du formulaire modifié -->
-                            </div>
-                            <div class="form-group">
-                                <span class="btn btn-danger btn-flat" id="generate">Generate password</span>
-                            </div>
                             @if ($errors->any())
                                 <div class="alert alert-danger">
                                     <ul>
@@ -102,6 +79,7 @@
                                 </div>
                             @endif
                             <div class="form-group">
+                                <input type="hidden" name="password" id="password-field">
                                 <button class="btn btn-primary btn-flat">
                                     Create account
                                 </button>
@@ -110,7 +88,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-9">
                 <div class="box">
                     <div class="box-header">
                         <h3 class="box-title">List of partner-motorbike accounts</h3>
@@ -126,13 +104,16 @@
                                     Email
                                 </th>
                                 <th>
-                                    Attached Residence
+                                    Residence number
                                 </th>
 								<th>
                                    Category
                                 </th>
 								<th>
-                                   Number
+                                   type
+                                </th>
+                                <th>
+                                    password
                                 </th>
                                 <th>
                                     Actions
@@ -151,17 +132,20 @@
 									
 
                                     <td>
-                                        {{ $item->residence_id ? $item->residence_id : '' }}
+                                        {{ $item->residence->numero }}
                                     </td>
 									<td>
-                                        {{ $item->categorie ? $item->categorie : '' }}
+                                        {{ $item->name ? $item->name : '' }}
                                     </td>
 									<td>
-                                        {{ $item->numero_pm ? $item->numero_pm : '' }}
+                                        {{ ($item->type == 'p') ? 'partenaire' : 'motorbike' }}
+                                    </td>
+                                    <td>
+                                        pass
                                     </td>
                                     <td>
                                         <span class="glyphicon glyphicon-pencil"></span>
-                                        <form onsubmit="return confirm('Confirm delete ?')" class="form-inline" action="{{ route('admin.delete-partenaire', $item->id) }}" method="post">
+                                        <form onsubmit="return confirm('Confirm delete ?')" class="form-inline" action="{{ route('admin.delete-partenaire', $item->id_partenaire) }}" method="post">
                                             @csrf
                                             <input name="_method" type="hidden" value="DELETE">
                                             <button type="submit" class="no-button">
@@ -180,10 +164,28 @@
     </div>
 
     <script>
-        $('#generate').on('click', function () {
+        $('#add-partenaire-form').on('submit', function (e) {
+            e.preventDefault();
             var pass = Math.random().toString(36).substring(2, 10);
 
             $('#password-field').val(pass);
+            //alert( $('#password-field').val());
+
+            $("#add-partenaire-form").submit();
         });
+
+        $('#num-motorbike').css('display', 'none');
+
+        $(document).ready(function () {
+            $('#type').on('change',function () {
+                var id_categorie = $(this).val();
+                if(id_categorie == 'm'){
+                    $('#num-motorbike').css('display', 'block');
+                }
+                if(id_categorie == 'p'){
+                    $('#num-motorbike').css('display', 'none');
+                }
+            })
+        })
     </script>
 @endsection

@@ -8,6 +8,7 @@ use App\Model\Contenu;
 use App\Model\Immeuble;
 use App\Model\Membres;
 use App\Model\Module;
+use App\Model\Partenaire;
 use App\Model\Partenaires;
 use App\Model\Residence;
 use App\Model\Residents;
@@ -56,7 +57,7 @@ class AdminController extends Controller
         $residents = Membres::where('role', 'resident')
             ->join('residence', 'residence.syndic_id', '=', 'membres.syndic_id')
             ->join('immeuble', 'immeuble.id_residence', '=', 'residence.id_residence')
-            ->join('appartement', 'appartement.id_immeuble', '=', 'immeuble.id')
+            ->join('appartement', 'appartement.id_immeuble', '=', 'immeuble.id_immeuble')
             ->get();
         $residences = Residence::all();
 
@@ -93,10 +94,14 @@ class AdminController extends Controller
 
     public function gestionPartenaires()
     {
-        $partenaires = Partenaires::get();
+        $part = new Partenaire();
         $residences = Residence::all();
+        $partenaires = $part->getAll();
+        $categorie = Categorie::all();
 
-        return view('admin/gestion-partenaires', compact(array('partenaires', 'residences')));
+        //return $partenaires;
+
+        return view('admin/gestion-partenaires', compact(array('partenaires', 'residences', 'categorie')));
     }
 
     public function gestionAnnonces()

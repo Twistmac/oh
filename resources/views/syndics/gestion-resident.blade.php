@@ -7,7 +7,7 @@
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">
-                            Liste des comptes résidents :
+                            List of residents account:
                         </h3>
                     </div>
                     <div class="box-body">
@@ -15,7 +15,7 @@
                             <thead>
                             <tr>
                                 <th>
-                                    Nom
+                                    Name
                                 </th>
                                 <th>
                                     Username
@@ -27,13 +27,13 @@
                                     Password
                                 </th>
                                 <th>
-                                    Immeuble
+                                    Building
                                 </th>
                                 <th>
                                 N° appartement
                                 </th>
                                 <th>
-                                    Etat
+                                    state
                                 </th>
                             </tr>
                             </thead>
@@ -48,7 +48,7 @@
                                         <span style="margin-left: -25px;margin-top: -25px;position: relative;z-index: 2;" toggle="#password-field-{{ $res->id_appartement }}" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                     </td>
                                     <td> {{ $res->nom_immeuble }}  </td>
-                                    <td>{{ $res->id_appartement }} </td>
+                                    <td>{{ $res->num_appartement }} </td>
                                     <td>
                                         <form data-id="{{ $res->id_resident }}" class="form-inline" method="get">
                                             @csrf

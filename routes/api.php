@@ -53,3 +53,6 @@ Route::get('/residence-by-id/{id}','MembresController@getResidenceById');
 Route::get('/resident-by-id/{id}','MembresController@getResidentById');
 Route::get('/partenaire-by-id/{id}','MembresController@getPartenaireById');
 
+
+///// ----- FORGET PASSWORD MAIL --------
+Route::post('/forget-password/{email}','HomeController@forgotPassword');

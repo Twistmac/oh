@@ -7,7 +7,7 @@
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">
-                            Liste des immeubles enregistrées :
+
                         </h3>
                     </div>
                     <div class="box-body">
@@ -15,24 +15,32 @@
                             <thead>
                             <tr>
                                 <th>
-                                    Numéro
+
+                                </th>
+                                <th>
+                                    Number
                                 </th>
                                 <th>
                                     Nom
                                 </th>
                                 <th>
-                                    Nombre d'appartement
+                                    Apartment
                                 </th>
 
                                 <th> </th>
                             </tr>
                             </thead>
                             <tbody>
+                            <?php $i=0; ?>
                             @foreach($immeuble as $item)
+                                <?php $i++ ?>
                                 <tr>
-                                    <input type="hidden" class="id_immeuble" value="{{ $item->id }}">
+                                    <input type="hidden" class="id_immeuble" value="{{ $item->id_immeuble }}">
                                     <td >
-                                        {{ $item->id }}
+                                        {{ $i  }}
+                                    </td>
+                                    <td >
+                                        {{ $item->numero }}
                                     </td>
                                     <td>
                                         {{ $item->nom_immeuble }}
@@ -100,13 +108,16 @@
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">
-                            Appartement :
+                            Apart :
                         </h3>
                     </div>
                     <div class="box-body">
                         <table class="table table-striped table-bordered">
                             <thead>
                             <tr>
+                                <th>
+
+                                </th>
                                 <th>
                                     N°
                                 </th>

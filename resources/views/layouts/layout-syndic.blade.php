@@ -119,13 +119,13 @@
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-user-circle"></i> <span>Immeuble</span>
+                        <i class="fa fa-user-circle"></i> <span>Building</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="active"><a href="{{ route('syndic.gestion-residence') }}"><i class="fa fa-circle-o"></i> Liste des immeubles</a></li>
+                        <li class="active"><a href="{{ route('syndic.gestion-residence') }}"><i class="fa fa-circle-o"></i> List</a></li>
                     </ul>
                 </li>
 
@@ -137,26 +137,26 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href={{ route('syndic.add-resident') }}><i class="fa fa-circle-o"></i> Liste des residents</a></li>
-                        <li><a href="{{ route('syndic.generer-resident') }}"><i class="fa fa-circle-o"></i> Genrer des Residents</a></li>
+                        <li><a href={{ route('syndic.add-resident') }}><i class="fa fa-circle-o"></i> List</a></li>
+                        <li><a href="{{ route('syndic.generer-resident') }}"><i class="fa fa-circle-o"></i> Generate</a></li>
                     </ul>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="fa fa-table"></i> <span>Partenaire publicitaire</span>
+                        <i class="fa fa-table"></i> <span>Partner</span>
                     </a>
                 </li>
 
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-user-circle"></i> <span>Annonces</span>
+                        <i class="fa fa-user-circle"></i> <span>Ads</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{ route('syndic.gestion-annonces-syndic') }}"><i class="fa fa-circle-o"></i> Mes Annonces</a></li>
-                        <li><a href="{{ route('syndic.gestion-annonces-syndic') }}"><i class="fa fa-circle-o"></i> Annnonce des residents</a></li>
+                        <li><a href="{{ route('syndic.gestion-annonces-syndic') }}"><i class="fa fa-circle-o"></i> My Ads</a></li>
+                        <li><a href="{{ route('syndic.gestion-annonces-syndic') }}"><i class="fa fa-circle-o"></i> Ads of resident</a></li>
                     </ul>
                 </li>
 

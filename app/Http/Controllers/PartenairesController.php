@@ -16,14 +16,15 @@ class PartenairesController extends Controller
         $partenaire = new Partenaires();
 
         $data = $this->validate($request, [
-            'username' => 'required|unique:partenaires',
+            'email' => 'required|unique:partenaires',
             'password' => 'required|min:6'
         ]);
 
         $data['residence_id'] = $request->residence_id;
         $data['categorie'] = $request->categorie;
 		$data['numero_pm'] = $request->numero_pm;
-		
+		$data['type'] = $request->type;
+
 		
         if($partenaire->savePartenaire($data))
         {

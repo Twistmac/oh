@@ -8,7 +8,7 @@
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">
-                            Generer des comptes resident :
+                            Generate resident account :
                         </h3>
                     </div>
                     <div class="box-body">
@@ -16,12 +16,12 @@
                             @csrf
                             <div class="form-group">
                                 <label for="">
-                                    Immeuble rattaché :
+                                    Building :
                                 </label>
                                 <select id="immeuble_select" name="immeuble_id" class="form-control" required>
                                     <option value="">Choisissez l'immeuble</option>
                                     @foreach($immeuble as $imm)
-                                        <option value="{{ $imm->id }}">N° {{ $imm->id }} {{ $imm->nom_immeuble }}</option>
+                                        <option value="{{ $imm->id_immeuble }}">N° {{ $imm->id }} {{ $imm->nom_immeuble }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -37,7 +37,7 @@
                             @endif
                             <div class="form-group">
                                 <button id="generer" class="btn btn-primary btn-flat">
-                                    Générer des residents
+                                    Generate
                                 </button>
                             </div>
                         </form>
@@ -48,17 +48,16 @@
             <div class="col-md-8">
                 <div class="box box-info">
                     <div class="box-header">
-                        <h4>Appartements</h4>
+                        <h4>Apartement</h4>
                     </div>
                     <div class="box-body">
                         <table class="table table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>Numero</th>
-                                <th>Nom du resident</th>
+                                <th>Number</th>
+                                <th>Resident name</th>
                                 <th>Pseudo</th>
-                                <th>Mot de passe</th>
-                                <th>Module</th>
+                                <th>Password</th>
                                 <th>etat</th>
                             </tr>
                             </thead>

@@ -7,7 +7,7 @@
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">
-                            Ajouter nouvelle annonce syndic
+                            Add new Ad
                         </h3>
                     </div>
                     <div class="box-body">
@@ -17,25 +17,17 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">
-                                            Catégorie :
+                                            Category :
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-md-8">
-                                    <div class="form-group">
-                                        <select name="categorie_id" class="form-control selectpicker">
-                                            @foreach($categories as $item)
-                                                <option value="{{ $item['id'] }}">{{ $item['name'] }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
+
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">
-                                            Titre :
+                                            Title :
                                         </label>
                                     </div>
                                 </div>
@@ -79,7 +71,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">
-                                            Prix :
+                                            Price :
                                         </label>
                                     </div>
                                 </div>
@@ -89,20 +81,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="">
-                                            Tranche d'âge
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-8">
-                                        <input type="number" class="form-control" name="age" value="{{ old('age') }}">
-                                    </div>
-                                </div>
-                            </div>
+
                             <div class="row">
                                 <div class="col-md-8 col-md-offset-4">
                                     @if ($errors->any())
@@ -120,7 +99,7 @@
                                 <div class="col-md-8 col-md-offset-4">
                                     <div class="form-group">
                                         <button class="btn btn-primary btn-flat">
-                                            Ajouter
+                                            Add
                                         </button>
                                     </div>
                                 </div>
@@ -133,21 +112,19 @@
                 <div class="box box-success">
                     <div class="box-header">
                         <h3 class="box-title">
-                            Liste des annonces
+                            List
                         </h3>
                     </div>
                     <div class="box-body">
                         <table class="table table-striped table-hover datatable">
                             <thead>
                             <tr>
+
                                 <th>
-                                    Catégorie
+                                    Title
                                 </th>
                                 <th>
-                                    Titre
-                                </th>
-                                <th>
-                                    Prix
+                                    Price
                                 </th>
                                 <th>
                                     Actions
@@ -157,9 +134,7 @@
                             <tbody>
                             @foreach($annonces as $item)
                                 <tr>
-                                    <td>
-                                        {{ $item->name }}
-                                    </td>
+
                                     <td>
                                         {{ $item->titre }}
                                     </td>
@@ -173,7 +148,7 @@
                                             @csrf
                                             <input name="_method" type="hidden" value="DELETE">
                                             <button type="submit" class="btn btn-flat btn-danger btn-xs">
-                                                Supprimer
+                                                delete
                                             </button>
                                         </form>
                                     </td>

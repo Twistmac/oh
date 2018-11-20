@@ -10,8 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class MailAccess extends Mailable
 {
     use Queueable, SerializesModels;
-    public $login;
-    public $mdp;
+    public $password;
 
 
     /**
@@ -19,10 +18,9 @@ class MailAccess extends Mailable
      *
      * @return void
      */
-    public function __construct($login , $password)    
+    public function __construct($password)    
     {
-        $this->login = $login;
-        $this->mdp = $password;
+        $this->password = $password;
     }
 
     /**
@@ -33,11 +31,10 @@ class MailAccess extends Mailable
     public function build()
     {
         return $this->from('twistmac@outlook.fr')
-                    ->subject('Accès application OHOME')
+                    ->subject('Reset Password Ohome application')
                     ->view('mail.mail-access')
                     ->with([
-                        'login' => $this->login,
-                        'mdp' => $this->mdp,
+                        'password' => '',
                     ]);
     }
 }

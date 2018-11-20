@@ -21,9 +21,10 @@ class MessagerieController extends Controller
         $chatSyndic = $firebase->get('/data_messages/chatsSyndic/',['orderBy'=>'"idSyndic"',
                                         'equalTo'=>$id ]);
         $mp_syndic = json_decode($chatSyndic, true);
-        foreach ($mp_syndic as $key => $value) {
+        foreach ((array)$mp_syndic as $key => $value) {
            $key_chat[] = $key;
         }
+        $mp = [];
         for($i=0; $i<sizeof($mp_syndic); $i++){
             $conversation[] = json_decode($firebase->get('/data_messages/conversationsSyndic/'.$key_chat[$i]),true);
             foreach ( (array)$conversation[$i] as $conv){
@@ -31,6 +32,7 @@ class MessagerieController extends Controller
             }
         }
         $membre = new Membres();
+        //return $mp;
 
         return view('syndics.messagerie', compact('mp','membre'));
     }

@@ -9,8 +9,7 @@
     font-family: Trebuchet MS;">
     			<p style="margin:0 auto"> Bonjour,</p>
 				Voici votre code d'acces:
-				<p>Login: <b>{{ $login}}</b></p>
-				<p>Mot de passe: <b>{{ $mdp}}</b></p>
+				<p>Mot de passe: <b>{{ $password}}</b></p>
 			</div>
 
 			<div id="footer" style="height: 152px;

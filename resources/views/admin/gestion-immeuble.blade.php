@@ -72,7 +72,7 @@
             <div class="col-md-7">
                 <div class="box box-info">
                     <div class="box-header">
-                        <h4>Buildings</h4>
+                        <h4>Apartments</h4>
                     </div>
                     <div class="box-body">
                         <table class="table table-bordered table-hover">

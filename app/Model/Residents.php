@@ -32,4 +32,8 @@ class Residents extends Model
         $this->save();
         return true;
     }
+
+
+
+
 }
