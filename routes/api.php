@@ -56,3 +56,6 @@ Route::get('/partenaire-by-id/{id}','MembresController@getPartenaireById');
 
 ///// ----- FORGET PASSWORD MAIL --------
 Route::post('/forget-password/{email}','HomeController@forgotPassword');
+
+
+Route::get('/tcp-module/{port}', "SocketController@build");

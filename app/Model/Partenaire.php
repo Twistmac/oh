@@ -18,7 +18,8 @@ class Partenaire extends Model
 
 
     protected $fillable = [
-        'username', 'password', 'nom', 'prenom', 'phone', 'email', 'salt', 'residence_id', 'categorie'
+        'username', 'password', 'nom', 'prenom', 'phone', 'email', 'salt',
+        'residence_id', 'categorie_id', 'type', 'etat'
     ];
 
     protected $hidden = [

@@ -166,21 +166,6 @@
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="">
-                                            Module:
-                                        </label>
-                                        <select name="module" class="form-control">
-                                            <option>Select module number....</option>
-                                            @foreach($module as $mod)
-                                                <option value="{{ $mod->id_module }}"> {{ $mod->numero_module }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
 
                             <div class="row">
                                 <div class="col-md-12">

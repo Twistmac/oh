@@ -26,6 +26,7 @@ class ResidentsController extends Controller
         ]);
 
         $residence_explode = explode('|',$request->residence_id);
+        $residence_explode = explode('|',$request->residence_id);
         $data['residence_id'] = $residence_explode[0];
         $data['syndic_id'] = $residence_explode[1];
 
@@ -103,7 +104,16 @@ class ResidentsController extends Controller
         $resident = Residents::find($id);
         if($request->isMethod('post'))
         {
-//            $resident->
+            $resident->username = $request->username;
+            $resident->nom = $request->nom;
+            $resident->prenom = $request->prenom;
+            $resident->phone = $request->phone;
+            $resident->email = $request->email;
+            $resident->password = Hash::make($request->password);
+            $resident->salt = base64_encode($request->password);
+            if($resident->save()){
+                return redirect()->back()->with('success','Resident update');
+            }
         }
         //return $resident;
         return view('residents/details-resident', ['resident' => $resident]);
@@ -130,7 +140,7 @@ class ResidentsController extends Controller
             $data['username'] = 'res_'.$id_syndic.$id_residence.$id_immeuble.($last_resident_id+1);
             $id_resident = Residents::create([
                 'username' => $data['username'],
-                'email' => '',
+                'email' => null,
                 'password' => Hash::make($pass),
                 'residence_id' => $id_residence,
                 'role' => 'resident',

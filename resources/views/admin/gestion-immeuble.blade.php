@@ -13,20 +13,8 @@
                     </div>
                     @foreach($immeuble as $immeubles)
                     <div class="box-body">
-                        <form action="{{ route('admin.edit-immeuble', ['id'=>$immeubles->id]) }}" method="POST">
+                        <form action="{{ route('admin.edit-immeuble', ['id'=>$immeubles->id_immeuble]) }}" method="POST">
                             @csrf
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        Number :
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="form-group">
-                                        <input type="text" name="numero" class="form-control" value="{{ $immeubles->id }}" disabled>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -53,6 +41,28 @@
                             </div>
 
                             <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        Module:
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="hidden" id="id_module" value="{{ $immeubles->id_module }}">
+                                    <div class="form-group">
+                                        <select id="#select-module" name="module" class="form-control selectpicker">
+
+                                            <option>Select module number....</option>
+                                            @foreach($module as $mod)
+                                                <option value="{{ $mod->id_module }}"> {{ $mod->numero_module }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="row">
                                 <div class="col-md-8 col-md-offset-4">
                                     <div class="form-group">
                                         <button class="btn btn-primary btn-flat">
@@ -62,6 +72,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         </form>
                     </div>
                         @endforeach
@@ -145,6 +156,7 @@
 
 
         <script>
+
             $(document).ready(function(){
                 $('#tbody-appart tr .action').click(function () {
                     var num_module = $(this).find('#num-module-hidden').val();
@@ -154,6 +166,12 @@
 
                     $('#modal-edit').modal('show');
                 })
+
+
+                //select module par defaut
+                var id_module = $('#id_module').val();
+                $('select option[value= '+id_module+']').attr("selected",true);
+
             })
         </script>
 

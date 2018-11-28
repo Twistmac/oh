@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\AnnoncesResource;
 use App\Model\Annonces;
 use App\Model\Annonces_syndic;
+use App\Model\Categorie;
 use App\Model\Coms_annonce;
 use App\Model\Likes;
 use App\Model\Likes_syndics;
@@ -23,17 +24,16 @@ class AnnoncesController extends Controller
         $data = $this->validate($request, [
             'categorie_id' => 'required',
             'titre' => 'required',
-            'description' => 'required',
-            'prix' => 'required',
-            'residence' => 'required',
-            'age' => 'required',
+
         ]);
         $data['type'] = 'o';
         $data['genre'] = '';
+        $data['description'] = $request->description;
+        $data['prix'] = $request->prix;
         $image = $request->file('image');
         if($image == null)
         {
-            $date['image'] = '';
+            $data['image'] = '';
         } $data['image'] = time().'_annonce.'.$image->getClientOriginalExtension();
 
         $last = $annonce->saveAnnonce($data);
@@ -364,6 +364,42 @@ class AnnoncesController extends Controller
         return response()->json(array(
                 'result'=> $annonce
             ));                    
+    }
+
+
+    // annonce ohome
+    public function gestionAnnonceOhome(){
+        $categories = Categorie::all();
+        $annonces = Annonces::where('type','!=', 'o')
+                            ->join('residence','annonces.syndic_id', '=', 'residence.syndic_id')
+                            ->get();
+
+        return view('admin/gestion-annonces-ohome', compact(array('categories', 'annonces')));
+    }
+
+    // edit annonce ohome
+    public function editAnnonce($id, Request $request){
+        $annonce = Annonces::where('id',$id)->get();
+        $ads = Annonces::find($id);
+        $categorie = Categorie::all();
+
+        if($request->isMethod('Post')){
+            $ads->titre = $request->titre;
+            $ads->description = $request->description;
+            $ads->prix = $request->prix;
+            $ads->age = $request->age;
+            $ads->categorie_id = $request->categorie_id;
+            $image = $request->file('image');
+            if($image != null){
+                $image_up = time().'_annonce.'.$image->getClientOriginalExtension();
+                $ads->image = $image_up;
+                $destinationPath = public_path('/img/annonces/');
+                $image->move($destinationPath, $image_up);
+            }
+            $ads->save();
+            return redirect()->back()->with('success', 'Ad updated');
+        }
+        return view('admin.edit-annonces', compact('annonce', 'categorie'));
     }
 
 

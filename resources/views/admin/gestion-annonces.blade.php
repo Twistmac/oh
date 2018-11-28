@@ -7,7 +7,7 @@
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">
-                            Add new ad
+                            Add new ohome ad
                         </h3>
                     </div>
                     <div class="box-body">
@@ -55,8 +55,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-8">
-                                <textarea rows="5" name="description" class="form-control" style="width: 100%; max-width: 100%; margin-bottom: 15px;">
-                                    {{ old('description') }}
+                                <textarea rows="5" name="description" class="form-control">
                                 </textarea>
                                     </div>
                                 </div>
@@ -79,13 +78,13 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">
-                                            Price :
+                                            age :
                                         </label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-8">
-                                        <input type="number" class="form-control" name="prix" value="{{ old('prix') }}">
+                                        <input type="number" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -93,16 +92,17 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">
-                                            Residence :
+                                            Price :
                                         </label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" name="residence" value="{{ old('residence') }}">
+                                        <input type="number" class="form-control" name="prix" value="">
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-md-8 col-md-offset-4">
                                     @if ($errors->any())
@@ -133,7 +133,7 @@
                 <div class="box box-success">
                     <div class="box-header">
                         <h3 class="box-title">
-                            List of ads
+                            List of ohome ads
                         </h3>
                     </div>
                     <div class="box-body">
@@ -149,9 +149,7 @@
                                 <th>
                                     Price
                                 </th>
-                                <th>
-                                    Residence
-                                </th>
+
                                 <th>
                                     Actions
                                 </th>
@@ -170,10 +168,9 @@
                                         {{ $item->prix }}
                                     </td>
                                     <td>
-                                        {{ $item->residence }}
-                                    </td>
-                                    <td>
+                                        <a href="{{ route('admin.editAnnonce', array('id'=>$item->id)) }}">
                                         <span class="glyphicon glyphicon-pencil"></span>
+                                        </a>
                                         &nbsp;-&nbsp;
                                         <form onsubmit="return  confirm('Confirm delete ?')" class="form-inline" action="{{ route('admin.delete-annonce', ['id' => $item->id]) }}" method="post">
                                             @csrf

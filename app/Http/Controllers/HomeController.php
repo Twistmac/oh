@@ -25,7 +25,7 @@ class HomeController extends Controller
 
     public function categories()
     {
-        $categories = Categorie::all();
+        $categories = Categorie::orderBy('name','ASC')->get();
 
         $result = [];
         $result['categories'] = $categories;

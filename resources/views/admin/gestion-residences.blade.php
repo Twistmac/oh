@@ -24,7 +24,6 @@
                                 <th>Name</th>
                                 <th>Referent Name</th>
                                 <th>E-mail</th>
-                                <th>N° Module</th>
                                 <th>Password</th>
                                 <th>Creation date</th>
                                 <th> </th>
@@ -37,7 +36,6 @@
                                     <td>{{ $item->nom }}</td>
                                     <td>{{ $item->nom_ref.' '.$item->prenom_ref }}</td>
                                     <td>{{ $item->email }}</td>
-                                    <td>{{ $item->module['numero_module'] }}</td>
                                     <td><input id="password-field-{{ $item->numero }}" type="password" class="form-control form-control-{{ $item->numero }}" value="{{ base64_decode($item->salt) }}" style="width: 110px">
                                         <span style="margin-left: -25px;margin-top: -25px;position: relative;z-index: 2;" toggle="#password-field-{{ $item->numero }}" class="fa fa-fw fa-eye field-icon toggle-password"></span></td>
                                     <td>{{ $item->created_at }}</td>

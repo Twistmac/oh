@@ -7,7 +7,7 @@
                 <div class="box box-success">
                     <div class="box-header">
                         <h3 class="box-title">
-                            Modification de la page "Termes et conditions"
+                            Modification of "Terms & conditions" page
                         </h3>
                     </div>
                     <div class="box-body">
@@ -16,13 +16,13 @@
                             <input type="hidden" name="id" value="{{ $page->id }}">
                             <div class="form-group">
                                 <label for="">
-                                    Titre de la page
+                                    Title of the page
                                 </label>
                                 <input type="text" class="form-control" name="titre" value="{{ $page->titre }}">
                             </div>
                             <div class="form-group">
                                 <label for="">
-                                    Contenu de la page
+                                    Content
                                 </label>
                                 <textarea name="content" class="textarea">
                             {{ $page->content }}
@@ -30,7 +30,7 @@
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-flat btn-danger">
-                                    Modifier
+                                    Edit
                                 </button>
                             </div>
                         </form>

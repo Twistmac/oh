@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use App\Model\Categorie;
 use App\Model\Membres;
-use App\Model\Partenaires;
+use App\Model\Partenaire;
 use App\Model\Residents;
 use Illuminate\Http\Resources\Json\JsonResource;
 

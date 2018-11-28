@@ -37,7 +37,7 @@
                                     State
                                 </th>
                                 <th>
-                                    Actions
+
                                 </th>
                             </tr>
                             </thead>
@@ -67,17 +67,9 @@
                                     </td>
 
                                     <td>
-                                        <a href="{{ route('admin.details-resident', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="top" title="Editer">
+                                        <a href="{{ route('admin.details-resident', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="top" title="Edit">
                                             <span class="glyphicon glyphicon-pencil"></span>
                                         </a>
-                                        &nbsp;-&nbsp;
-                                        <form onsubmit="return confirm('Confirm delete ?')" class="form-inline" action="{{ route('admin.delete-resident', $item->id) }}" method="post">
-                                            @csrf
-                                            <input name="_method" type="hidden" value="DELETE">
-                                            <button type="submit" class="btn btn-flat btn-danger btn-xs" data-toggle="tooltip" data-placement="top" title="Supprimer">
-                                                <span class="glyphicon glyphicon-trash"></span>
-                                            </button>
-                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -104,21 +96,21 @@
             //gestion suspendre resident///
             //active
             var active = $('.0').addClass('glyphicon glyphicon-ok-sign').parent().addClass('btn-success');
-            active.attr('data-original-title', 'actif');
+            active.attr('data-original-title', 'active');
             var form_suspendre = $('.0').parent().parent();
             form_suspendre.on('submit',function () {
                 var id= $(this).data('id');
                 $(this).attr('action',"<?php echo url('admin') ?>/susp-resident/"+id);
-                return confirm('Voulez-vous suspendre ce compte resident' );
+                return confirm('Do you want to suspend this resident account ?' );
             });
             //supspendre
             var suspendue = $('.1').addClass('glyphicon glyphicon-remove-sign').parent().addClass('btn-danger');
-            suspendue.attr('data-original-title', 'suspendu');
+            suspendue.attr('data-original-title', 'suspend');
             var form_active = $('.1').parent().parent();
             form_active.on('submit',function () {
                 var id= $(this).data('id');
                 $(this).attr('action',"<?php echo url('admin') ?>/active-resident/"+id);
-                return confirm('Voulez-vous activer ce compte resident');
+                return confirm('Do you want to actived this resident account ?');
             });
         })
     </script>

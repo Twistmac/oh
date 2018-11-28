@@ -308,12 +308,6 @@
                         </ul>
                     </li>
                     <li>
-                        <!--<a href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                            <span class="glyphicon glyphicon-off"></span> &nbsp;{{ __('Logout') }}
-                        </a>-->
-						<!-- modifié ce 17/09/2018 -->
                         <button href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();" class="btn btn-flat btn-danger buttonmenu" style="border-radius:5px;">
@@ -402,8 +396,8 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="#"> Ohome Ads</a></li>
-                        <li><a href="{{ route('admin.gestion-annonces') }}"> General Ads</a></li>
+                        <li><a href="{{ route('admin.gestion-annonce-ohome') }}"> General Ads</a></li>
+                        <li><a href="{{ route('admin.gestion-annonces') }}"> Ohome Ads</a></li>
                     </ul>
                 </li>
                 <li>
@@ -417,32 +411,26 @@
                     </a>
 
                 </li>
-               <!-- ito ny lien tena iz <li>
-                    <a href="{{ route('admin.importexport') }}">
-                        <i class="fa fa-copy"></i> <span>Import/Export</span>
-                    </a>
-                </li>-->
-				<!-- -->
+
+
+                <!--
 				<li class="treeview">
                     <a href="#">
                         <i class="fa fa-copy"></i> <span>Import/Export</span>
-                        <!-- Import export flèche flèche -->
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
-                        <!-- fin de la flèche -->
+
                     </a>
-                    <!-- sous-menu du résident -->
                      <ul class="treeview-menu">
-                        <li style="display:none;"><a href="{{ route('admin.importresidences') }}"><i class="fa fa-circle-o"></i> Liste des résidences</a></li>
-                        <li style="display:none;"><a href="{{ route('admin.gestion-residences-ajout') }}"><i class="fa fa-circle-o"></i> Ajouter résidence</a></li>
+                        <li><a href="{{ route('admin.importresidences') }}"><i class="fa fa-circle-o"></i> Liste des résidences</a></li>
+                        <li ><a href="{{ route('admin.gestion-residences-ajout') }}"><i class="fa fa-circle-o"></i> Ajouter résidence</a></li>
                     </ul>
-                    <!--fin du sous menu -->
                 </li>
-				<!-- -->
+				-->
                 <li>
-                    <a href="#">
-                        <i class="fa fa-keyboard-o"></i> <span>Setting</span>
+                    <a href="{{ route('admin.setting') }}">
+                        <i class="fa fa-gears"></i> <span>Setting</span>
                     </a>
                 </li>
 				<li>

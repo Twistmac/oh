@@ -16,9 +16,9 @@
                                 <label for="">
                                     Attached residence:
                                 </label>
-                                <select name="residence_id" class="form-control selectpicker">
+                                <select name="residence_id" class="form-control selectpicker" data-live-search="true">
                                     @foreach($residences as $item)
-                                        <option value="{{ $item->id_residence }}">{{ $item->nom }}</option>
+                                        <option value="{{ $item->syndic_id }}">{{ $item->nom }}</option>
                                     @endforeach
                                 </select>
 								<!-- fin liste select -->
@@ -79,7 +79,6 @@
                                 </div>
                             @endif
                             <div class="form-group">
-                                <input type="hidden" name="password" id="password-field">
                                 <button class="btn btn-primary btn-flat">
                                     Create account
                                 </button>
@@ -98,9 +97,6 @@
                             <thead>
                             <tr>
                                 <th>
-                                    Pseudo
-                                </th>
-                                <th>
                                     Email
                                 </th>
                                 <th>
@@ -118,21 +114,21 @@
                                 <th>
                                     Actions
                                 </th>
+                                <th>
+
+                                </th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($partenaires as $item)
                                 <tr>
                                     <td>
-                                        {{ $item->username ? $item->username : 'N/A' }}
-                                    </td>
-                                    <td>
                                         {{ $item->email ? $item->email : 'N/A' }}
                                     </td>
 									
 
                                     <td>
-                                        {{ $item->residence->numero }}
+                                        {{ $item['residence']['numero'] }}
                                     </td>
 									<td>
                                         {{ $item->name ? $item->name : '' }}
@@ -141,15 +137,27 @@
                                         {{ ($item->type == 'p') ? 'partenaire' : 'motorbike' }}
                                     </td>
                                     <td>
-                                        pass
+                                        <input id="password-field-{{ $item->id_partenaire }}" type="password" class="form-control" value="{{ base64_decode($item->salt) }}" style="width: 110px;float:left">
+                                        <span style="float: left;margin-left: -25px;margin-top: 10px;display: block;z-index: 2;" toggle="#password-field-{{ $item->id_partenaire }}" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                     </td>
                                     <td>
-                                        <span class="glyphicon glyphicon-pencil"></span>
+                                        <a href="{{ route('admin.edit-partenaire', array( 'id'=>$item->id_partenaire, 'type'=>$item->type) )}}">
+                                            <span style="color: #0b97c4" class="glyphicon glyphicon-pencil"> </span>
+                                        </a>
                                         <form onsubmit="return confirm('Confirm delete ?')" class="form-inline" action="{{ route('admin.delete-partenaire', $item->id_partenaire) }}" method="post">
                                             @csrf
-                                            <input name="_method" type="hidden" value="DELETE">
-                                            <button type="submit" class="no-button">
+                                            <input name="_method" type="hidden" value="DELETE">&nbsp;
+                                            <button type="submit" class="no-button btn-danger">
                                                 <span class="glyphicon glyphicon-trash"></span>
+                                            </button>
+                                        </form>
+                                    </td>
+
+                                    <td>
+                                        <form data-id="{{ $item->id_partenaire }}" class="form-inline" method="get">
+                                            @csrf
+                                            <button type="submit" class="btn btn-flat btn-xs" data-toggle="tooltip" data-placement="top" title="">
+                                                <span class="{{ $item->etat }}"></span>
                                             </button>
                                         </form>
                                     </td>
@@ -164,17 +172,29 @@
     </div>
 
     <script>
-        $('#add-partenaire-form').on('submit', function (e) {
-            e.preventDefault();
-            var pass = Math.random().toString(36).substring(2, 10);
 
-            $('#password-field').val(pass);
-            //alert( $('#password-field').val());
-
-            $("#add-partenaire-form").submit();
-        });
 
         $('#num-motorbike').css('display', 'none');
+
+        var active = $('.0').addClass('glyphicon glyphicon-ok-sign').parent().addClass('btn-success');
+        active.attr('data-original-title', 'active');
+        var form_suspendre = $('.0').parent().parent();
+        form_suspendre.on('submit',function () {
+            var id= $(this).data('id');
+            $(this).attr('action',"<?php echo url('admin') ?>/susp-partenaire/"+id);
+            return confirm('Do you want to suspend this partner account ?' );
+        });
+        //supspendre
+        var suspendue = $('.1').addClass('glyphicon glyphicon-remove-sign').parent().addClass('btn-danger');
+        suspendue.attr('data-original-title', 'suspend');
+        var form_active = $('.1').parent().parent();
+        form_active.on('submit',function () {
+            var id= $(this).data('id');
+            $(this).attr('action',"<?php echo url('admin') ?>/active-partenaire/"+id);
+            return confirm('Do you want to active this partner account ?');
+        });
+
+
 
         $(document).ready(function () {
             $('#type').on('change',function () {
@@ -186,6 +206,22 @@
                     $('#num-motorbike').css('display', 'none');
                 }
             })
+
+            //toogle password
+            $(".toggle-password").click(function() {
+
+                $(this).toggleClass("fa-eye fa-eye-slash");
+                var input = $($(this).attr("toggle"));
+
+                if (input.attr("type") == "password") {
+                    input.attr("type", "text");
+                } else {
+                    input.attr("type", "password");
+                }
+            });
+
+
+
         })
     </script>
 @endsection

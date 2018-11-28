@@ -66,6 +66,8 @@ Route::prefix('syndic')->group(function(){
 
 ///********* ADMIN ********************///
 Route::prefix('admin')->group(function(){
+
+
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
     Route::get('/', 'AdminController@index')->name('admin.dashboard');
@@ -107,12 +109,17 @@ Route::prefix('admin')->group(function(){
     //
     Route::get('/susp-resident/{id}', 'ResidentsController@suspendre')->name('admin.susp-resident')->middleware('auth:admin');
     Route::get('/active-resident/{id}', 'ResidentsController@active')->name('admin.active-resident')->middleware('auth:admin');
+
+    //partenaire
+    Route::get('/susp-partenaire/{id}', 'PartenairesController@suspendre')->name('admin.susp-partenaire')->middleware('auth:admin');
+    Route::get('/active-partenaire/{id}', 'PartenairesController@active')->name('admin.active-partenaire')->middleware('auth:admin');
+    Route::any('/edit-partenaire/{id}/{type}', 'PartenairesController@editPartenaire')->name('admin.edit-partenaire')->middleware('auth:admin');
     //
     Route::delete('/delete-residence/{id}/{syndic_id}','ResidenceController@deleteResidence')->name('admin.delete-residence')->middleware('auth:admin');
     Route::get('/gestion-contenu', 'AdminController@gestionContenu')->name('admin.gestion-contenu');
     Route::post('/edit-termes/{id}', 'AdminController@editTermes')->name('admin.edit-termes');
 
-    Route::get('/details-resident/{id}', 'ResidentsController@detailsResident')->name('admin.details-resident')->middleware('auth:admin');
+    Route::any('/details-resident/{id}', 'ResidentsController@detailsResident')->name('admin.details-resident')->middleware('auth:admin');
 
     //immeuble
     Route::get('/gestion-immeuble/{id}', 'ImmeubleController@gestionImmeuble')->name('admin.gestion-immeuble')->middleware('auth:admin');
@@ -143,6 +150,14 @@ Route::prefix('admin')->group(function(){
 
     //edit appartement
     Route::post('/edit-num-appartement/', 'ResidenceController@editNumAppartement')->name('admin.edit-num-appartement');
+
+    Route::any('/setting/','AdminController@setting')->name('admin.setting');
+
+    //annonce ohome
+    Route::get('/annonce-general/', 'AnnoncesController@gestionAnnonceOhome')->name('admin.gestion-annonce-ohome')->middleware('auth:admin');
+    Route::any('/edit-annonce/{id}', 'AnnoncesController@editAnnonce')->name('admin.editAnnonce')->middleware('auth:admin');
+
+
 
 
 

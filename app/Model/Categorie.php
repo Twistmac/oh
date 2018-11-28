@@ -9,7 +9,7 @@ class Categorie extends Model
     protected $table = 'categories';
 
     protected $fillable = [
-        'name'
+        'name', 'name_indonnesie'
     ];
 
     protected $hidden = [

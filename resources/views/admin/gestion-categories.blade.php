@@ -15,9 +15,16 @@
                             @csrf
                             <div class="form-group">
                                 <label for="">
-                                    Category name:
+                                    Category name (English):
                                 </label>
                                 <input type="text" name="name" class="form-control" value="{{ old('categorie') }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="">
+                                    Category name (
+                                    Indonesia):
+                                </label>
+                                <input type="text" name="name_indonnesie" class="form-control" value="{{ old('categorie') }}">
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-danger">
@@ -43,6 +50,9 @@
                                     Category
                                 </th>
                                 <th>
+                                    Indonesia
+                                </th>
+                                <th>
 
                                 </th>
                             </tr>
@@ -52,6 +62,9 @@
                                 <tr>
                                     <td>
                                         {{ $item['name'] }}
+                                    </td>
+                                    <td>
+                                        {{ $item['name_indonnesie'] }}
                                     </td>
                                     <td>
                                         <span class="glyphicon glyphicon-pencil"></span>

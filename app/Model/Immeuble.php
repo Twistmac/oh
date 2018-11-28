@@ -20,4 +20,17 @@ class Immeuble extends Model
         $nbr = Appartement::where('id_immeuble',$id)->count();
         return $nbr;
     }
+
+    public function module(){
+        return $this->belongsTo('App\Model\Module','id_module','id_module');
+    }
+
+    //get immeuble avec module
+    public function withModule($residence){
+        $immeuble = Immeuble::with('module')
+                    ->where('id_residence', $residence)
+                    ->get();
+        return $immeuble;
+
+    }
 }

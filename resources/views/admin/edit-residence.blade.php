@@ -148,25 +148,6 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        Module:
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <input id="id_module" type="hidden" value="{{ $r->module['id_module'] }}">
-                                    <div class="form-group">
-                                        <select id="#select-module" name="module" class="form-control">
-                                            <option>Select module number....</option>
-                                            @foreach($module as $mod)
-                                                <option value="{{ $mod->id_module }}"> {{ $mod->numero_module }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
                                 <div class="col-md-8 col-md-offset-4">
                                     <div class="form-group">
                                         <button class="btn btn-primary btn-flat">
@@ -193,6 +174,7 @@
                         <tr>
                             <th>Building name</th>
                             <th style="width: 35%">Number of apartments</th>
+                            <th>Module</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -201,11 +183,12 @@
                             <tr>
                                 <td>{{ $immeuble->nom_immeuble }}</td>
                                 <td>{{ $immeuble->nbr_appart }}</td>
+                                <td>{{ $immeuble['module']['numero_module'] }}</td>
                                 <td>
-                                    <a href="{{ route('admin.gestion-immeuble', ['id'=>$immeuble->id]) }}">
+                                    <a href="{{ route('admin.gestion-immeuble', ['id'=>$immeuble->id_immeuble]) }}">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </a>
-                                    &nbsp;-&nbsp;
+                                    <!--
                                     <form onsubmit="return confirm('Confirm delete ?')" class="form-inline" action="" method="post">
                                         @csrf
                                         <input name="_method" type="hidden" value="DELETE">
@@ -213,6 +196,7 @@
                                             <span class="glyphicon glyphicon-trash"></span>
                                         </button>
                                     </form>
+                                    !-->
                                 </td>
                             </tr>
                         @endforeach

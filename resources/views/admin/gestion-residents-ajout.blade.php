@@ -18,7 +18,7 @@
                                 <label for="">
                                     Attached residence number:
                                 </label>
-                                <select id="residence_id" name="residence_id" class="form-control">
+                                <select id="residence_id" name="residence_id" class="form-control selectpicker" data-live-search="true">
                                     @foreach($residences as $item)
                                         <option value="{{ $item->id_residence }}|{{ $item->syndic_id }}">{{ $item->numero }}</option>
                                     @endforeach
@@ -109,21 +109,21 @@
                         //gestion suspendre resident///
                         //active
                         var active = $('.0').addClass('glyphicon glyphicon-ok-sign').parent().addClass('btn-success');
-                        active.attr('data-original-title', 'actif');
+                        active.attr('data-original-title', 'active');
                         var form_suspendre = $('.0').parent().parent();
                         form_suspendre.on('submit',function () {
                             var id= $(this).data('id');
                             $(this).attr('action',"<?php echo url('admin') ?>/susp-resident/"+id);
-                            return confirm('Voulez-vous suspendre ce compte resident' );
+                            return confirm('Do you want to suspend this resident account ?' );
                         });
                         //supspendre
                         var suspendue = $('.1').addClass('glyphicon glyphicon-remove-sign').parent().addClass('btn-danger');
-                        suspendue.attr('data-original-title', 'desactivé');
+                        suspendue.attr('data-original-title', 'suspend');
                         var form_active = $('.1').parent().parent();
                         form_active.on('submit',function () {
                             var id= $(this).data('id');
                             $(this).attr('action',"<?php echo url('admin') ?>/active-resident/"+id);
-                            return confirm('Voulez-vous activer ce compte resident');
+                            return confirm('Do you want to activate this resident account');
                         });
                     },
                 });
@@ -181,7 +181,7 @@
                         });
                         //supspendre
                         var suspendue = $('.1').addClass('glyphicon glyphicon-remove-sign').parent().addClass('btn-danger');
-                        suspendue.attr('data-original-title', 'desactivé');
+                        suspendue.attr('data-original-title', 'suspend');
                         var form_active = $('.1').parent().parent();
                         form_active.on('submit',function () {
                             var id= $(this).data('id');

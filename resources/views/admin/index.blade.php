@@ -56,14 +56,14 @@
                             <!-- small box -->
                             <div class="small-box bg-aqua">
                                 <div class="inner">
-                                    <h3> 0 </h3>
+                                    <h3> {{ count($motorbike) }} </h3>
 
                                     <p>MotorBikes</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-flash"></i>
                                 </div>
-                                <a href="" class="small-box-footer">See <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="{{ route('admin.gestion-partenaires') }}" class="small-box-footer">See <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
 

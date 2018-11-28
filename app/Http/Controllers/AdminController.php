@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin;
 use App\Model\Annonces;
 use App\Model\Categorie;
 use App\Model\Contenu;
@@ -9,12 +10,12 @@ use App\Model\Immeuble;
 use App\Model\Membres;
 use App\Model\Module;
 use App\Model\Partenaire;
-use App\Model\Partenaires;
 use App\Model\Residence;
 use App\Model\Residents;
 use App\Model\Syndics;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 use Excel_XML;
@@ -37,12 +38,12 @@ class AdminController extends Controller
         $syndics = User::all();
         $residences = Residence::all();
         $residents = Membres::where('role', 'resident')->get();
-        $partenaires = Membres::where('role', 'partenaire')->get();
-        /* prendre tout les annonces et compter le total directement*/
+        $partenaires = Partenaire::where('type', 'p')->get();
+        $motorbike = Partenaire::where('type', 'm')->get();
         $annonces = Annonces::count();
 
 
-        return view('admin/index', compact(array('syndics', 'residences', 'partenaires', 'residents', 'annonces')));
+        return view('admin/index', compact(array('syndics', 'residences', 'partenaires', 'residents', 'annonces', 'motorbike')));
     }
 
     public function gestionSyndics()
@@ -57,7 +58,7 @@ class AdminController extends Controller
         $residents = Membres::where('role', 'resident')
             ->join('residence', 'residence.syndic_id', '=', 'membres.syndic_id')
             ->join('immeuble', 'immeuble.id_residence', '=', 'residence.id_residence')
-            ->join('appartement', 'appartement.id_immeuble', '=', 'immeuble.id_immeuble')
+            ->join('appartement', 'appartement.id_resident', '=', 'membres.id')
             ->get();
         $residences = Residence::all();
 
@@ -92,14 +93,14 @@ class AdminController extends Controller
         return view('admin/gestion-residences-ajout', compact(array('residences', 'module')));
     }
 
-    public function gestionPartenaires()
+    public function gestionPartenaires(Request $request)
     {
         $part = new Partenaire();
         $residences = Residence::all();
         $partenaires = $part->getAll();
         $categorie = Categorie::all();
 
-        //return $partenaires;
+       // return count($partenaires);
 
         return view('admin/gestion-partenaires', compact(array('partenaires', 'residences', 'categorie')));
     }
@@ -107,7 +108,7 @@ class AdminController extends Controller
     public function gestionAnnonces()
     {
         $categories = Categorie::all();
-        $annonces = Annonces::all();
+        $annonces = Annonces::where('type', '=', 'o')->get();
 
         return view('admin/gestion-annonces', compact(array('categories', 'annonces')));
     }
@@ -136,7 +137,6 @@ class AdminController extends Controller
 
         $data['nb_immeuble'] = $request->nb_immeuble;
         $data['nb_motorbike'] = $request->nb_motorbike;
-        $data['id_module'] = $request->module;
         if($id_syndic = Syndics::create($syndic)->id){
             $data['syndic_id'] = $id_syndic;
 
@@ -178,9 +178,12 @@ class AdminController extends Controller
         $residence = Residence::where('id_residence',$id)->get();
 
         $residents = Residents::where(['role' => 'resident', 'residence_id' => $id])->get();
-        $partenaires = Partenaires::where(['role' => 'partenaire', 'residence_id' => $id])->get();
-        $immeubles = Immeuble::where('id_residence',$id)->get();
-        $module = Module::all();
+        $partenaires = Partenaire::where(['role' => 'partenaire', 'residence_id' => $id])->get();
+        $imm = new Immeuble();
+
+        $immeubles = $imm->withModule($id);
+
+        //return $immeubles;
 
         if ($request->isMethod('POST'))
         {
@@ -197,7 +200,6 @@ class AdminController extends Controller
             $data['nb_partenaire'] = $request->nb_partenaire;
             //$data['nb_immeuble'] = $request->nb_immeuble;
             $data['nb_motorbike'] = $request->nb_motorbike;
-            $data['id_module'] = $request->module;
 
             if($resid->update($data))
             {
@@ -209,7 +211,7 @@ class AdminController extends Controller
             }
         }
 
-        return view('admin/edit-residence', compact(['residence', 'module', 'residents', 'partenaires', 'immeubles']));
+        return view('admin/edit-residence', compact(['residence', 'residents', 'partenaires', 'immeubles']));
     }
 
 	//**********code import export de données**************//
@@ -224,7 +226,7 @@ class AdminController extends Controller
 		$residences = Residence::get();
 		
 		$data = array(1 => array ('id', 'numero','nom','nom_ref','prenom_ref','email','adresse','code_postal','ville','tel','nb_partenaire','nb_immeuble','actif', 'created_at', 'updated_at', 'syndic_id', 'nb_motorbike'));
-		
+
 		foreach ($residences as $value) {
 			$data[] = array ($value->id, $value->numero,$value->nom,$value->nom_ref,$value->prenom_ref,$value->adresse,$value->code_postal,$value->ville, $value->tel, $value->nb_partenaire, $value->nb_immeuble, $value->actif, $value->created_at,$value->updated_at,$value->syndic_id,$value->nb_motorbike);}
 		
@@ -307,6 +309,33 @@ class AdminController extends Controller
             }
         }
         return view('admin/gestion-module',compact('module'));
+    }
+
+
+    // ***** ***  setting *** /
+    public function setting(Request $request){
+        $user = auth()->user();
+        $id = $user->id;
+        $admin = Admin::find($id);
+        if($request->isMethod('POST')){
+            if(!Hash::check($request->old_password, $user->password)){
+                return redirect()->back()->with('error','old password is incorrect');
+            }
+            if($request->new_password != $request->confirm_password){
+                return redirect()->back()->with('error','new password is not confirm');
+            }
+            if(Hash::check($request->old_password, $user->password) &&  $request->new_password == $request->confirm_password){
+                $newPass = Hash::make($request->new_password);
+                $admin->password = $newPass;
+
+                if($admin->save()){
+                    Auth::logout();
+                    return redirect('/admin');
+                }
+            }
+        }
+
+        return view('admin/setting');
     }
 	
 }
