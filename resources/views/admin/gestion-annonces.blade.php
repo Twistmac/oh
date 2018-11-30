@@ -78,16 +78,61 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">
+                                            Residence :
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-8">
+                                        <select name="residence" class="form-control selectpicker">
+                                            <option value="all">All</option>
+                                            @foreach($residence as $res)
+                                                <option value="{{ $res->id_residence }}">{{ $res->numero }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">
+                                            sexe :
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-8">
+                                        <select name="sexe" class="form-control">
+                                            <option value="male">male</option>
+                                            <option value="female">female</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">
                                             age :
                                         </label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-8">
-                                        <input type="number" class="form-control">
+                                        <select name="age" class="form-control">
+                                            <option value="0-17"> 0-17</option>
+                                            <option value="18-24"> 18-24</option>
+                                            <option value="25-40"> 25-40</option>
+                                            <option value="41-54"> 41-54</option>
+                                            <option value="55-80"> 55-80</option>
+                                            <option value="All"> All</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">

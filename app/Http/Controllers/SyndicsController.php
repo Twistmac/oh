@@ -8,6 +8,7 @@ use App\Model\Immeuble;
 use App\Model\Membres;
 use App\Model\Annonces;
 use App\Model\Categorie;
+use App\Model\Partenaire;
 use App\Model\Residence;
 use App\Model\Residents;
 use App\Model\Syndics;
@@ -141,9 +142,8 @@ class SyndicsController extends Controller
     {
         $user_id= Auth::user()->id;
         $categories = Categorie::all();
-        $annonces = Annonces_syndic::where('syndic_id', $user_id)
-                                    ->join('categories', 'categories.id','=','annonces_syndic.categorie_id')
-                                    ->get();
+        $ads= new Annonces_syndic();
+        $annonces = $ads->getAllbySyndic($user_id);
 
         return view('syndics/gestion-annonces-syndic', compact(array('categories', 'annonces')));
     }
@@ -182,21 +182,39 @@ class SyndicsController extends Controller
 
     //edition immeuble
     public function editImmeuble(Request $request, $id_immeuble){
-        $immeuble = Immeuble::find($id_immeuble);
-        $immeuble->nom_immeuble = $request->nom_immeuble;
-        $immeuble->nbr_appart = $request->nbr_appart;
+        $immeuble = Immeuble::where('id_immeuble', $id_immeuble);
+        $data['nom_immeuble'] = $request->nom_immeuble;
+        $data['nbr_appart'] = $request->nbr_appart;
         $id_syndic = Auth::user()->id;
         $residence = Residence::where('syndic_id',$id_syndic)->get();
         foreach($residence as $res){
             $id_residence = $res->id_residence;
         }
-        $immeuble->save();
-        for($i= 0; $i<$request->nbr_appart; $i++){
-            Appartement::create(['id_residence'=> $id_residence, 'id_immeuble'=> $id_immeuble]);
+        $nb_appart_init = $immeuble->pluck('nbr_appart');
+        $nbr_equ = $request->nbr_appart - $nb_appart_init[0];
+        if($nb_appart_init[0] == null){
+            $immeuble->update($data);
+            for($i= 0; $i<$request->nbr_appart; $i++){
+                Appartement::create(['id_residence'=> $id_residence, 'id_immeuble'=> $id_immeuble]);
+            }
+            return redirect()->back()->with('succcess','Immeuble Update');
+        }
+        if($nbr_equ> 0){
+            $immeuble->update($data);
+            for($i= 0; $i<$nbr_equ; $i++){
+                Appartement::create(['id_residence'=> $id_residence, 'id_immeuble'=> $id_immeuble]);
+            }
+            return redirect()->back()->with('succcess','Immeuble Update');
+        }
+        if($nbr_equ< 0){
+            $immeuble->update($data);
+            for($i= 0; $i<-($nbr_equ); $i++){
+                Appartement::where('id_immeuble', $id_immeuble)
+                    ->orderBy('id_immeuble', 'DESC')->limit(1)->delete();
+            }
+            return redirect()->back()->with('succcess','Immeuble Update');
         }
 
-
-        return redirect()->back()->with('succcess','Immeuble Update');
     }
 
     //generer resident
@@ -220,10 +238,10 @@ class SyndicsController extends Controller
             for($i=0; $i<$nbr_appart; $i++){
                 $pass = $this->generateRandomString();
                 $last_resident_id = DB::table('membres')->max('id');
-                $data['username'] = 'res_'.$id_syndic.$id_residence.$id_immeuble.($last_resident_id+1);
+                $data['username'] = 'res_'.($last_resident_id+1);
                 $id_resident = Residents::create([
                     'username' => $data['username'],
-                    'email' => '',
+                    'email' => null,
                     'password' => Hash::make($pass),
                     'residence_id' => $id_residence,
                     'role' => 'resident',
@@ -249,6 +267,28 @@ class SyndicsController extends Controller
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
         return $randomString;
+    }
+
+    //GGESTION PARTENAIRE
+    public function gestionPartenaire(){
+        $user = Auth::user();
+        $id_user = $user->id;
+        $partenaire = Partenaire::where('type','p')
+                        ->where('residence_id',$id_user)
+                        ->join('categories','categories.id','=','partenaires.categorie_id')->get();
+        $motorbike = Partenaire::where('type','m')
+                                ->where('residence_id',$id_user)->get();
+        return view('syndics/gestion-partenaire-syndic',compact('partenaire','motorbike'));
+    }
+
+    public function ajaxDetailResident($id){
+        $residents = Residents::where('id', '=', $id)
+            ->where('role', '=', 'resident')
+            ->join('appartement','appartement.id_resident','=','membres.id')
+            ->join('immeuble','immeuble.id_immeuble','=','appartement.id_immeuble')
+            ->get();
+
+        return view('syndics/modal_layout',compact('residents'));
     }
 
 

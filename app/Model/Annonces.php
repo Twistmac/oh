@@ -33,6 +33,8 @@ class Annonces extends Model
         $this->prix = $data['prix'];
         $this->genre = $data['genre'];
         $this->type = $data['type'];
+        $this->age = $data['age'];
+        $this->sexe = $data['sexe'];
         $this->save();
         $LastInsertId = $this->id;
         return $LastInsertId;

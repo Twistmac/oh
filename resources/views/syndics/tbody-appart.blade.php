@@ -5,5 +5,6 @@
         <td>{{ $i }}</td>
         <td>{{ $item->num_appartement }}</td>
         <td>{{ $item->username }}</td>
+        <td>{{ $item->email }}</td>
     </tr>
 @endforeach

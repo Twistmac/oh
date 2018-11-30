@@ -9,6 +9,7 @@ use App\Model\Residents;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Mailable;
 use App\Mail\MailAccess;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
 use Mail;
 
@@ -62,6 +63,24 @@ class HomeController extends Controller
                 $randomString .= $characters[rand(0, $charactersLength - 1)];
             }
             return $randomString;
-        }
+    }
+
+    public function importExport()
+    {
+        $dbhost = env('DB_HOST');
+        $dbport = env('DB_PORT');
+        $dbuser = env('DB_USERNAME');
+        $dbpass = env('DB_PASSWORD');
+        $dbname = env('DB_DATABASE');
+        $mysqldump=exec('mysqldump');
+
+
+        $command = "mysqldump --opt -h localhost -u" .$dbhost. '.$dbpass'.' > mydb.sql 2>&1';
+
+        exec("mysqldump --opt -h localhost -u root test > mydb.sql 2>&1", $output);
+        print_r($output);
+    }
+
+
 
 }

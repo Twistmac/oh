@@ -101,22 +101,29 @@ class ResidentsController extends Controller
 
     public function detailsResident(Request $request, $id)
     {
-        $resident = Residents::find($id);
+        $residents = Residents::find($id);
+        //
+        $res = new Residents();
+        $resident = $res->detailResident($id);
+        //return $resident;
         if($request->isMethod('post'))
         {
-            $resident->username = $request->username;
-            $resident->nom = $request->nom;
-            $resident->prenom = $request->prenom;
-            $resident->phone = $request->phone;
-            $resident->email = $request->email;
-            $resident->password = Hash::make($request->password);
-            $resident->salt = base64_encode($request->password);
-            if($resident->save()){
+            $residents->username = $request->username;
+            $residents->nom = $request->nom;
+            $residents->prenom = $request->prenom;
+            $residents->phone = $request->phone;
+            $residents->email = $request->email;
+            $residents->type = $request->type;
+            $residents->sex = $request->sex;
+            $residents->birthday = new \DateTime($request->birth);
+            $residents->password = Hash::make($request->password);
+            $residents->salt = base64_encode($request->password);
+            if($residents->save()){
                 return redirect()->back()->with('success','Resident update');
             }
         }
         //return $resident;
-        return view('residents/details-resident', ['resident' => $resident]);
+        return view('residents/details-resident', ['res' => $resident]);
     }
 
 
@@ -137,7 +144,7 @@ class ResidentsController extends Controller
         for($i=0; $i<$nbr_appart; $i++){
             $pass = $this->generateRandomString();
             $last_resident_id = DB::table('membres')->max('id');
-            $data['username'] = 'res_'.$id_syndic.$id_residence.$id_immeuble.($last_resident_id+1);
+            $data['username'] = 'res_'.($last_resident_id+1);
             $id_resident = Residents::create([
                 'username' => $data['username'],
                 'email' => null,

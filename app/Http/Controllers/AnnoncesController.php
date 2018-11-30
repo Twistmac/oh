@@ -30,6 +30,8 @@ class AnnoncesController extends Controller
         $data['genre'] = '';
         $data['description'] = $request->description;
         $data['prix'] = $request->prix;
+        $data['sexe'] = $request->sexe;
+        $data['age'] = $request->age;
         $image = $request->file('image');
         if($image == null)
         {
@@ -52,12 +54,13 @@ class AnnoncesController extends Controller
         $data = $this->validate($request, [
             'categorie_id' => 'required',
             'titre' => 'required',
-            'description' => 'required',
-            'prix' => 'required',
-            'age' => 'required',
         ]);
         $data['type'] = 's';
         $data['genre'] = '';
+        $data['prix'] = ($request->prix == null) ? 0 :$request->prix;
+        $data['description'] = $request->description;
+        $data['sexe'] = null;
+        $data['age'] = null;
         $data['syndic_id'] = Auth::user()->id;
         $image = $request->file('image');
         if($image == null)

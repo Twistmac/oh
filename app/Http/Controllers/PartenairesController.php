@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Categorie;
 use App\Model\Partenaire;
+use App\Model\Partenariat;
 use App\Model\Residence;
 use App\Model\Residents;
 use Illuminate\Http\Request;
@@ -17,10 +19,11 @@ class PartenairesController extends Controller
     public function addPartenaire(Request $request)
     {
         $data = $this->validate($request, [
-            'email' => 'required|unique:partenaires',
+            'num_partenaire' => 'required|unique:partenaires',
         ]);
 
         $data['username'] = null;
+        $data['email'] = null;
         $data['role'] = 0;
         $data['residence_id'] = $request->residence_id;
         $data['categorie_id'] = $request->categorie;
@@ -79,14 +82,23 @@ class PartenairesController extends Controller
     public function editPartenaire(Request $request, $id, $type){
         $partenaire = Partenaire::where('id_partenaire', $id)->get();
         $part = Partenaire::where('id_partenaire', $id);
+        $categorie = Categorie::all();
         $residence = Residence::all();
+        $partenariat = new Partenariat();
+        $partenariats = $partenariat->getPartenariat($id);
+        //return $partenariats;
         //return $partenaire;
         if($request->isMethod('post')){
-            $data['username'] = $request->username;
-            $data['nom'] = $request->name;
-            $data['prenom'] = $request->firstname;
+            $data['num_partenaire'] = $request->num_partenaire;
+            $data['categorie_id'] = $request->categorie_id;
+            $data['enseigne'] = $request->enseigne;
+            $data['nom'] = $request->nom;
+            $data['prenom'] = $request->prenom;
+            $data['adresse'] = $request->adresse;
+            $data['code_postal'] = $request->code_postal;
+            $data['ville'] = $request->ville;
+            $data['horaire'] = $request->horaire;
             $data['phone'] = $request->phone;
-            $data['residence_id'] = $request->residence_id;
             $data['email'] = $request->email;
             $data['password'] = Hash::make($request->password);
             $data['salt'] = base64_encode($request->password);
@@ -97,7 +109,7 @@ class PartenairesController extends Controller
             }
         }
 
-        return view('admin.edit-partenaire', compact('type', 'partenaire', 'residence'));
+        return view('admin.edit-partenaire', compact('type', 'partenaire', 'residence', 'categorie', 'partenariats'));
     }
 
 }

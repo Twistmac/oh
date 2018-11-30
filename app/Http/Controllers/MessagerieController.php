@@ -20,21 +20,20 @@ class MessagerieController extends Controller
 
         $chatSyndic = $firebase->get('/data_messages/chatsSyndic/',['orderBy'=>'"idSyndic"',
                                         'equalTo'=>$id ]);
-        $mp_syndic = json_decode($chatSyndic, true);
-        foreach ((array)$mp_syndic as $key => $value) {
-           $key_chat[] = $key;
-        }
-        $mp = [];
-        for($i=0; $i<sizeof($mp_syndic); $i++){
-            $conversation[] = json_decode($firebase->get('/data_messages/conversationsSyndic/'.$key_chat[$i]),true);
-            foreach ( (array)$conversation[$i] as $conv){
-                $mp[]= $conv;
-            }
-        }
-        $membre = new Membres();
-        //return $mp;
 
-        return view('syndics.messagerie', compact('mp','membre'));
+        $mp_syndic = json_decode($chatSyndic, true);
+        $membre = new Membres();
+
+        return view('syndics.messagerie', compact('mp_syndic','membre', 'conv'));
+    }
+
+    public function getConversation($chatId){
+        $firebase = new Firebase();
+       $conversation =  json_decode($firebase->get('/data_messages/conversationsSyndic/'.$chatId),true);
+       $this->readMessageSyndic($chatId);
+
+        $membre = new Membres();
+        return view('syndics.layout-conversation', compact( 'conversation','membre'));
     }
 
     public function getNewMessageSyndic(){
@@ -43,18 +42,11 @@ class MessagerieController extends Controller
         return $messagerie->getNonLuSyndic($id);
     }
 
-    public function readMessageSyndic(){
-        $id = Auth::User()->id;
-
-        $id_message = $_GET['messageId'];
-        $key = $_GET['key_message'];
-
+    public function readMessageSyndic($chatId){
         $firebase = new Firebase();
-        $membre = new Membres();
-        $chatSyndic = json_decode($firebase->get('/data_messages/conversationsSyndic/'.$id_message.'/'.$key),true);
         $dataU = [ 'read' => 1];
-        $firebase->update('/data_messages/conversationsSyndic/'.$id_message.'/'.$key, $dataU);
-        return view('syndics.read-message',compact('chatSyndic','membre'));
+        $firebase->update('/data_messages/chatsSyndic/'.$chatId, $dataU);
+        return true;
 
     }
 
@@ -66,9 +58,8 @@ class MessagerieController extends Controller
 
     }
 
-    //refresh table message syndic
-    public function refreshMessage(){
-        $id = Auth::User()->id;
+    public function testmessage(){
+        /*$id = Auth::User()->id;
         $firebase = new Firebase();
 
         $chatSyndic = $firebase->get('/data_messages/chatsSyndic/',['orderBy'=>'"idSyndic"',
@@ -84,7 +75,27 @@ class MessagerieController extends Controller
             }
         }
         $membre = new Membres();
-        return view('layouts.table-message-syndic',compact('mp', 'membre'));
+        return view('layouts.table-message-syndic',compact('mp', 'membre'));*/
+    }
+
+    //refresh table message syndic
+    public function refreshMessage(){
+
+        $id = Auth::User()->id;
+        $firebase = new Firebase();
+
+        $chatSyndic = $firebase->get('/data_messages/chatsSyndic/',['orderBy'=>'"idSyndic"',
+            'equalTo'=>$id ]);
+
+        $mp_syndic = json_decode($chatSyndic, true);
+
+        foreach ((array)$mp_syndic as $key => $value) {
+            $key_chat[] = $key;
+        }
+
+        $membre = new Membres();
+
+        return view('layouts.table-message-syndic', compact('mp_syndic','membre'));
     }
 
     //reponse au message

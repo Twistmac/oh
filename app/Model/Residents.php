@@ -33,6 +33,27 @@ class Residents extends Model
         return true;
     }
 
+    public function Residence()
+    {
+        return $this->belongsTo('App\Model\Residence','residence_id','id_residence');
+    }
+
+    public function appartement()
+    {
+        return $this->hasOne('App\Model\Appartement','id_resident','id');
+    }
+
+    //details resident
+    public function detailResident($id){
+        return Residents::where('id', $id)->with(['Residence','appartement' => function($q){
+            $q->join('immeuble','immeuble.id_immeuble','=','appartement.id_immeuble');}])->get();
+    }
+
+    public function getAlldetail(){
+        return Residents::with(['Residence','appartement' => function($q){
+            $q->join('immeuble','immeuble.id_immeuble','=','appartement.id_immeuble');}])->get();
+    }
+
 
 
 

@@ -59,3 +59,4 @@ Route::post('/forget-password/{email}','HomeController@forgotPassword');
 
 
 Route::get('/tcp-module/{port}', "SocketController@build");
+Route::get('/get-appartement/{id_resident}', "AppartementController@getAppartByResident");

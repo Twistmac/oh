@@ -10,6 +10,7 @@
     }
 </style>
 @section('content')
+    @foreach($res as $resident)
     <div class="content">
         <form action="" method="post">
             @csrf
@@ -18,7 +19,6 @@
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">
-                            Détails résident "{{ $resident->username }}"
                         </h3>
                     </div>
                     <div class="box-body">
@@ -26,16 +26,68 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">
-                                        Username :
+                                        Residence :
                                     </label>
                                 </div>
                             </div>
                             <div class="col-md-8">
                                 <div class="form-group">
-                                    <input name="username" type="text" class="form-control" value="{{ $resident->username }}">
+                                    <input type="text" class="form-control" value="{{ $resident['Residence']['numero'] }}" disabled>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">
+                                        Immeuble:
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" value="{{ $resident['appartement']['nom_immeuble'] }}" disabled>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">
+                                        Apartment number :
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" value="{{ $resident['appartement']['num_appartement'] }}" disabled>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">
+                                        Type:
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <select id="type" name="type" class="form-control" >
+                                        <option value="owner">owner </option>
+                                        <option value="tenant">tenant </option>
+                                    </select>
+                                    <script>
+                                        $('#type option[value="{{ $resident->type }}"] ').prop("selected",true);
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -64,6 +116,64 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">
+                                        date of birth :
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="input-group date" data-provide="datepicker">
+                                    <input type="text" name="birth" class="form-control" id="datepicker" value="{{ $resident->birthday }}">
+                                    <div class="input-group-addon">
+                                        <span class="glyphicon glyphicon-th"></span>
+                                    </div>
+                                    <script>
+                                        $('#datepicker').datepicker({
+                                            autoclose: true
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">
+                                        Sex :
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <select id="sexe" name="sex" class="form-control">
+                                        <option value="male">male</option>
+                                        <option value="female">female</option>
+                                    </select>
+                                    <script>
+                                        $('#sexe option[value="{{ $resident->sex }}"] ').prop("selected",true);
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">
+                                        Username :
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <input name="username" type="text" class="form-control" value="{{ $resident->username }}">
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -107,6 +217,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-md-8 col-md-offset-4">
                                 <div class="form-group">
@@ -122,8 +233,9 @@
         </div>
         </form>
     </div>
-
+@endforeach
     <script type="text/javascript">
+
         $(".toggle-password").click(function() {
 
           $(this).toggleClass("fa-eye fa-eye-slash");

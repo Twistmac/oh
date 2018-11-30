@@ -45,8 +45,16 @@ class SocketController extends Controller
         //$msg = "A";
         //socket_write($msgsock, $msg, strlen($msg));
 
-        //socket_write($msgsock,'connecter ela zao ->>>',strlen('connecter ela zao ->>>'));
-        socket_write($msgsock,'U',strlen('I'));
+        $buf = socket_read($msgsock, 2048, PHP_NORMAL_READ);
+        if($buf != ''){
+            socket_write($msgsock,'U',strlen('I'));
+            socket_close($msgsock);
+            break;
+            return response()->json(array(
+                'success' => true
+            ));
+        }
+
 
 
         do {
@@ -58,10 +66,13 @@ class SocketController extends Controller
                 continue;
             }
             else{
-                //echo 'identifiant >>>>>>'.$buf .' bien recu';
+                /*//echo 'identifiant >>>>>>'.$buf .' bien recu';
                 //socket_write($msgsock,'U',strlen('I'));
                 socket_close($msgsock);
                 break 2;
+                return response()->json(array(
+                    'success' => true
+                ));*/
             }
             /*if($buf == 'quit'){
                 socket_close($msgsock);

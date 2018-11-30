@@ -19,4 +19,12 @@ class Annonces_syndic extends Model
         'categorie_id', 'titre', 'description', 'image', 'prix', 'genre', 'age', 'syndic_id'
     ];
 
+    public function categorie(){
+        return $this->belongsTo('App\Model\Categorie','categorie_id','id');
+    }
+
+    public function getAllbySyndic($id){
+        return Annonces_syndic::with('categorie')->where('syndic_id',$id)->get();
+    }
+
 }

@@ -15,7 +15,7 @@
         <form action="" method="post">
             @csrf
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-7">
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">
@@ -27,77 +27,139 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">
-                                        Username :
+                                        Partner number :
                                     </label>
                                 </div>
                             </div>
                             <div class="col-md-8">
                                 <div class="form-group">
-                                    <input name="username" type="text" class="form-control" value="{{ $part->username }}">
+                                    <input name="num_partenaire" type="text" class="form-control" value="{{ $part->num_partenaire }}">
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">
-                                        Name :
+                                        Category :
                                     </label>
                                 </div>
                             </div>
                             <div class="col-md-8">
                                 <div class="form-group">
-                                    <input name="name" type="text" class="form-control" value="{{ $part->nom }}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="">
-                                        Firstname :
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <input name="firstname" type="text" class="form-control" value="{{ $part->prenom }}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="">
-                                        Phone :
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <input name="phone" type="text" class="form-control" value="{{ $part->phone }}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="">
-                                        Residence :
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <select name="residence_id" class="form-control selectpicker" id="residence_id">
-                                        @foreach($residence as $res)
-                                        <option value="{{ $res->syndic_id }}">{{ $res->numero }}</option>
+                                    <select id="categorie" name="categorie_id" class="form-control">
+                                        @foreach($categorie as $cat)
+                                        <option value="{{ $cat->id }}"> {{ $cat->name }}</option>
                                         @endforeach
                                     </select>
                                     <script>
-                                        $('#residence_id option[value="{{ $part->residence_id }}"] ').prop("selected",true);
+                                        $('#categorie option[value="{{ $part->categorie_id }}"] ').prop("selected",true);
 
                                     </script>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">
+                                        Name sign :
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <input name="enseigne" type="text" class="form-control" value="{{ $part->enseigne }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">
+                                        Referent name :
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <input name="nom" type="text" class="form-control" value="{{ $part->nom }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">
+                                        Referent firstname :
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <input name="prenom" type="text" class="form-control" value="{{ $part->prenom }}">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">
+                                        address :
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <input name="adresse" type="text" class="form-control" value="{{ $part->adresse }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">
+                                        Postal Code :
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <input name="code_postal" type="text" class="form-control" value="{{ $part->code_postal }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">
+                                        City :
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <input name="ville" type="text" class="form-control" value="{{ $part->ville }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">
+                                        schedule :
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <input name="horaire" type="number" class="form-control" value="{{ $part->horaire }}">
                                 </div>
                             </div>
                         </div>
@@ -131,6 +193,21 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">
+                                        Phone :
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <input name="number" type="text" class="form-control" value="{{ $part->phone }}">
+                                </div>
+                            </div>
+                        </div>
+
 
                         <div class="row">
                             <div class="col-md-4">
@@ -159,6 +236,37 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-5">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Partenariat</h3>
+                    </div>
+                    <div class="box-body">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>
+                                    Resdence number
+                                </th>
+                                <th>
+                                    Residence Name
+                                </th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($partenariats as $partn)
+                                <tr>
+                                    <td>{{ $partn['residence']['numero'] }}</td>
+                                    <td>{{ $partn['residence']['nom'] }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
         </div>
         </form>
     </div>

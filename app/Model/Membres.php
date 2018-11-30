@@ -50,7 +50,7 @@ class Membres extends Authenticatable
 
     //get username by id
     public function getById($id){
-        $username = Membres::where('id',$id)->get();
+        $username = Membres::find($id);
         return $username;
 
     }

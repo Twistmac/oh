@@ -28,7 +28,7 @@
                                     Username
                                 </th>
                                 <th>
-                                    Email
+                                    type
                                 </th>
                                 <th>
                                     Creation date
@@ -44,14 +44,14 @@
                             <tbody>
                             @foreach($residents as $item)
                                 <tr>
-                                    <td>{{ $item->numero }}</td>
-                                    <td>{{ $item->nom_immeuble }}</td>
-                                    <td>{{ $item->num_appartement }}</td>
+                                    <td>{{ $item['residence']['numero'] }}</td>
+                                    <td>{{ $item['appartement']['nom_immeuble'] }}</td>
+                                    <td>{{ $item['appartement']['num_appartement'] }}</td>
                                     <td>
                                         {{ $item->username ? $item->username : 'N/A' }}
                                     </td>
                                     <td>
-                                        {{ $item->email ? $item->email : 'N/A' }}
+                                        {{ $item->type ? $item->type : 'N/A' }}
                                     </td>
                                     <td>
                                         {{ date('d-m-Y', strtotime($item->created_at)) }}

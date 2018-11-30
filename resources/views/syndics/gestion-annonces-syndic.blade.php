@@ -21,6 +21,16 @@
                                         </label>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <div class="col-md-8">
+                                        <select name="categorie_id" class="form-control">
+                                        @foreach($categories as $cat)
+                                        <option value="{{ $cat->id }}"> {{ $cat->name }}</option>
+                                        @endforeach
+
+                                        </select>
+                                    </div>
+                                </div>
 
                             </div>
                             <div class="row">
@@ -127,6 +137,9 @@
                                     Price
                                 </th>
                                 <th>
+                                    Category
+                                </th>
+                                <th>
                                     Actions
                                 </th>
                             </tr>
@@ -142,8 +155,9 @@
                                         {{ $item->prix }}
                                     </td>
                                     <td>
-                                        <span class="glyphicon glyphicon-pencil"></span>
-                                        &nbsp;-&nbsp;
+                                        {{ $item['categorie']['name'] }}
+                                    </td>
+                                    <td>
                                         <form onsubmit="return confirm('Confirm delete ?')" class="form-inline" action= "{{route('syndic.delete-annonce-syndic', ['id' => $item->id])}} " method="post">
                                             @csrf
                                             <input name="_method" type="hidden" value="DELETE">

@@ -13,7 +13,7 @@ class Partenaires extends Authenticatable
     protected $table = 'partenaires';
 
     protected $fillable = [
-        'username', 'password', 'nom', 'prenom', 'phone', 'email', 'salt', 'residence_id', 'numero_pm', 'categorie'
+        'username', 'password', 'nom', 'prenom', 'phone', 'email', 'salt', 'residence_id', 'numero_pm', 'categorie', 'num_partenaire'
     ];
 
     protected $hidden = [

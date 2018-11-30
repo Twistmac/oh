@@ -55,11 +55,8 @@ class AdminController extends Controller
 
     public function gestionResidents()
     {
-        $residents = Membres::where('role', 'resident')
-            ->join('residence', 'residence.syndic_id', '=', 'membres.syndic_id')
-            ->join('immeuble', 'immeuble.id_residence', '=', 'residence.id_residence')
-            ->join('appartement', 'appartement.id_resident', '=', 'membres.id')
-            ->get();
+        $res= new Residents();
+        $residents =$res->getAlldetail();
         $residences = Residence::all();
 
         //return $residents;
@@ -108,9 +105,10 @@ class AdminController extends Controller
     public function gestionAnnonces()
     {
         $categories = Categorie::all();
+        $residence = Residence::all();
         $annonces = Annonces::where('type', '=', 'o')->get();
 
-        return view('admin/gestion-annonces', compact(array('categories', 'annonces')));
+        return view('admin/gestion-annonces', compact(array('categories', 'annonces', 'residence')));
     }
 
     public function addResidence(Request $request)

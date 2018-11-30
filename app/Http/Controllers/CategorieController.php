@@ -31,4 +31,13 @@ class CategorieController extends Controller
 
         return redirect()->back()->with('success', 'categorie deleted!!');
     }
+
+    public function editCategorie($id, Request $request){
+        $categorie = Categorie::find($id);
+        $categorie->name = $request->name;
+        $categorie->name_indonnesie = $request->thailand;
+        $categorie->save();
+        return redirect()->back()->with('success', 'categorie updated!!');
+
+    }
 }

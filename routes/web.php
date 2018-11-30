@@ -54,6 +54,7 @@ Route::prefix('syndic')->group(function(){
     Route::get('/refresh-message', 'MessagerieController@refreshMessage')->name('syndic.refreshMessage')->middleware('auth');
     Route::post('/reply/{messageId}', 'MessagerieController@repondre')->name('syndic.reply')->middleware('auth');
     Route::get('/message-send', 'MessagerieController@messageSend')->name('syndic.message-send')->middleware('auth');
+    Route::get('/get-conversation/{chatId}', 'MessagerieController@getConversation')->name('syndic.get-conversation')->middleware('auth');
 
     //ajax
     Route::get('/tbody-appart/{id_immeuble}', 'SyndicsController@immeubleAppart')->middleware('auth');
@@ -61,6 +62,10 @@ Route::prefix('syndic')->group(function(){
     //edit immeuble
     Route::get('/edit-immeuble/{id_immeuble}', 'SyndicsController@editImmeuble')->name('syndic.edit-immeuble')->middleware('auth');
 
+    Route::get('/gestion-partenaire-syndic', 'SyndicsController@gestionPartenaire')->name('syndic.gestion-partenaire')->middleware('auth');
+
+    //ajax detail resident
+    Route::get('/ajax-detail-resident/{id}','SyndicsController@ajaxDetailResident')->middleware('auth');
 
 });
 
@@ -73,14 +78,14 @@ Route::prefix('admin')->group(function(){
     Route::get('/', 'AdminController@index')->name('admin.dashboard');
     Route::get('/gestion-syndics', 'AdminController@gestionSyndics')->name('admin.gestion-syndics');
     Route::get('/details-syndic/{id}', 'SyndicsController@details')->name('admin.details-syndic')->middleware('auth:admin');
-    Route::post('/details-syndic/{id}', 'SyndicsController@details')->name('admin.details-syndic')->middleware('auth:admin'); 
-    //liste les résidents 
+    Route::post('/details-syndic/{id}', 'SyndicsController@details')->name('admin.details-syndic')->middleware('auth:admin');
+    //liste les résidents
     Route::get('/gestion-residents', 'AdminController@gestionResidents')->name('admin.gestion-residents');
     //route pour ajouter résidence
     Route::get('/gestion-residents-ajout', 'AdminController@gestionResidentsajout')->name('admin.gestion-residents-ajout');
     //route pour gestionrésidences
     Route::get('/gestion-residences', 'AdminController@gestionResidences')->name('admin.gestion-residences');
-    //route pour gestion résidences ajout 
+    //route pour gestion résidences ajout
     Route::get('/gestion-residences-ajout', 'AdminController@gestionResidencesajout')->name('admin.gestion-residences-ajout');
 
     Route::get('/gestion-partenaires', 'AdminController@gestionPartenaires')->name('admin.gestion-partenaires');
@@ -131,7 +136,7 @@ Route::prefix('admin')->group(function(){
 
     //generer des compte resident
     Route::post('/generer-resident/', 'ResidentsController@genererResident')->name('admin.generer-resident')->middleware('auth:admin');
-	
+
 	//route pour import/export
 	//route de l'interface générale
     Route::get('/importexport/', 'AdminController@importexport')->name('admin.importexport');
@@ -145,11 +150,13 @@ Route::prefix('admin')->group(function(){
 	Route::post('/importresidences/', 'ResidenceController@importresidences')->name('admin.importresidences');
 	//Route::post('/importexport/import/excel','ResidenceController@import');
 
+
     //module
     Route::any('/gestion-module','AdminController@gestionModule')->name('admin.gestion-module')->middleware('auth:admin');
 
     //edit appartement
     Route::post('/edit-num-appartement/', 'ResidenceController@editNumAppartement')->name('admin.edit-num-appartement');
+    Route::post('/edit-categorie/{id}', 'CategorieController@editCategorie')->name('admin.edit-categorie');
 
     Route::any('/setting/','AdminController@setting')->name('admin.setting');
 
@@ -157,8 +164,8 @@ Route::prefix('admin')->group(function(){
     Route::get('/annonce-general/', 'AnnoncesController@gestionAnnonceOhome')->name('admin.gestion-annonce-ohome')->middleware('auth:admin');
     Route::any('/edit-annonce/{id}', 'AnnoncesController@editAnnonce')->name('admin.editAnnonce')->middleware('auth:admin');
 
-
-
+    // IMPORT EXPORT SQL
+    Route::get('/export/', 'HomeController@importExport')->name('admin.importExport')->middleware('auth:admin');
 
 
 });

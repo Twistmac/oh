@@ -21,8 +21,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="">
-                                    Category name (
-                                    Indonesia):
+                                    Category name ( Thailand):
                                 </label>
                                 <input type="text" name="name_indonnesie" class="form-control" value="{{ old('categorie') }}">
                             </div>
@@ -50,7 +49,7 @@
                                     Category
                                 </th>
                                 <th>
-                                    Indonesia
+                                    Thailand
                                 </th>
                                 <th>
 
@@ -67,12 +66,52 @@
                                         {{ $item['name_indonnesie'] }}
                                     </td>
                                     <td>
+                                        <a href="" data-toggle="modal" data-target="#modal-edition{{ $item->id }}">
                                         <span class="glyphicon glyphicon-pencil"></span>
+                                        </a>
+                                        <div class="modal modal-info fade" id="modal-edition{{ $item->id }}">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title"> </h4>
+                                                    </div>
+                                                    <form class="form-horizontal" id="form-edit-immeuble" method="post" action="{{ route('admin.edit-categorie', ['id'=> $item->id]) }}">
+                                                        @csrf
+                                                        <div class="modal-body">
+                                                            <p>
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-6" for="email">Category name (English):</label>
+                                                                <div class="col-md-6">
+                                                                    <input type="text" class="form-control" value="{{ $item->name }}" name="name" required>
+                                                                </div>
+                                                            </div>
+                                                            </p>
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-6" for="pwd">Category name (Thailand):</label>
+                                                                <div class="col-md-6">
+                                                                    <input type="text" class="form-control" value="{{ $item->name_indonnesie }}" name="thailand" required>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-outline">Save changes</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                        </div>
+
                                         &nbsp;-&nbsp;
                                         <form onsubmit="return confirm('Confirm delete ?')" class="form-inline" action="{{ route('admin.delete-categorie', ['id' => $item->id]) }}" method="post">
                                             @csrf
                                             <input name="_method" type="hidden" value="DELETE">
-                                            <button type="submit" class="no-button">
+                                            <button type="submit" class="no-button btn-danger">
                                                 <span class="glyphicon glyphicon-trash"></span>
                                             </button>
                                         </form>

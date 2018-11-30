@@ -18,7 +18,7 @@
                                 </label>
                                 <select name="residence_id" class="form-control selectpicker" data-live-search="true">
                                     @foreach($residences as $item)
-                                        <option value="{{ $item->syndic_id }}">{{ $item->nom }}</option>
+                                        <option value="{{ $item->syndic_id }}">{{ $item->numero }}</option>
                                     @endforeach
                                 </select>
 								<!-- fin liste select -->
@@ -64,9 +64,9 @@
                             </div>
                             <div class="form-group">
                                 <label for="">
-                                    Email:
+                                    Partner number:
                                 </label>
-                                <input type="email" name="email" class="form-control" value="" required>
+                                <input type="text" name="num_partenaire" class="form-control" value="" required>
                             </div>
 							<!-- fin elements de formulaire numero facultatif -->
                             @if ($errors->any())
@@ -97,7 +97,7 @@
                             <thead>
                             <tr>
                                 <th>
-                                    Email
+                                    Partner number
                                 </th>
                                 <th>
                                     Residence number
@@ -123,7 +123,7 @@
                             @foreach($partenaires as $item)
                                 <tr>
                                     <td>
-                                        {{ $item->email ? $item->email : 'N/A' }}
+                                        {{ $item->num_partenaire ? $item->num_partenaire : 'N/A' }}
                                     </td>
 									
 

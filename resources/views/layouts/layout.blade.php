@@ -22,6 +22,7 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{ asset('lte/dist/css/skins/_all-skins.css') }}">
 
+
     <link rel="stylesheet" href="{{ asset('lte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
 	
 	<!-- style externe-css.css directement en ligne -->
@@ -413,21 +414,14 @@
                 </li>
 
 
-                <!--
-				<li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-copy"></i> <span>Import/Export</span>
-                        <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
 
+				<li>
+                    <a href="{{ route('admin.importExport') }}">
+                        <i class="fa fa-copy"></i> <span>Import/Export</span>
                     </a>
-                     <ul class="treeview-menu">
-                        <li><a href="{{ route('admin.importresidences') }}"><i class="fa fa-circle-o"></i> Liste des résidences</a></li>
-                        <li ><a href="{{ route('admin.gestion-residences-ajout') }}"><i class="fa fa-circle-o"></i> Ajouter résidence</a></li>
-                    </ul>
+
                 </li>
-				-->
+
                 <li>
                     <a href="{{ route('admin.setting') }}">
                         <i class="fa fa-gears"></i> <span>Setting</span>
@@ -508,5 +502,15 @@
 {{--<script src="{{ asset('dist/js/pages/dashboard2.js') }}"></script>--}}
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('lte/dist/js/demo.js') }}"></script>
+<!-- InputMask -->
+<script src="{{ asset('lte/plugins/input-mask/jquery.inputmask.js') }}"></script>
+<script src="{{ asset('lte/plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
+<script src="{{ asset('lte/plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>
+
+<script src="{{ asset('lte/bower_components/moment/min/moment.min.js') }}"></script>
+<script src="{{ asset('lte/bower_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+<!-- bootstrap datepicker -->
+<script src="{{ asset('lte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+
 </body>
 </html>

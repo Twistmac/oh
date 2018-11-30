@@ -3,11 +3,11 @@
 @section('content')
     <div class="content">
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-6">
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">
-
+                            Buildings
                         </h3>
                     </div>
                     <div class="box-body">
@@ -18,10 +18,7 @@
 
                                 </th>
                                 <th>
-                                    Number
-                                </th>
-                                <th>
-                                    Nom
+                                    Name
                                 </th>
                                 <th>
                                     Apartment
@@ -39,9 +36,6 @@
                                     <td >
                                         {{ $i  }}
                                     </td>
-                                    <td >
-                                        {{ $item->numero }}
-                                    </td>
                                     <td>
                                         {{ $item->nom_immeuble }}
                                     </td>
@@ -50,19 +44,19 @@
                                     </td>
 
                                     <td>
-                                        <a href="#" id="pencil" data-toggle="modal" data-target="#modal-edition{{ $item->id }}">
+                                        <a href="#" id="pencil" data-toggle="modal" data-target="#modal-edition{{ $item->id_immeuble }}">
                                             <span class="glyphicon glyphicon-pencil"></span>
                                         </a >
                                         <!-- /.modal-EDTION -->
-                                        <div class="modal modal-info fade" id="modal-edition{{ $item->id }}">
+                                        <div class="modal modal-info fade" id="modal-edition{{ $item->id_immeuble }}">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span></button>
-                                                        <h4 class="modal-title">Immeuble Numéro {{ $item->id }}</h4>
+                                                        <h4 class="modal-title">Immeuble Numéro {{ $item->id_immeuble }}</h4>
                                                     </div>
-                                                    <form class="form-horizontal" id="form-edit-immeuble" action="{{ route('syndic.edit-immeuble', ['id_immeuble'=> $item->id]) }}">
+                                                    <form class="form-horizontal" id="form-edit-immeuble" action="{{ route('syndic.edit-immeuble', ['id_immeuble'=> $item->id_immeuble]) }}">
                                                         @csrf
                                                     <div class="modal-body">
                                                             <p>
@@ -104,7 +98,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">
@@ -123,6 +117,9 @@
                                 </th>
                                 <th>
                                     Pseudo Resident
+                                </th>
+                                <th>
+                                    Email
                                 </th>
                             </tr>
                             </thead>

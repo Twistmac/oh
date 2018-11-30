@@ -142,7 +142,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{ route('syndic.gestion-partenaire') }}">
                         <i class="fa fa-table"></i> <span>Partner</span>
                     </a>
                 </li>
@@ -156,13 +156,13 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{ route('syndic.gestion-annonces-syndic') }}"><i class="fa fa-circle-o"></i> My Ads</a></li>
-                        <li><a href="{{ route('syndic.gestion-annonces-syndic') }}"><i class="fa fa-circle-o"></i> Ads of resident</a></li>
+                        <!--<li><a href="{{ route('syndic.gestion-annonces-syndic') }}"><i class="fa fa-circle-o"></i> Ads of resident</a></li> !-->
                     </ul>
                 </li>
 
                 <li>
                     <a href="{{ route('syndic.messagerie') }}">
-                        <i class="fa fa-envelope-o"></i>Messagerie &nbsp; &nbsp; <span class="label label-warning" id="non-lue">0</span>
+                        <i class="fa fa-envelope-o"></i>Message &nbsp; &nbsp; <span class="label label-warning" id="non-lue">0</span>
                     </a>
                 </li>
             </ul>
